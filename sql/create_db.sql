@@ -1,4 +1,4 @@
-create schema if not exists labw2394;
+CREATE SCHEMA IF NOT EXISTS labw2394;
 
 ------------------------------------------------------------------------------------
 ------------------------------------- DROP TABLES ----------------------------------
@@ -50,7 +50,7 @@ CREATE TABLE ban (
 );
 
 ------- USER -------
-CREATE TABLE user(
+CREATE TABLE users(
     user_id SERIAL PRIMARY KEY,
     email TEXT NOT NULL CONSTRAINT user_email_uk UNIQUE,
     name TEXT NOT NULL,
@@ -180,6 +180,148 @@ CREATE TABLE article_report (
 ------------------------------------- INDEXES --------------------------------------
 ------------------------------------------------------------------------------------
 
+
+
+
 ------------------------------------------------------------------------------------
 ------------------------------------- TRIGGERS -------------------------------------
 ------------------------------------------------------------------------------------
+
+------TRIGGER 01------
+
+
+
+
+------TRIGGER 02------
+
+
+
+
+------TRIGGER 03------
+
+CREATE OR REPLACE FUNCTION delete_related_data()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM comment WHERE article_id = OLD.article_id;
+
+    DELETE FROM article_vote WHERE article_id = OLD.article_id;
+
+    DELETE FROM favourite WHERE article_id = OLD.article_id;
+
+    DELETE FROM article_notification WHERE article_id = OLD.article_id;
+
+    DELETE FROM article_report WHERE article_id = OLD.article_id;
+
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+------TRIGGER 04------
+
+CREATE OR REPLACE FUNCTION delete_comment_content()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM comment_vote WHERE comment_id = OLD.comment_id;
+    DELETE FROM comment_notification WHERE comment_id = OLD.comment_id;
+    
+    UPDATE article
+    SET likes = likes - OLD.likes,
+        dislikes = dislikes - OLD.dislikes
+    WHERE article_id = OLD.article_id;
+
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+------TRIGGER 05------
+
+CREATE OR REPLACE FUNCTION prevent_self_like_dislike()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.user_id = (SELECT user_id FROM article WHERE article_id = NEW.article_id) THEN
+        RAISE EXCEPTION 'You cannot like or dislike your own content';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+------TRIGGER 06------
+
+CREATE OR REPLACE FUNCTION create_comment_notification()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO notification (date, user_id)
+    VALUES (NOW(), NEW.user_id)
+    RETURNING notification_id INTO NEW.notification_id;
+    
+    INSERT INTO comment_notification (notification_id, comment_id)
+    VALUES (NEW.notification_id, NEW.comment_id);
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER comment_notification_trigger
+AFTER INSERT ON comment
+FOR EACH ROW
+EXECUTE FUNCTION create_comment_notification();
+
+
+
+------------------------------------------------------------------------------------
+------------------------------------- TRANSACTIONS ---------------------------------
+------------------------------------------------------------------------------------
+
+
+------TRAN 01------
+
+BEGIN;
+
+INSERT INTO article_content (body, publish_date, is_edited, like_count, dislike_count, author_user_id)
+VALUES ('This is the article content', CURRENT_TIMESTAMP, false, 0, 0, 123)
+RETURNING content_id INTO new_content_id;
+
+
+INSERT INTO articles (content_id, article_title, thumbnail_url)
+VALUES (new_content_id, 'New Article Title', 'thumbnail.jpg')
+RETURNING article_id INTO new_article_id;
+
+
+INSERT INTO article_tags (article_id, tag_id)
+VALUES (new_article_id, 456);
+
+COMMIT;
+
+
+
+
+
+------TRAN 02------
+
+BEGIN;
+
+INSERT INTO comment_content (body, publish_date, is_edited, like_count, dislike_count, author_user_id)
+VALUES ('Este é o conteúdo do comentário', CURRENT_TIMESTAMP, false, 0, 0, 789)
+RETURNING content_id INTO new_comment_content_id;
+
+
+INSERT INTO comments (content_id, article_id, parent_comment_id)
+VALUES (new_comment_content_id, 123, null)
+RETURNING comment_id INTO new_comment_id;
+
+COMMIT;
+
+
+
+
+------TRAN 03------
