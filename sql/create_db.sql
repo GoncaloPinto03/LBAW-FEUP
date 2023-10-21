@@ -1,4 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS labw2394;
+CREATE SCHEMA IF NOT EXISTS lbaw2394	
 
 ------------------------------------------------------------------------------------
 ------------------------------------- DROP TABLES ----------------------------------
@@ -7,7 +7,7 @@ CREATE SCHEMA IF NOT EXISTS labw2394;
 DROP TABLE IF EXISTS admin CASCADE;
 DROP TABLE IF EXISTS ban CASCADE;
 
-DROP TABLE IF EXISTS user CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 DROP TABLE IF EXISTS comment CASCADE;
 DROP TABLE IF EXISTS comment_vote CASCADE;
@@ -45,7 +45,7 @@ CREATE TABLE admin (
 
 -------- BAN --------
 CREATE TABLE ban (
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (admin_id) REFERENCES admin(admin_id)
 );
 
@@ -65,26 +65,26 @@ CREATE TABLE comment (
     date DATETIME NOT NULL,
     likes INTEGER DEFAULT 0,
     dislikes INTEGER DEFAULT 0,
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (article_id) REFERENCES article(article_id)
 );
 
 -------- COMMENT-VOTE --------
 CREATE TABLE comment_vote (
-    like BOOLEAN NOT NULL,
+    is_like BOOLEAN NOT NULL,
     FOREIGN KEY (comment_id) REFERENCES comment(comment_id),
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 ------- TOPIC -------
 CREATE TABLE topic (
     topic_id SERIAL PRIMARY KEY,
-    name VARCHAR NOT NULL CONSTRAINT topic_name_uk UNIQUE,
+    name VARCHAR NOT NULL CONSTRAINT topic_name_uk UNIQUE
 );
 
 -------- FOLLOW --------
 CREATE TABLE follow (
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (topic_id) REFERENCES topic(topic_id)
 );
 
@@ -97,20 +97,20 @@ CREATE TABLE article (
     likes INTEGER DEFAULT 0,
     dislikes INTEGER DEFAULT 0,
     FOREIGN KEY (topic_id) REFERENCES topic(topic_id),
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 -------- ARTICLE-VOTE --------
 CREATE TABLE article_vote (
-    like BOOLEAN NOT NULL,
+    is_like BOOLEAN NOT NULL,
     FOREIGN KEY (article_id) REFERENCES article(article_id),
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 -------- FAVOURITE --------
 CREATE TABLE favourite (
     FOREIGN KEY (article_id) REFERENCES article(article_id),
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 ----------- NOTIFICATION -----------
@@ -118,7 +118,7 @@ CREATE TABLE notification (
     notification_id SERIAL PRIMARY KEY,
     date DATETIME NOT NULL,
     viewed BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 ------- COMMENT-NOTIFICATION -------
@@ -135,33 +135,33 @@ CREATE TABLE post_notification (
 
 ------- LIKE-POST -------
 CREATE TABLE like_post (
-    FOREIGN KEY (notification_id) REFERENCES notification(notification_id)
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (notification_id) REFERENCES notification(notification_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 ------- DISLIKE-POST ------
 CREATE TABLE dislike_post (
-    FOREIGN KEY (notification_id) REFERENCES notification(notification_id)
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (notification_id) REFERENCES notification(notification_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 ------- LIKE-COMMENT -------
 CREATE TABLE like_comment (
-    FOREIGN KEY (notification_id) REFERENCES notification(notification_id)
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (notification_id) REFERENCES notification(notification_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 ------- DISLIKE-COMMENT -------
 CREATE TABLE dislike_comment (
-    FOREIGN KEY (notification_id) REFERENCES notification(notification_id)
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (notification_id) REFERENCES notification(notification_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 -------- REPORT --------
 CREATE TABLE report (
     report_id SERIAL PRIMARY KEY,
     description TEXT NOT NULL,
-    date DATETIME NOT NULL,
+    date DATETIME NOT NULL
 );
 
 ------- COMMENT-REPORT -------
