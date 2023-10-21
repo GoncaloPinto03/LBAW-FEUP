@@ -38,7 +38,7 @@ VALUES
     ('This is a comment 7', CURRENT_TIMESTAMP, 7, 4, 7, 5),
     ('This is a comment 8', CURRENT_TIMESTAMP, 2, 0, 8, 5),
     ('This is a comment 9', CURRENT_TIMESTAMP, 6, 1, 9, 6),
-    ('This is a comment 10', CURRENT_TIMESTAMP, 4, 2, 10, 6);
+    ('This is a comment 10',CURRENT_TIMESTAMP, 4, 2, 10, 6);
 
 
 INSERT INTO topic (name) VALUES
@@ -67,7 +67,7 @@ VALUES
     ('Article 7', 'Description for Article 7', '2023-10-21 16:00:00', 1, 7),
     ('Article 8', 'Description for Article 8', '2023-10-21 17:00:00', 2, 8),
     ('Article 9', 'Description for Article 9', '2023-10-21 18:00:00', 1, 9),
-    ('Article 10', 'Description for Article 10', '2023-10-21 19:00:00', 2, 10);
+    ('Article 10','Description for Article 10','2023-10-21 19:00:00', 2, 10);
 
 INSERT INTO article_vote (like, article_id, user_id)
 VALUES
