@@ -188,7 +188,7 @@ CREATE INDEX owner_id_article ON article USING hash (user_id);
 
 CREATE INDEX owner_id_comment ON comment USING hash (user_id);
 
-
+-- FTS INDEXES
 
 -- Add column to article to store computed ts_vectors.
 ALTER TABLE article
@@ -225,7 +225,7 @@ CREATE TRIGGER article_search_update
 CREATE INDEX search_article ON post USING GIN (tsvectors);
 
 -- Add column to user to store computed ts_vectors.
-ALTER TABLE user
+ALTER TABLE users
 ADD COLUMN tsvectors TSVECTOR;
 
 -- Create a function to automatically update ts_vectors.
@@ -251,7 +251,7 @@ LANGUAGE plpgsql;
 
 -- Create a trigger before insert or update on user.
 CREATE TRIGGER user_search_update
- BEFORE INSERT OR UPDATE ON user
+ BEFORE INSERT OR UPDATE ON users
  FOR EACH ROW
  EXECUTE PROCEDURE user_search_update();
 
