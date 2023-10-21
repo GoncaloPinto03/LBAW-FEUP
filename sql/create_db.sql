@@ -374,7 +374,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trigger_5
+CREATE TRIGGER prevent_self_like_dislike
 BEFORE INSERT ON article_vote
 FOR EACH ROW
 EXECUTE FUNCTION prevent_self_like_dislike();
