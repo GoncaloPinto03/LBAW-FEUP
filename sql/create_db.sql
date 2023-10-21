@@ -267,13 +267,53 @@ CREATE INDEX search_user ON work USING GIN (tsvectors);
 
 ------TRIGGER 01------
 
+CREATE OR REPLACE FUNCTION adjust_likes_dislikes_and_notification()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.like THEN
+        UPDATE article SET likes = likes + 1 WHERE article_id = NEW.article_id;
+    ELSE
+        UPDATE article SET dislikes = dislikes + 1 WHERE article_id = NEW.article_id;
+    END IF;
 
+    -- Generate a notification associated with the feedback event
+    INSERT INTO notification (date, user_id) VALUES (NOW(), NEW.user_id)
+    RETURNING notification_id INTO NEW.notification_id;
+    
+    -- Update the reputation of the user who provided the feedback
+    UPDATE users SET reputation = reputation + 1 WHERE user_id = NEW.user_id;
 
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER adjust_likes_dislikes_and_notification
+AFTER INSERT ON article_vote
+FOR EACH ROW
+EXECUTE FUNCTION adjust_likes_dislikes_and_notification();
 
 ------TRIGGER 02------
 
+CREATE OR REPLACE FUNCTION undo_like_dislike_and_update_reputation()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.like THEN
+        UPDATE article SET likes = likes - 1 WHERE article_id = OLD.article_id;
+    ELSE
+        UPDATE article SET dislikes = dislikes - 1 WHERE article_id = OLD.article_id;
+    END IF;
 
+    -- Update the reputation of the authenticated user
+    UPDATE users SET reputation = reputation - 1 WHERE user_id = OLD.user_id;
 
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER undo_like_dislike_and_update_reputation
+AFTER DELETE ON article_vote
+FOR EACH ROW
+EXECUTE FUNCTION undo_like_dislike_and_update_reputation();
 
 ------TRIGGER 03------
 
@@ -294,8 +334,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
-
+CREATE TRIGGER delete_related_data
+BEFORE DELETE ON article
+FOR EACH ROW
+EXECUTE FUNCTION delete_related_data();
 
 ------TRIGGER 04------
 
@@ -314,8 +356,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
-
+CREATE TRIGGER delete_comment_content
+BEFORE DELETE ON comment
+FOR EACH ROW
+EXECUTE FUNCTION delete_comment_content();
 
 ------TRIGGER 05------
 
@@ -330,8 +374,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
-
+CREATE TRIGGER trigger_5
+BEFORE INSERT ON article_vote
+FOR EACH ROW
+EXECUTE FUNCTION prevent_self_like_dislike();
 
 ------TRIGGER 06------
 
@@ -349,7 +395,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER comment_notification_trigger
+CREATE TRIGGER create_comment_notification
 AFTER INSERT ON comment
 FOR EACH ROW
 EXECUTE FUNCTION create_comment_notification();
