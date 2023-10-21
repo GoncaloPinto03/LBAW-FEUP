@@ -180,6 +180,84 @@ CREATE TABLE article_report (
 ------------------------------------- INDEXES --------------------------------------
 ------------------------------------------------------------------------------------
 
+CREATE INDEX notification_user ON notification USING hash (user_id);
+
+CREATE INDEX posts_user ON article USING hash (user_id);
+
+CREATE INDEX owner_id_article ON article USING hash (user_id);
+
+CREATE INDEX owner_id_comment ON comment USING hash (user_id);
+
+
+
+-- Add column to article to store computed ts_vectors.
+ALTER TABLE article
+ADD COLUMN tsvectors TSVECTOR;
+
+-- Create a function to automatically update ts_vectors.
+CREATE FUNCTION article_search_update() RETURNS TRIGGER AS $$
+BEGIN
+IF TG_OP = 'INSERT' THEN
+        NEW.tsvectors = (
+         setweight(to_tsvector('simple', NEW.name), 'A') ||
+         setweight(to_tsvector('simple', NEW.description), 'B')
+        );
+END IF;
+IF TG_OP = 'UPDATE' THEN
+    IF (NEW.name <> OLD.name OR NEW.description <> OLD.description) THEN
+        NEW.tsvectors = (
+            setweight(to_tsvector('simple', NEW.name), 'A') ||
+            setweight(to_tsvector('simple', NEW.description), 'B')
+           );
+    END IF;
+END IF;
+RETURN NEW;
+END $$
+LANGUAGE plpgsql;
+
+-- Create a trigger before insert or update on article
+CREATE TRIGGER article_search_update
+ BEFORE INSERT OR UPDATE ON article
+ FOR EACH ROW
+ EXECUTE PROCEDURE article_search_update();
+
+-- Create a GIN index for ts_vectors.
+CREATE INDEX search_article ON post USING GIN (tsvectors);
+
+-- Add column to user to store computed ts_vectors.
+ALTER TABLE user
+ADD COLUMN tsvectors TSVECTOR;
+
+-- Create a function to automatically update ts_vectors.
+CREATE FUNCTION user_search_update() RETURNS TRIGGER AS $$
+BEGIN
+ IF TG_OP = 'INSERT' THEN
+       NEW.tsvectors = (
+         setweight(to_tsvector('simple', NEW.name), 'A') ||
+         setweight(to_tsvector('simple', NEW.email), 'B')
+        );
+ END IF;
+ IF TG_OP = 'UPDATE' THEN
+         IF (NEW.name <> OLD.name OR NEW.email <> OLD.email) THEN
+            NEW.tsvectors = (
+            setweight(to_tsvector('simple', NEW.name), 'A') ||
+            setweight(to_tsvector('simple', NEW.description), 'B')
+           );
+    END IF;
+ END IF;
+ RETURN NEW;
+END $$
+LANGUAGE plpgsql;
+
+-- Create a trigger before insert or update on user.
+CREATE TRIGGER user_search_update
+ BEFORE INSERT OR UPDATE ON user
+ FOR EACH ROW
+ EXECUTE PROCEDURE user_search_update();
+
+
+-- Finally, create a GIN index for ts_vectors.
+CREATE INDEX search_user ON work USING GIN (tsvectors);
 
 
 
