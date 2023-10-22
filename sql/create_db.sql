@@ -1,39 +1,50 @@
-CREATE SCHEMA IF NOT EXISTS lbaw2394	
+DROP SCHEMA lbaw2394 CASCADE;
+CREATE SCHEMA lbaw2394	
+SET search_path TO lbaw2394;
 
 ------------------------------------------------------------------------------------
 ------------------------------------- DROP TABLES ----------------------------------
 ------------------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS admin CASCADE;
-DROP TABLE IF EXISTS ban CASCADE;
 
-DROP TABLE IF EXISTS users CASCADE;
-
-DROP TABLE IF EXISTS comment CASCADE;
-DROP TABLE IF EXISTS comment_vote CASCADE;
-
-DROP TABLE IF EXISTS topic CASCADE;
-DROP TABLE IF EXISTS follow CASCADE;
-
-DROP TABLE IF EXISTS article CASCADE;
-DROP TABLE IF EXISTS article_vote CASCADE;
-DROP TABLE IF EXISTS favourite CASCADE;
-
-DROP TABLE IF EXISTS notification CASCADE;
-DROP TABLE IF EXISTS comment_notification CASCADE;
-DROP TABLE IF EXISTS article_notification CASCADE;
-DROP TABLE IF EXISTS like_post CASCADE;
-DROP TABLE IF EXISTS dislike_post CASCADE;
-DROP TABLE IF EXISTS like_comment CASCADE;
-DROP TABLE IF EXISTS dislike_comment CASCADE;
-
-DROP TABLE IF EXISTS report CASCADE;
 DROP TABLE IF EXISTS comment_report CASCADE;
 DROP TABLE IF EXISTS article_report CASCADE;
+DROP TABLE IF EXISTS report CASCADE;
+DROP TABLE IF EXISTS dislike_comment CASCADE;
+DROP TABLE IF EXISTS like_comment CASCADE;
+DROP TABLE IF EXISTS dislike_post CASCADE;
+DROP TABLE IF EXISTS like_post CASCADE;
+DROP TABLE IF EXISTS article_notification CASCADE;
+DROP TABLE IF EXISTS comment_notification CASCADE;
+DROP TABLE IF EXISTS notification CASCADE;
+DROP TABLE IF EXISTS favourite CASCADE;
+DROP TABLE IF EXISTS article_vote CASCADE;
+DROP TABLE IF EXISTS follow CASCADE;
+DROP TABLE IF EXISTS comment_vote CASCADE;
+DROP TABLE IF EXISTS comment CASCADE;
+DROP TABLE IF EXISTS article CASCADE;
+DROP TABLE IF EXISTS topic CASCADE;
+DROP TABLE IF EXISTS ban CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS admin CASCADE;
+
+DROP FUNCTION IF EXISTS article_search_update CASCADE;
+DROP FUNCTION IF EXISTS user_search_update CASCADE;
+DROP FUNCTION IF EXISTS adjust_likes_dislikes_and_notification CASCADE;
+DROP FUNCTION IF EXISTS undo_like_dislike_and_update_reputation CASCADE;
+DROP FUNCTION IF EXISTS delete_related_data CASCADE;
+DROP FUNCTION IF EXISTS delete_comment_content CASCADE;
+DROP FUNCTION IF EXISTS prevent_self_like_dislike CASCADE;
+DROP FUNCTION IF EXISTS create_comment_notification CASCADE;
+DROP FUNCTION IF EXISTS prevent_multiple_likes_on_article CASCADE;
+DROP FUNCTION IF EXISTS prevent_multiple_likes_on_comment CASCADE;
+DROP FUNCTION IF EXISTS prevent_duplicate_topic_follow CASCADE;
 
 ------------------------------------------------------------------------------------
 ------------------------------------- TABLES ---------------------------------------
 ------------------------------------------------------------------------------------
+
+-- Note that plural table names are used to avoid conflicts with reserved words (users).
 
 ------- ADMIN --------
 CREATE TABLE admin (
@@ -41,12 +52,6 @@ CREATE TABLE admin (
     name VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(50) NOT NULL
-);
-
--------- BAN --------
-CREATE TABLE ban (
-    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
-    admin_id INTEGER NOT NULL REFERENCES admin (admin_id) ON UPDATE CASCADE
 );
 
 ------- USER -------
@@ -57,6 +62,31 @@ CREATE TABLE users(
     password TEXT NOT NULL,
     reputation INTEGER
 );
+
+-------- BAN --------
+CREATE TABLE ban (
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    admin_id INTEGER NOT NULL REFERENCES admin (admin_id) ON UPDATE CASCADE
+);
+
+------- TOPIC -------
+CREATE TABLE topic (
+    topic_id SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL CONSTRAINT topic_name_uk UNIQUE
+);
+
+------------ ARTICLE ------------
+CREATE TABLE article (
+    article_id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    date TIMESTAMP NOT NULL,
+    likes INTEGER DEFAULT 0,
+    dislikes INTEGER DEFAULT 0,
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    topic_id INTEGER NOT NULL REFERENCES topic (topic_id) ON UPDATE CASCADE
+);
+
 
 ------- COMMENT -------
 CREATE TABLE comment (
@@ -76,26 +106,8 @@ CREATE TABLE comment_vote (
     user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE
 );
 
-------- TOPIC -------
-CREATE TABLE topic (
-    topic_id SERIAL PRIMARY KEY,
-    name VARCHAR NOT NULL CONSTRAINT topic_name_uk UNIQUE
-);
-
 -------- FOLLOW --------
 CREATE TABLE follow (
-    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
-    topic_id INTEGER NOT NULL REFERENCES topic (topic_id) ON UPDATE CASCADE
-);
-
------------- ARTICLE ------------
-CREATE TABLE article (
-    article_id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    description TEXT NOT NULL,
-    date TIMESTAMP NOT NULL,
-    likes INTEGER DEFAULT 0,
-    dislikes INTEGER DEFAULT 0,
     user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
     topic_id INTEGER NOT NULL REFERENCES topic (topic_id) ON UPDATE CASCADE
 );
@@ -124,14 +136,14 @@ CREATE TABLE notification (
 
 ------- COMMENT-NOTIFICATION -------
 CREATE TABLE comment_notification (
-   notification_id SERIAL PRIMARY KEY REFERENCES notification (id) ON UPDATE CASCADE,
-   comment_id INTEGER NOT NULL REFERENCES comment (id) ON UPDATE CASCADE
+   notification_id SERIAL PRIMARY KEY REFERENCES notification (notification_id) ON UPDATE CASCADE,
+   comment_id INTEGER NOT NULL REFERENCES comment (comment_id) ON UPDATE CASCADE
 );
 
-------- ARTICLE-NOTIFICATION -------
-CREATE TABLE post_notification (
-   notification_id SERIAL PRIMARY KEY REFERENCES notification (id) ON UPDATE CASCADE,
-   article_id INTEGER NOT NULL REFERENCES article (id) ON UPDATE CASCADE
+------- ARTIcLE-NOTIFICATION -------
+CREATE TABLE article_notification (
+   notification_id SERIAL PRIMARY KEY REFERENCES notification (notification_id) ON UPDATE CASCADE,
+   article_id INTEGER NOT NULL REFERENCES article (article_id) ON UPDATE CASCADE
 );
 
 ------- LIKE-POST -------
@@ -168,7 +180,7 @@ CREATE TABLE report (
 ------- COMMENT-REPORT -------
 CREATE TABLE comment_report (
     comment_id INTEGER NOT NULL  REFERENCES comment(comment_id) ON UPDATE CASCADE,
-    report_id) INTEGER NOT NULL REFERENCES report(report_id)ON UPDATE CASCADE
+    report_id INTEGER NOT NULL REFERENCES report(report_id)ON UPDATE CASCADE
 ); 
 
 ------- ARTICLE-REPORT -------
@@ -225,7 +237,7 @@ CREATE TRIGGER article_search_update
  EXECUTE PROCEDURE article_search_update();
 
 -- Create a GIN index for ts_vectors.
-CREATE INDEX search_article ON post USING GIN (tsvectors);
+CREATE INDEX search_article ON article USING GIN (tsvectors);
 
 -- Add column to user to store computed ts_vectors.
 ALTER TABLE users
@@ -260,7 +272,7 @@ CREATE TRIGGER user_search_update
 
 
 -- Finally, create a GIN index for ts_vectors.
-CREATE INDEX search_user ON work USING GIN (tsvectors);
+CREATE INDEX search_user ON users USING GIN (tsvectors);
 
 
 
@@ -409,7 +421,7 @@ CREATE OR REPLACE FUNCTION prevent_multiple_likes_on_article()
 RETURNS TRIGGER AS $$
 BEGIN
     -- Check if the user has already liked the article
-    IF EXISTS (SELECT 1 FROM article_vote WHERE article_id = NEW.article_id AND user_id = NEW.user_id AND like = true) THEN
+    IF EXISTS (SELECT 1 FROM article_vote WHERE article_id = NEW.article_id AND user_id = NEW.user_id AND is_like = true) THEN
         RAISE EXCEPTION 'You can only like the article once';
     END IF;
 
@@ -420,7 +432,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER prevent_multiple_likes_on_article
 BEFORE INSERT ON article_vote
 FOR EACH ROW
-EXECUTE FUNCTION prevent_multiple_likes_on_article();
+EXECUTE FUNCTION prevent_multiple_likes_on_article(); 
 
 ------TRIGGER 08------
 
@@ -428,7 +440,7 @@ CREATE OR REPLACE FUNCTION prevent_multiple_likes_on_comment()
 RETURNS TRIGGER AS $$
 BEGIN
     -- Check if the user has already liked the comment on this article
-    IF EXISTS (SELECT 1 FROM comment_vote WHERE comment_id = NEW.comment_id AND user_id = NEW.user_id AND like = true) THEN
+    IF EXISTS (SELECT 1 FROM comment_vote WHERE comment_id = NEW.comment_id AND user_id = NEW.user_id AND is_like = true) THEN
         RAISE EXCEPTION 'You can only like a comment once';
     END IF;
 
@@ -465,46 +477,30 @@ EXECUTE FUNCTION prevent_duplicate_topic_follow();
 ------------------------------------- TRANSACTIONS ---------------------------------
 ------------------------------------------------------------------------------------
 
-
 ------TRAN 01------
 
-BEGIN;
+BEGIN TRANSACTION;
 
-INSERT INTO article_content (body, publish_date, is_edited, like_count, dislike_count, author_user_id)
-VALUES ('This is the article content', CURRENT_TIMESTAMP, false, 0, 0, 123)
-RETURNING content_id INTO new_content_id;
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
 
+-- Insert report
+INSERT INTO book (description, date)
+ VALUES ($description, TIMESTAMP);
 
-INSERT INTO articles (content_id, article_title, thumbnail_url)
-VALUES (new_content_id, 'New Article Title', 'thumbnail.jpg')
-RETURNING article_id INTO new_article_id;
+-- Insert article report
+INSERT INTO article_report (article_id, report_id)
+ VALUES (currval('article_id_seq'), $report_id);
 
-
-INSERT INTO article_tags (article_id, tag_id)
-VALUES (new_article_id, 456);
-
-COMMIT;
-
-
-
+END TRANSACTION;
 
 
 ------TRAN 02------
 
-BEGIN;
+BEGIN TRANSACTION;
 
-INSERT INTO comment_content (body, publish_date, is_edited, like_count, dislike_count, author_user_id)
-VALUES ('Este é o conteúdo do comentário', CURRENT_TIMESTAMP, false, 0, 0, 789)
-RETURNING content_id INTO new_comment_content_id;
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
 
-
-INSERT INTO comments (content_id, article_id, parent_comment_id)
-VALUES (new_comment_content_id, 123, null)
-RETURNING comment_id INTO new_comment_id;
+    INSERT INTO comment (text, date, likes, dislikes, user_id, article_id)
+     VALUES ($text, TIMESTAMP, 0, 0, $user_id, $article_id);
 
 COMMIT;
-
-
-
-
-------TRAN 03------
