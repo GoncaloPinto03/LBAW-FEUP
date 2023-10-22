@@ -45,8 +45,8 @@ CREATE TABLE admin (
 
 -------- BAN --------
 CREATE TABLE ban (
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (admin_id) REFERENCES admin(admin_id)
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    admin_id INTEGER NOT NULL REFERENCES admin (admin_id) ON UPDATE CASCADE
 );
 
 ------- USER -------
@@ -65,15 +65,15 @@ CREATE TABLE comment (
     date DATETIME NOT NULL,
     likes INTEGER DEFAULT 0,
     dislikes INTEGER DEFAULT 0,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (article_id) REFERENCES article(article_id)
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    article_id INTEGER NOT NULL REFERENCES article(article_id) ON UPDATE CASCADE
 );
 
 -------- COMMENT-VOTE --------
 CREATE TABLE comment_vote (
     is_like BOOLEAN NOT NULL,
-    FOREIGN KEY (comment_id) REFERENCES comment(comment_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    comment_id INTEGER NOT NULL REFERENCES comment (comment_id) ON UPDATE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE
 );
 
 ------- TOPIC -------
@@ -84,8 +84,8 @@ CREATE TABLE topic (
 
 -------- FOLLOW --------
 CREATE TABLE follow (
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (topic_id) REFERENCES topic(topic_id)
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    topic_id INTEGER NOT NULL REFERENCES topic (topic_id) ON UPDATE CASCADE
 );
 
 ------------ ARTICLE ------------
@@ -96,21 +96,21 @@ CREATE TABLE article (
     date DATETIME NOT NULL,
     likes INTEGER DEFAULT 0,
     dislikes INTEGER DEFAULT 0,
-    FOREIGN KEY (topic_id) REFERENCES topic(topic_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    topic_id INTEGER NOT NULL REFERENCES topic (topic_id) ON UPDATE CASCADE
 );
 
 -------- ARTICLE-VOTE --------
 CREATE TABLE article_vote (
     is_like BOOLEAN NOT NULL,
-    FOREIGN KEY (article_id) REFERENCES article(article_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    article_id INTEGER NOT NULL REFERENCES article (article_id) ON UPDATE CASCADE
 );
 
 -------- FAVOURITE --------
 CREATE TABLE favourite (
-    FOREIGN KEY (article_id) REFERENCES article(article_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    article_id INTEGER NOT NULL REFERENCES article(article_id) ON UPDATE CASCADE
 );
 
 ----------- NOTIFICATION -----------
@@ -118,8 +118,8 @@ CREATE TABLE notification (
     notification_id SERIAL PRIMARY KEY,
     date DATETIME NOT NULL,
     viewed BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (notified_user) REFERENCES users(user_id),
-    FOREIGN KEY (emitter_user) REFERENCES users(user_id)
+    notified_user INTEGER NOT NULL REFERENCES users(user_id) ON UPDATE CASCADE,
+    emitter_user INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE
 );
 
 ------- COMMENT-NOTIFICATION -------
@@ -136,26 +136,26 @@ CREATE TABLE post_notification (
 
 ------- LIKE-POST -------
 CREATE TABLE like_post (
-    FOREIGN KEY (notification_id) REFERENCES notification(notification_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    notification_id INTEGER NOT NULL REFERENCES notification(notification_id) ON UPDATE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users(user_id) ON UPDATE CASCADE
 );
 
 ------- DISLIKE-POST ------
 CREATE TABLE dislike_post (
-    FOREIGN KEY (notification_id) REFERENCES notification(notification_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    notification_id INTEGER NOT NULL REFERENCES notification(notification_id) ON UPDATE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users(user_id) ON UPDATE CASCADE
 );
 
 ------- LIKE-COMMENT -------
 CREATE TABLE like_comment (
-    FOREIGN KEY (notification_id) REFERENCES notification(notification_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    notification_id INTEGER NOT NULL REFERENCES notification(notification_id) ON UPDATE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users(user_id) ON UPDATE CASCADE
 );
 
 ------- DISLIKE-COMMENT -------
 CREATE TABLE dislike_comment (
-    FOREIGN KEY (notification_id) REFERENCES notification(notification_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    notification_id INTEGER NOT NULL REFERENCES notification(notification_id) ON UPDATE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users(user_id) ON UPDATE CASCADE
 );
 
 -------- REPORT --------
@@ -167,14 +167,14 @@ CREATE TABLE report (
 
 ------- COMMENT-REPORT -------
 CREATE TABLE comment_report (
-    FOREIGN KEY (comment_id) REFERENCES comment(comment_id),
-    FOREIGN KEY (report_id) REFERENCES report(report_id)
-);
+    comment_id INTEGER NOT NULL  REFERENCES comment(comment_id) ON UPDATE CASCADE,
+    report_id) INTEGER NOT NULL REFERENCES report(report_id)ON UPDATE CASCADE
+); 
 
 ------- ARTICLE-REPORT -------
 CREATE TABLE article_report (
-    FOREIGN KEY (article_id) REFERENCES article(article_id),
-    FOREIGN KEY (report_id) REFERENCES report(report_id)
+    article_id INTEGER NOT NULL REFERENCES article(article_id) ON UPDATE CASCADE,
+    report_id INTEGER NOT NULL REFERENCES report(report_id) ON UPDATE CASCADE
 );
 
 ------------------------------------------------------------------------------------
