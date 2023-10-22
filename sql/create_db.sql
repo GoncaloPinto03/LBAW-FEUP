@@ -403,6 +403,62 @@ AFTER INSERT ON comment
 FOR EACH ROW
 EXECUTE FUNCTION create_comment_notification();
 
+------TRIGGER 07------
+
+CREATE OR REPLACE FUNCTION prevent_multiple_likes_on_article()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the user has already liked the article
+    IF EXISTS (SELECT 1 FROM article_vote WHERE article_id = NEW.article_id AND user_id = NEW.user_id AND like = true) THEN
+        RAISE EXCEPTION 'You can only like the article once';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER prevent_multiple_likes_on_article
+BEFORE INSERT ON article_vote
+FOR EACH ROW
+EXECUTE FUNCTION prevent_multiple_likes_on_article();
+
+------TRIGGER 08------
+
+CREATE OR REPLACE FUNCTION prevent_multiple_likes_on_comment()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the user has already liked the comment on this article
+    IF EXISTS (SELECT 1 FROM comment_vote WHERE comment_id = NEW.comment_id AND user_id = NEW.user_id AND like = true) THEN
+        RAISE EXCEPTION 'You can only like a comment once';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER prevent_multiple_likes_on_comment
+BEFORE INSERT ON comment_vote
+FOR EACH ROW
+EXECUTE FUNCTION prevent_multiple_likes_on_comment();
+
+------TRIGGER 09------
+
+CREATE OR REPLACE FUNCTION prevent_duplicate_topic_follow()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the user is already following the topic
+    IF EXISTS (SELECT 1 FROM follow WHERE user_id = NEW.user_id AND topic_id = NEW.topic_id) THEN
+        RAISE EXCEPTION 'You are already following this topic';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER prevent_duplicate_topic_follow
+BEFORE INSERT ON follow
+FOR EACH ROW
+EXECUTE FUNCTION prevent_duplicate_topic_follow();
 
 
 ------------------------------------------------------------------------------------
