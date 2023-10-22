@@ -62,7 +62,7 @@ CREATE TABLE users(
 CREATE TABLE comment (
     comment_id SERIAL PRIMARY KEY ,
     text VARCHAR(256) NOT NULL,
-    date DATETIME NOT NULL,
+    date TIMESTAMP NOT NULL,
     likes INTEGER DEFAULT 0,
     dislikes INTEGER DEFAULT 0,
     user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
@@ -93,7 +93,7 @@ CREATE TABLE article (
     article_id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     description TEXT NOT NULL,
-    date DATETIME NOT NULL,
+    date TIMESTAMP NOT NULL,
     likes INTEGER DEFAULT 0,
     dislikes INTEGER DEFAULT 0,
     user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
@@ -116,7 +116,7 @@ CREATE TABLE favourite (
 ----------- NOTIFICATION -----------
 CREATE TABLE notification (
     notification_id SERIAL PRIMARY KEY,
-    date DATETIME NOT NULL,
+    date TIMESTAMP NOT NULL,
     viewed BOOLEAN DEFAULT FALSE,
     notified_user INTEGER NOT NULL REFERENCES users(user_id) ON UPDATE CASCADE,
     emitter_user INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE
@@ -162,7 +162,7 @@ CREATE TABLE dislike_comment (
 CREATE TABLE report (
     report_id SERIAL PRIMARY KEY,
     description TEXT NOT NULL,
-    date DATETIME NOT NULL
+    date TIMESTAMP NOT NULL
 );
 
 ------- COMMENT-REPORT -------
