@@ -118,7 +118,8 @@ CREATE TABLE notification (
     notification_id SERIAL PRIMARY KEY,
     date DATETIME NOT NULL,
     viewed BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (notified_user) REFERENCES users(user_id),
+    FOREIGN KEY (emitter_user) REFERENCES users(user_id)
 );
 
 ------- COMMENT-NOTIFICATION -------
@@ -180,9 +181,11 @@ CREATE TABLE article_report (
 ------------------------------------- INDEXES --------------------------------------
 ------------------------------------------------------------------------------------
 
-CREATE INDEX notification_user ON notification USING hash (user_id);
+CREATE INDEX user_notified ON notification USING btree (notified_user);
+CLUSTER notification USING user_notified;
 
-CREATE INDEX posts_user ON article USING hash (user_id);
+CREATE INDEX user_emitter ON notification USING btree (emitter_user);
+CLUSTER notification USING user_emitter;
 
 CREATE INDEX owner_id_article ON article USING hash (user_id);
 
