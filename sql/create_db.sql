@@ -484,7 +484,7 @@ BEGIN TRANSACTION;
 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
 
 -- Insert report
-INSERT INTO book (description, date)
+INSERT INTO report (description, date)
  VALUES ($description, TIMESTAMP);
 
 -- Insert article report

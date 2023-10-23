@@ -1,8 +1,7 @@
-CREATE SCHEMA IF NOT EXISTS lbaw2394	
+DROP SCHEMA lbaw2394 CASCADE;
+CREATE SCHEMA lbaw2394	
 SET search_path TO lbaw2394;
 
---DROP DATABASE IF EXISTS db;
---CREATE DATABASE db;
 ------------------------------------------------------------------------------------
 ------------------------------------- DROP TABLES ----------------------------------
 ------------------------------------------------------------------------------------
@@ -485,7 +484,7 @@ BEGIN TRANSACTION;
 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
 
 -- Insert report
-INSERT INTO book (description, date)
+INSERT INTO report (description, date)
  VALUES ($description, TIMESTAMP);
 
 -- Insert article report
