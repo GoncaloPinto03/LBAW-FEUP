@@ -7,14 +7,6 @@ VALUES
     ('David Brown', 'davidbrown@example.com', 'adminpass5');
 
 
-
-INSERT INTO ban (user_id, admin_id) 
-VALUES
-    (1, 1),
-    (2, 2);
-
-
-
 INSERT INTO users (email, name, password, reputation)
 VALUES
     ('alice@example.com', 'Alice Johnson', 'password1', 100),
@@ -29,35 +21,17 @@ VALUES
     ('judy@example.com', 'Judy Brown', 'password10', 90);
 
 
-
-INSERT INTO comment (text, date, likes, dislikes, user_id, article_id)
+INSERT INTO ban (user_id, admin_id) 
 VALUES
-    ('Great article!', CURRENT_TIMESTAMP, 10, 2, 1, 1),
-    ('I found this very interesting', CURRENT_TIMESTAMP, 5, 1, 2, 1),
-    ('Good review!', CURRENT_TIMESTAMP, 8, 3, 4, 2),
-    ('Sports are awesome!', CURRENT_TIMESTAMP, 12, 0, 3, 3),
-    ('I completely agree with the author.', CURRENT_TIMESTAMP, 3, 0, 6, 4),
-    ('I want to visit this place!', CURRENT_TIMESTAMP, 15, 1, 5, 5),
-    ('The topic is very relevant in today''s world.', CURRENT_TIMESTAMP, 7, 4, 7, 5),
-    ('I enjoyed reading this article! Well done.', CURRENT_TIMESTAMP, 2, 0, 8, 5),
-    ('The author has done a fantastic job!', CURRENT_TIMESTAMP, 6, 1, 9, 6),
-    ('I didn''t find this article very helpful.',CURRENT_TIMESTAMP, 4, 12, 10, 6);
-
+    (1, 1),
+    (2, 2);
 
 INSERT INTO topic (name) VALUES
-    ('Technology'),
-    ('Science'),
-    ('Sports'),
-    ('Art'),
-    ('Travel');
-
-INSERT INTO follow (user_id, topic_id) 
-VALUES
-    (1, 1),  -- User 1 follows Technology
-    (2, 2),  -- User 2 follows Science
-    (3, 3),  -- User 3 follows Sports
-    (4, 4),  -- User 4 follows Art
-    (5, 5);  -- User 5 follows Travel
+('Technology'),
+('Science'),
+('Sports'),
+('Art'),
+('Travel');
 
 INSERT INTO article (name, description, date, topic_id, user_id)
 VALUES
@@ -72,18 +46,43 @@ VALUES
     ('Cybersecurity Best Practices', 'Protecting your online identity', '2023-10-21 18:00:00', 1, 9),
     ('Upcoming Album Releases', 'Anticipating new music releases','2023-10-21 19:00:00', 4, 10);
 
-INSERT INTO article_vote (like, article_id, user_id)
+INSERT INTO comment (text, date, likes, dislikes, user_id, article_id)
 VALUES
-    (TRUE, 1, 1),
-    (TRUE, 2, 2),
-    (FALSE, 3, 3),
-    (TRUE, 4, 4),
-    (FALSE, 5, 5),
-    (TRUE, 6, 6),
-    (FALSE, 7, 7),
-    (TRUE, 8, 8),
-    (FALSE, 9, 9),
-    (TRUE, 10, 10);
+    ('Great article!', CURRENT_TIMESTAMP, 0, 0, 1, 1),
+    ('I found this very interesting', CURRENT_TIMESTAMP, 5, 1, 2, 1),
+    ('Good review!', CURRENT_TIMESTAMP, 0, 0, 4, 2),
+    ('Sports are awesome!', CURRENT_TIMESTAMP, 0, 0, 3, 3),
+    ('I completely agree with the author.', CURRENT_TIMESTAMP, 0, 0, 6, 4),
+    ('I want to visit this place!', CURRENT_TIMESTAMP, 0, 0, 5, 5),
+    ('The topic is very relevant in today''s world.', CURRENT_TIMESTAMP, 0, 0, 7, 5),
+    ('I enjoyed reading this article! Well done.', CURRENT_TIMESTAMP, 0, 0, 8, 5),
+    ('The author has done a fantastic job!', CURRENT_TIMESTAMP, 0, 0, 9, 6),
+    ('I didn''t find this article very helpful.', CURRENT_TIMESTAMP, 0, 0, 10, 6);
+
+
+
+
+INSERT INTO follow (user_id, topic_id) 
+VALUES
+    (1, 1), 
+    (2, 2), 
+    (3, 3),
+    (4, 4),  
+    (5, 5);  
+
+
+INSERT INTO article_vote (is_like, article_id, user_id)
+VALUES
+    (TRUE, 1, 2),
+    (TRUE, 2, 3),
+    (FALSE, 3, 4),
+    (TRUE, 4, 5),
+    (FALSE, 5, 6),
+    (TRUE, 6, 7),
+    (FALSE, 7, 8),
+    (TRUE, 8, 9),
+    (FALSE, 9, 10),
+    (TRUE, 10, 1);
 
 INSERT INTO favourite (article_id, user_id)
 VALUES
@@ -92,17 +91,12 @@ VALUES
     (3, 2),
     (4, 3);
 
-INSERT INTO notification (date, viewed, user_id)
+INSERT INTO notification (date, viewed, notified_user, emitter_user)
 VALUES
-    ('2023-10-21 08:00:00', FALSE, 1),
-    ('2023-10-20 14:30:00', TRUE, 2),
-    ('2023-10-19 10:15:00', FALSE, 3),
-    ('2023-10-18 17:45:00', TRUE, 4);
-
-INSERT INTO notification (message) VALUES
-    ('New comment on your article: "The Future of AI"'),
-    ('User Alice liked your comment on "Science Breakthrough"'),
-    ('User Bob started following you'),
+    ('2023-10-21 08:00:00', FALSE, 1, 2),
+    ('2023-10-20 14:30:00', TRUE, 2, 3),
+    ('2023-10-19 10:15:00', FALSE, 3, 4),
+    ('2023-10-18 17:45:00', TRUE, 4, 5);
 
 INSERT INTO comment_notification (notification_id, comment_id) VALUES
     (1, 1),  
@@ -119,33 +113,24 @@ INSERT INTO like_post (notification_id, user_id) VALUES
     (1, 1),
     (2, 2),
     (3, 3),
-    (4, 4),
-    (5, 5),
-    (6, 6);
 
 INSERT INTO dislike_post (notification_id, user_id) VALUES
     (1, 2),
     (2, 3),
     (3, 4),
-    (4, 5),
-    (5, 6),
-    (6, 1);
+
 
 INSERT INTO like_comment (notification_id, user_id) VALUES
     (1, 3),
     (2, 4),
     (3, 5),
-    (4, 6),
-    (5, 1),
-    (6, 2);
+
 
 INSERT INTO dislike_comment (notification_id, user_id) VALUES
     (1, 4),
     (2, 5),
     (3, 6),
-    (4, 1),
-    (5, 2),
-    (6, 3);
+
 
 
 INSERT INTO report (description, date) VALUES

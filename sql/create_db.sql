@@ -285,14 +285,13 @@ CREATE INDEX search_user ON users USING GIN (tsvectors);
 CREATE OR REPLACE FUNCTION adjust_likes_dislikes_and_notification()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.like THEN
+    IF NEW.is_like THEN
         UPDATE article SET likes = likes + 1 WHERE article_id = NEW.article_id;
     ELSE
         UPDATE article SET dislikes = dislikes + 1 WHERE article_id = NEW.article_id;
     END IF;
-
     -- Generate a notification associated with the feedback event
-    INSERT INTO notification (date, user_id) VALUES (NOW(), NEW.user_id)
+    INSERT INTO notification (date, notified_user, emitter_user) VALUES (NOW(), NEW.notified_user, NEW.emitter_user)
     RETURNING notification_id INTO NEW.notification_id;
     
     -- Update the reputation of the user who provided the feedback
@@ -312,7 +311,7 @@ EXECUTE FUNCTION adjust_likes_dislikes_and_notification();
 CREATE OR REPLACE FUNCTION undo_like_dislike_and_update_reputation()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF OLD.like THEN
+    IF OLD.is_like THEN
         UPDATE article SET likes = likes - 1 WHERE article_id = OLD.article_id;
     ELSE
         UPDATE article SET dislikes = dislikes - 1 WHERE article_id = OLD.article_id;
@@ -399,8 +398,8 @@ EXECUTE FUNCTION prevent_self_like_dislike();
 CREATE OR REPLACE FUNCTION create_comment_notification()
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO notification (date, user_id)
-    VALUES (NOW(), NEW.user_id)
+    INSERT INTO notification (date, notified_user, emitter_user)
+    VALUES (NOW(), NEW.notified_user, NEW.emitter_user)
     RETURNING notification_id INTO NEW.notification_id;
     
     INSERT INTO comment_notification (notification_id, comment_id)
