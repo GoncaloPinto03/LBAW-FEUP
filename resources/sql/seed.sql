@@ -281,38 +281,44 @@ CREATE INDEX search_user ON users USING GIN (tsvectors);
 ------------------------------------------------------------------------------------
 
 ------TRIGGER 01------
-
-CREATE OR REPLACE FUNCTION adjust_likes_dislikes_and_notification()
-RETURNS TRIGGER AS $$
+-- Create a trigger function to adjust likes, dislikes, generate notifications, and update reputation
+CREATE OR REPLACE FUNCTION adjust_likes_dislikes_and_notification() RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.like THEN
+    -- Calculate the adjustment based on whether it's a like or dislike
+    IF NEW.is_like THEN
+        -- Adjust likes
         UPDATE article SET likes = likes + 1 WHERE article_id = NEW.article_id;
     ELSE
+        -- Adjust dislikes
         UPDATE article SET dislikes = dislikes + 1 WHERE article_id = NEW.article_id;
     END IF;
 
-    -- Generate a notification associated with the feedback event
-    INSERT INTO notification (date, user_id) VALUES (NOW(), NEW.user_id)
-    RETURNING notification_id INTO NEW.notification_id;
-    
-    -- Update the reputation of the user who provided the feedback
-    UPDATE users SET reputation = reputation + 1 WHERE user_id = NEW.user_id;
+    -- Generate a notification
+    INSERT INTO notification (date, viewed, notified_user, emitter_user)
+    VALUES (NOW(), FALSE, (SELECT user_id FROM article WHERE article_id = NEW.article_id), NEW.user_id);
+
+    -- Update the reputation of the user who provided the feedback (adjust reputation logic here)
+    -- Example: Assuming +1 reputation for likes and -1 for dislikes
+    UPDATE users SET reputation = CASE WHEN NEW.is_like THEN reputation + 1 ELSE reputation - 1 END
+    WHERE user_id = NEW.user_id;
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER adjust_likes_dislikes_and_notification
-AFTER INSERT ON article_vote
+-- Create a trigger that fires on insert into the comment_vote table
+CREATE TRIGGER adjust_likes_dislikes_and_notification_trigger
+AFTER INSERT ON comment_vote
 FOR EACH ROW
 EXECUTE FUNCTION adjust_likes_dislikes_and_notification();
+
 
 ------TRIGGER 02------
 
 CREATE OR REPLACE FUNCTION undo_like_dislike_and_update_reputation()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF OLD.like THEN
+    IF OLD.is_like THEN
         UPDATE article SET likes = likes - 1 WHERE article_id = OLD.article_id;
     ELSE
         UPDATE article SET dislikes = dislikes - 1 WHERE article_id = OLD.article_id;
@@ -395,25 +401,24 @@ FOR EACH ROW
 EXECUTE FUNCTION prevent_self_like_dislike();
 
 ------TRIGGER 06------
-
-CREATE OR REPLACE FUNCTION create_comment_notification()
-RETURNS TRIGGER AS $$
+-- Create a trigger function to generate a notification when a comment is created
+CREATE OR REPLACE FUNCTION create_comment_notification() RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO notification (date, user_id)
-    VALUES (NOW(), NEW.user_id)
-    RETURNING notification_id INTO NEW.notification_id;
-    
-    INSERT INTO comment_notification (notification_id, comment_id)
-    VALUES (NEW.notification_id, NEW.comment_id);
-    
+    -- Insert a new notification record
+    INSERT INTO notification (date, viewed, notified_user, emitter_user)
+    VALUES (NOW(), FALSE, (SELECT user_id FROM article WHERE article_id = NEW.article_id), NEW.user_id);
+
+    -- Return the NEW row to allow the comment creation to proceed
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER create_comment_notification
+-- Create a trigger that fires on insert into the comment table
+CREATE TRIGGER create_comment_notification_trigger
 AFTER INSERT ON comment
 FOR EACH ROW
 EXECUTE FUNCTION create_comment_notification();
+
 
 ------TRIGGER 07------
 
@@ -504,3 +509,160 @@ SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
      VALUES ($text, TIMESTAMP, 0, 0, $user_id, $article_id);
 
 COMMIT;
+
+
+
+INSERT INTO admin (name, email, password) 
+VALUES
+    ('John Doe', 'johndoe@example.com', 'adminpass1'),
+    ('Jane Smith', 'janesmith@example.com', 'adminpass2'),
+    ('Michael Johnson', 'michaeljohnson@example.com', 'adminpass3'),
+    ('Emily Wilson', 'emilywilson@example.com', 'adminpass4'),
+    ('David Brown', 'davidbrown@example.com', 'adminpass5');
+
+
+INSERT INTO users (email, name, password, reputation)
+VALUES
+    ('alice@example.com', 'Alice Johnson', 'password1', 100),
+    ('bob@example.com', 'Bob Smith', 'password2', 150),
+    ('charlie@example.com', 'Charlie Davis', 'password3', 200),
+    ('david@example.com', 'David Wilson', 'password4', 50),
+    ('eva@example.com', 'Eva Martin', 'password5', 300),
+    ('frank@example.com', 'Frank Harris', 'password6', 75),
+    ('grace@example.com', 'Grace Lee', 'password7', 250),
+    ('helen@example.com', 'Helen White', 'password8', 30),
+    ('ian@example.com', 'Ian Clark', 'password9', 180),
+    ('judy@example.com', 'Judy Brown', 'password10', 90);
+
+
+INSERT INTO ban (user_id, admin_id) 
+VALUES
+    (1, 1),
+    (2, 2);
+
+INSERT INTO topic (name) VALUES
+('Technology'),
+('Science'),
+('Sports'),
+('Art'),
+('Travel');
+
+INSERT INTO article (name, description, date, topic_id, user_id)
+VALUES
+    ('Tech News', 'Latest tech updates', '2023-10-21 10:00:00', 1, 1),
+    ('Science Breakthrough', 'Exciting scientific discoveries', '2023-10-21 11:00:00', 2, 2),
+    ('Sports Highlights', 'Recap of the week''s sports events', '2023-10-21 12:00:00', 3, 3),
+    ('Music Reviews', 'Latest album reviews', '2023-10-21 13:00:00', 4, 4),
+    ('Travel Destinations', 'Explore the world', '2023-10-21 14:00:00', 5, 5),
+    ('The Future of AI', 'Exploring the impact of artificial intelligence', '2023-10-21 15:00:00', 1, 6),
+    ('Football Match Analysis', 'In-depth review of the latest game', '2023-10-21 16:00:00', 3, 7),
+    ('Hidden Gems of Europe', 'Exploring lesser-known travel destinations', '2023-10-21 17:00:00', 5, 8),
+    ('Cybersecurity Best Practices', 'Protecting your online identity', '2023-10-21 18:00:00', 1, 9),
+    ('Upcoming Album Releases', 'Anticipating new music releases','2023-10-21 19:00:00', 4, 10);
+
+INSERT INTO comment (text, date, likes, dislikes, user_id, article_id)
+VALUES
+    ('Great article!', CURRENT_TIMESTAMP, 0, 0, 1, 1),
+    ('I found this very interesting', CURRENT_TIMESTAMP, 5, 1, 2, 1),
+    ('Good review!', CURRENT_TIMESTAMP, 0, 0, 4, 2),
+    ('Sports are awesome!', CURRENT_TIMESTAMP, 0, 0, 3, 3),
+    ('I completely agree with the author.', CURRENT_TIMESTAMP, 0, 0, 6, 4),
+    ('I want to visit this place!', CURRENT_TIMESTAMP, 0, 0, 5, 5),
+    ('The topic is very relevant in today''s world.', CURRENT_TIMESTAMP, 0, 0, 7, 5),
+    ('I enjoyed reading this article! Well done.', CURRENT_TIMESTAMP, 0, 0, 8, 5),
+    ('The author has done a fantastic job!', CURRENT_TIMESTAMP, 0, 0, 9, 6),
+    ('I didn''t find this article very helpful.', CURRENT_TIMESTAMP, 0, 0, 10, 6);
+
+
+
+
+INSERT INTO follow (user_id, topic_id) 
+VALUES
+    (1, 1), 
+    (2, 2), 
+    (3, 3),
+    (4, 4),  
+    (5, 5);  
+
+
+INSERT INTO article_vote (is_like, article_id, user_id)
+VALUES
+    (TRUE, 1, 2),
+    (TRUE, 2, 3),
+    (FALSE, 3, 4),
+    (TRUE, 4, 5),
+    (FALSE, 5, 6),
+    (TRUE, 6, 7),
+    (FALSE, 7, 8),
+    (TRUE, 8, 9),
+    (FALSE, 9, 10),
+    (TRUE, 10, 1);
+
+INSERT INTO favourite (article_id, user_id)
+VALUES
+    (1, 1),
+    (2, 1),
+    (3, 2),
+    (4, 3);
+
+INSERT INTO notification (date, viewed, notified_user, emitter_user)
+VALUES
+    ('2023-10-21 08:00:00', FALSE, 1, 2),
+    ('2023-10-20 14:30:00', TRUE, 2, 3),
+    ('2023-10-19 10:15:00', FALSE, 3, 4),
+    ('2023-10-18 17:45:00', TRUE, 4, 5);
+
+INSERT INTO comment_notification (notification_id, comment_id) VALUES
+    (1, 1),  
+    (2, 2),  
+    (3, 3);  
+
+
+INSERT INTO article_notification (notification_id, article_id) VALUES
+    (1, 1),  
+    (2, 2), 
+    (3, 3);  
+
+INSERT INTO like_post (notification_id, user_id) VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3);
+
+INSERT INTO dislike_post (notification_id, user_id) VALUES
+    (1, 2),
+    (2, 3),
+    (3, 4);
+
+
+INSERT INTO like_comment (notification_id, user_id) VALUES
+    (1, 3),
+    (2, 4),
+    (3, 5);
+
+
+INSERT INTO dislike_comment (notification_id, user_id) VALUES
+    (1, 4),
+    (2, 5),
+    (3, 6);
+
+
+
+INSERT INTO report (description, date) VALUES
+    ('Data security breach incident', '2023-10-22 11:15:00'),
+    ('Quality control audit report', '2023-10-23 14:45:00'),
+    ('Customer service feedback analysis', '2023-10-24 09:30:00'),
+    ('Website performance evaluation', '2023-10-25 15:00:00'),
+    ('Product defects analysis', '2023-10-26 14:30:00'),
+    ('Financial expense review', '2023-10-27 10:45:00');
+    
+INSERT INTO comment_report (comment_id, report_id) VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3);
+
+INSERT INTO article_report (article_id, report_id) VALUES
+    (4, 4),
+    (5, 5),
+    (6, 6);
+
+

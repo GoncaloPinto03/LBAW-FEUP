@@ -281,30 +281,37 @@ CREATE INDEX search_user ON users USING GIN (tsvectors);
 ------------------------------------------------------------------------------------
 
 ------TRIGGER 01------
-
-CREATE OR REPLACE FUNCTION adjust_likes_dislikes_and_notification()
-RETURNS TRIGGER AS $$
+-- Create a trigger function to adjust likes, dislikes, generate notifications, and update reputation
+CREATE OR REPLACE FUNCTION adjust_likes_dislikes_and_notification() RETURNS TRIGGER AS $$
 BEGIN
+    -- Calculate the adjustment based on whether it's a like or dislike
     IF NEW.is_like THEN
+        -- Adjust likes
         UPDATE article SET likes = likes + 1 WHERE article_id = NEW.article_id;
     ELSE
+        -- Adjust dislikes
         UPDATE article SET dislikes = dislikes + 1 WHERE article_id = NEW.article_id;
     END IF;
-    -- Generate a notification associated with the feedback event
-    INSERT INTO notification (date, notified_user, emitter_user) VALUES (NOW(), NEW.notified_user, NEW.emitter_user)
-    RETURNING notification_id INTO NEW.notification_id;
-    
-    -- Update the reputation of the user who provided the feedback
-    UPDATE users SET reputation = reputation + 1 WHERE user_id = NEW.user_id;
+
+    -- Generate a notification
+    INSERT INTO notification (date, viewed, notified_user, emitter_user)
+    VALUES (NOW(), FALSE, (SELECT user_id FROM article WHERE article_id = NEW.article_id), NEW.user_id);
+
+    -- Update the reputation of the user who provided the feedback (adjust reputation logic here)
+    -- Example: Assuming +1 reputation for likes and -1 for dislikes
+    UPDATE users SET reputation = CASE WHEN NEW.is_like THEN reputation + 1 ELSE reputation - 1 END
+    WHERE user_id = NEW.user_id;
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER adjust_likes_dislikes_and_notification
-AFTER INSERT ON article_vote
+-- Create a trigger that fires on insert into the comment_vote table
+CREATE TRIGGER adjust_likes_dislikes_and_notification_trigger
+AFTER INSERT ON comment_vote
 FOR EACH ROW
 EXECUTE FUNCTION adjust_likes_dislikes_and_notification();
+
 
 ------TRIGGER 02------
 
@@ -394,25 +401,24 @@ FOR EACH ROW
 EXECUTE FUNCTION prevent_self_like_dislike();
 
 ------TRIGGER 06------
-
-CREATE OR REPLACE FUNCTION create_comment_notification()
-RETURNS TRIGGER AS $$
+-- Create a trigger function to generate a notification when a comment is created
+CREATE OR REPLACE FUNCTION create_comment_notification() RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO notification (date, notified_user, emitter_user)
-    VALUES (NOW(), NEW.notified_user, NEW.emitter_user)
-    RETURNING notification_id INTO NEW.notification_id;
-    
-    INSERT INTO comment_notification (notification_id, comment_id)
-    VALUES (NEW.notification_id, NEW.comment_id);
-    
+    -- Insert a new notification record
+    INSERT INTO notification (date, viewed, notified_user, emitter_user)
+    VALUES (NOW(), FALSE, (SELECT user_id FROM article WHERE article_id = NEW.article_id), NEW.user_id);
+
+    -- Return the NEW row to allow the comment creation to proceed
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER create_comment_notification
+-- Create a trigger that fires on insert into the comment table
+CREATE TRIGGER create_comment_notification_trigger
 AFTER INSERT ON comment
 FOR EACH ROW
 EXECUTE FUNCTION create_comment_notification();
+
 
 ------TRIGGER 07------
 

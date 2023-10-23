@@ -112,24 +112,24 @@ INSERT INTO article_notification (notification_id, article_id) VALUES
 INSERT INTO like_post (notification_id, user_id) VALUES
     (1, 1),
     (2, 2),
-    (3, 3),
+    (3, 3);
 
 INSERT INTO dislike_post (notification_id, user_id) VALUES
     (1, 2),
     (2, 3),
-    (3, 4),
+    (3, 4);
 
 
 INSERT INTO like_comment (notification_id, user_id) VALUES
     (1, 3),
     (2, 4),
-    (3, 5),
+    (3, 5);
 
 
 INSERT INTO dislike_comment (notification_id, user_id) VALUES
     (1, 4),
     (2, 5),
-    (3, 6),
+    (3, 6);
 
 
 
