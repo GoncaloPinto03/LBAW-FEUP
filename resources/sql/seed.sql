@@ -281,24 +281,19 @@ CREATE INDEX search_user ON users USING GIN (tsvectors);
 ------------------------------------------------------------------------------------
 
 ------TRIGGER 01------
--- Create a trigger function to adjust likes, dislikes, generate notifications, and update reputation
+
 CREATE OR REPLACE FUNCTION adjust_likes_dislikes_and_notification() RETURNS TRIGGER AS $$
 BEGIN
-    -- Calculate the adjustment based on whether it's a like or dislike
+
     IF NEW.is_like THEN
-        -- Adjust likes
         UPDATE article SET likes = likes + 1 WHERE article_id = NEW.article_id;
     ELSE
-        -- Adjust dislikes
         UPDATE article SET dislikes = dislikes + 1 WHERE article_id = NEW.article_id;
     END IF;
 
-    -- Generate a notification
     INSERT INTO notification (date, viewed, notified_user, emitter_user)
     VALUES (NOW(), FALSE, (SELECT user_id FROM article WHERE article_id = NEW.article_id), NEW.user_id);
 
-    -- Update the reputation of the user who provided the feedback (adjust reputation logic here)
-    -- Example: Assuming +1 reputation for likes and -1 for dislikes
     UPDATE users SET reputation = CASE WHEN NEW.is_like THEN reputation + 1 ELSE reputation - 1 END
     WHERE user_id = NEW.user_id;
 
@@ -306,8 +301,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Create a trigger that fires on insert into the comment_vote table
-CREATE TRIGGER adjust_likes_dislikes_and_notification_trigger
+CREATE TRIGGER adjust_likes_dislikes_and_notification
 AFTER INSERT ON comment_vote
 FOR EACH ROW
 EXECUTE FUNCTION adjust_likes_dislikes_and_notification();
@@ -324,7 +318,6 @@ BEGIN
         UPDATE article SET dislikes = dislikes - 1 WHERE article_id = OLD.article_id;
     END IF;
 
-    -- Update the reputation of the authenticated user
     UPDATE users SET reputation = reputation - 1 WHERE user_id = OLD.user_id;
 
     RETURN OLD;
@@ -401,20 +394,17 @@ FOR EACH ROW
 EXECUTE FUNCTION prevent_self_like_dislike();
 
 ------TRIGGER 06------
--- Create a trigger function to generate a notification when a comment is created
+
 CREATE OR REPLACE FUNCTION create_comment_notification() RETURNS TRIGGER AS $$
 BEGIN
-    -- Insert a new notification record
     INSERT INTO notification (date, viewed, notified_user, emitter_user)
     VALUES (NOW(), FALSE, (SELECT user_id FROM article WHERE article_id = NEW.article_id), NEW.user_id);
 
-    -- Return the NEW row to allow the comment creation to proceed
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
--- Create a trigger that fires on insert into the comment table
-CREATE TRIGGER create_comment_notification_trigger
+CREATE TRIGGER create_comment_notification
 AFTER INSERT ON comment
 FOR EACH ROW
 EXECUTE FUNCTION create_comment_notification();
@@ -425,7 +415,6 @@ EXECUTE FUNCTION create_comment_notification();
 CREATE OR REPLACE FUNCTION prevent_multiple_likes_on_article()
 RETURNS TRIGGER AS $$
 BEGIN
-    -- Check if the user has already liked the article
     IF EXISTS (SELECT 1 FROM article_vote WHERE article_id = NEW.article_id AND user_id = NEW.user_id AND is_like = true) THEN
         RAISE EXCEPTION 'You can only like the article once';
     END IF;
@@ -444,7 +433,6 @@ EXECUTE FUNCTION prevent_multiple_likes_on_article();
 CREATE OR REPLACE FUNCTION prevent_multiple_likes_on_comment()
 RETURNS TRIGGER AS $$
 BEGIN
-    -- Check if the user has already liked the comment on this article
     IF EXISTS (SELECT 1 FROM comment_vote WHERE comment_id = NEW.comment_id AND user_id = NEW.user_id AND is_like = true) THEN
         RAISE EXCEPTION 'You can only like a comment once';
     END IF;
@@ -463,7 +451,6 @@ EXECUTE FUNCTION prevent_multiple_likes_on_comment();
 CREATE OR REPLACE FUNCTION prevent_duplicate_topic_follow()
 RETURNS TRIGGER AS $$
 BEGIN
-    -- Check if the user is already following the topic
     IF EXISTS (SELECT 1 FROM follow WHERE user_id = NEW.user_id AND topic_id = NEW.topic_id) THEN
         RAISE EXCEPTION 'You are already following this topic';
     END IF;
@@ -488,11 +475,9 @@ BEGIN TRANSACTION;
 
 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
 
--- Insert report
 INSERT INTO report (description, date)
  VALUES ($description, TIMESTAMP);
 
--- Insert article report
 INSERT INTO article_report (article_id, report_id)
  VALUES (currval('article_id_seq'), $report_id);
 
@@ -510,7 +495,7 @@ SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
 
 COMMIT;
 
-
+-- Populate
 
 INSERT INTO admin (name, email, password) 
 VALUES
