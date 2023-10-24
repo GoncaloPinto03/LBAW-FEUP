@@ -4,3 +4,117 @@ info:
   version: '1.0'
   tite: 'LBAW CollabNews Web API'
   description: 'Web Resources Specification (A7) for CollabNews'
+
+servers:
+- url: https://lbaw2394.lbaw.fe.up.pt
+ description: Production server
+
+externalDocs:
+ description: Find more info here.
+ url: https://git.fe.up.pt/lbaw/lbaw2324/lbaw2394/-/wikis/eap
+
+tags:
+ - name: 'M01: Authentication'
+ - name: 'M02: Users'
+ - name: 'M03: Admins and Static Pages'
+ - name: 'M04: Comments'
+ - name: 'M05: Articles'
+ - name: 'M05: Search'
+
+paths:
+
+##################################################################
+######################### AUTHENTICATION #########################
+##################################################################
+
+# LOGIN
+
+# LOGOUT
+
+# REGISTER
+
+# SEND EMAIL
+
+# RECOVER PASSWORD
+
+##################################################################
+############################# USERS ##############################
+##################################################################
+
+# PROFILE
+
+# HOMEPAGE
+
+# EDIT PROFILE
+
+# DELETE PROFILE
+
+# DELETE
+
+# REMOVE FOLOWER
+
+# FOLLOW
+
+# UNFOLLOW
+
+# NOTIFICATIONS
+
+# NOTIFICATION DELETE
+
+# NOTIFICATION UPDATE
+
+
+
+##################################################################
+#################### ADMINS AND STATIC PAGES #####################
+##################################################################
+
+# ADMIN PAGE
+
+# USER BAN
+
+# USER UNBAN
+
+# ABOUT PAGE
+
+# FAQ PAGE
+
+# MEDIA
+
+##################################################################
+############################ COMMENTS ############################
+##################################################################
+
+# CREATE COMMENT
+
+# DELETE COMMENT
+
+# EDIT COMMENT
+
+# LIKE COMMENT
+
+# DISLIKE COMMENT
+
+
+##################################################################
+############################ ARTICLES ############################
+##################################################################
+
+# CREATE ARTICLE
+
+# DELETE ARTICLE
+
+# EDIT ARTICLE
+
+# ARTICLE LIKE
+
+# ARTICLE DISLIKE
+
+##################################################################
+############################# SEARCH #############################
+##################################################################
+
+# SEARCH USER
+
+# SEARCH ARTICLE
+

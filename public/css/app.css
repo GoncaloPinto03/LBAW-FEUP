@@ -1,12 +1,12 @@
 body {
   background-color: #ffffff;
-  color: #9b4dca;
+  color: #4d6eca;
 }
 main > header {
   display: grid;
   grid-template-columns: 1fr auto auto;
   align-items: center;
-  background-color: #d2afe7;
+  background-color: #cecece;
   padding: 1em;
   margin: 1em;
 }
@@ -86,7 +86,7 @@ main > header span {
   margin: 0 auto;
   padding: 1em;
   max-width: 20em;
-  border: 1px solid #d2afe7;
+  border: 1px solid #4d6eca;
 }
 #content > form .error {
   font-weight: bold;
@@ -137,21 +137,21 @@ main > header span {
  * Some styles might be missing
  **/
 button {
-  background-color: #9b4dca;
-  border-color: #9b4dca;
+  background-color: #4d6eca;
+  border-color: #4d6eca;
 }
 a.button {
-  background-color: #9b4dca;
-  border-color: #9b4dca;
+  background-color: #4d6eca;
+  border-color: #4d6eca;
 }
 a.button.button-outline {
-  color: #9b4dca;
+  color: #4d6eca;
 }
 a {
-  color: #9b4dca;
+  color: #4d6eca;
 }
 input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus {
-  border-color: #9b4dca;
+  border-color: #4d6eca;
 }
