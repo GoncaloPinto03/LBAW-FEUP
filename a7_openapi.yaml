@@ -198,111 +198,232 @@ paths:
     get:
       tags:
         - 'M02: Users'
-      summary: User Profile
-      description: Get user profile
+      operationId: R201
+      summary: 'R201: View User Profile'
+      description: 'View user profile. Access: USR'
+      parameters:
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
       responses:
         '200':
-          description: User profile retrieved successfully
-
-  /homepage:
-    get:
-      tags:
-        - 'M02: Users'
-      summary: Homepage
-      description: Get the user's homepage
-      responses:
-        '200':
-          description: Homepage retrieved successfully
-
+          description: 'Ok. Show User Profile UI'
+    
   /edit-profile:
     put:
       tags:
         - 'M02: Users'
-      summary: Edit Profile
-      description: Edit user profile
+      operationId: R202
+      summary: 'R202: Edit User Profile'
+      description: 'Edit user profile. Access: USR'
+      parameters:
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                picture:
+                  type: string
+                bio:
+                  type: string
+              required:
+                - user_id
+                - name
+                - email
       responses:
         '200':
-          description: User profile updated successfully
-
+          description: 'User profile updated successfully'
+    
   /delete-profile:
     delete:
       tags:
         - 'M02: Users'
-      summary: Delete Profile
-      description: Delete user profile
+      operationId: R203
+      summary: 'R203: Delete User Profile'
+      description: 'Delete user profile. Access: USR'
+      parameters:
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
       responses:
         '204':
-          description: User profile deleted successfully
-
+          description: 'User profile deleted successfully'
+    
   /delete:
     delete:
       tags:
         - 'M02: Users'
-      summary: Delete User
-      description: Delete a user
+      operationId: R204
+      summary: 'R204: Delete User'
+      description: 'Delete a user. Access: ADM'
+      parameters:
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
       responses:
         '204':
-          description: User deleted successfully
-
+          description: 'User deleted successfully'
+    
   /remove-follower:
     delete:
       tags:
         - 'M02: Users'
-      summary: Remove Follower
-      description: Remove a follower from the user's list
+      operationId: R205
+      summary: 'R205: Remove Follower'
+      description: 'Remove a follower from the users list. Access: USR'
+      parameters:
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: follower_id
+          schema:
+            type: integer
+          required: true
       responses:
         '204':
-          description: Follower removed successfully
-
+          description: 'Follower removed successfully'
+    
   /follow:
     post:
       tags:
         - 'M02: Users'
-      summary: Follow User
-      description: Follow another user
+      operationId: R206
+      summary: 'R206: Follow User'
+      description: 'Follow another user. Access: USR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                follow_id:
+                  type: integer
+              required:
+                - user_id
+                - follow_id
       responses:
         '201':
-          description: User followed successfully
-
+          description: 'User followed successfully'
+    
   /unfollow:
     delete:
       tags:
         - 'M02: Users'
-      summary: Unfollow User
-      description: Unfollow a user
+      operationId: R207
+      summary: 'R207: Unfollow User'
+      description: 'Unfollow a user. Access: USR'
+      parameters:
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: unfollow_id
+          schema:
+            type: integer
+          required: true
       responses:
         '204':
-          description: User unfollowed successfully
-
+          description: 'User unfollowed successfully'
+    
   /notifications:
     get:
       tags:
         - 'M02: Users'
-      summary: Notifications
-      description: Get user notifications
+      operationId: R208
+      summary: 'R208: Get Notifications'
+      description: 'Get user notifications. Access: USR'
+      parameters:
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
       responses:
         '200':
-          description: Notifications retrieved successfully
-
+          description: 'Notifications retrieved successfully'
+    
   /notification-delete:
     delete:
       tags:
         - 'M02: Users'
-      summary: Delete Notification
-      description: Delete a notification
+      operationId: R209
+      summary: 'R209: Delete Notification'
+      description: 'Delete a notification. Access: USR'
+      parameters:
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: notification_id
+          schema:
+            type: integer
+          required: true
       responses:
         '204':
-          description: Notification deleted successfully
-
+          description: 'Notification deleted successfully'
+    
   /notification-update:
     put:
       tags:
         - 'M02: Users'
-      summary: Update Notification
-      description: Update a notification
+      operationId: R210
+      summary: 'R210: Update Notification'
+      description: 'Update a notification. Access: USR'
+      parameters:
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: notification_id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notification_id:
+                  type: integer
+                status:
+                  type: string
+              required:
+                - notification_id
+                - status
       responses:
         '200':
-          description: Notification updated successfully
+          description: 'Notification updated successfully'
 
   ##################################################################
   #################### ADMINS AND STATIC PAGES #####################
@@ -312,61 +433,95 @@ paths:
     get:
       tags:
         - 'M03: Admins and Static Pages'
-      summary: Admin Page
-      description: Get admin page
+      operationId: R301
+      summary: 'R301: Admin Page'
+      description: 'Get admin page. Access: ADM'
+      parameters:
+        - in: query
+          name: admin_id
+          schema:
+            type: integer
+          required: true
       responses:
         '200':
-          description: Admin page retrieved successfully
-
+          description: 'Admin page retrieved successfully'
+    
   /user-ban:
     post:
       tags:
         - 'M03: Admins and Static Pages'
-      summary: Ban User
-      description: Ban a user
+      operationId: R302
+      summary: 'R302: Ban User'
+      description: 'Ban a user. Access: ADM'
+      parameters:
+        - in: query
+          name: admin_id
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
       responses:
         '201':
-          description: User banned successfully
-
+          description: 'User banned successfully'
+    
   /user-unban:
     post:
       tags:
         - 'M03: Admins and Static Pages'
-      summary: Unban User
-      description: Unban a user
+      operationId: R303
+      summary: 'R303: Unban User'
+      description: 'Unban a user. Access: ADM'
+      parameters:
+        - in: query
+          name: admin_id
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
       responses:
         '201':
-          description: User unbanned successfully
-
+          description: 'User unbanned successfully'
+    
   /about-page:
     get:
       tags:
         - 'M03: Admins and Static Pages'
-      summary: About Page
-      description: Get the about page
+      operationId: R304
+      summary: 'R304: About Page'
+      description: 'Get the about page. Access: VIS'
       responses:
         '200':
-          description: About page retrieved successfully
-
+          description: 'About page retrieved successfully'
+    
   /faq-page:
     get:
       tags:
         - 'M03: Admins and Static Pages'
-      summary: FAQ Page
-      description: Get the FAQ page
+      operationId: R305
+      summary: 'R305: FAQ Page'
+      description: 'Get the FAQ page. Access: VIS'
       responses:
         '200':
-          description: FAQ page retrieved successfully
-
+          description: 'FAQ page retrieved successfully'
+    
   /media:
     get:
       tags:
         - 'M03: Admins and Static Pages'
-      summary: Media
-      description: Get media resources
+      operationId: R306
+      summary: 'R306: Media'
+      description: 'Get media resources. Access: VIS'
       responses:
         '200':
-          description: Media resources retrieved successfully
+          description: 'Media resources retrieved successfully'
 
   ##################################################################
   ############################ COMMENTS ############################
@@ -376,51 +531,134 @@ paths:
     post:
       tags:
         - 'M04: Comments'
-      summary: Create Comment
-      description: Create a new comment
+      operationId: R401
+      summary: 'R401: Create Comment'
+      description: 'Create a new comment. Access: USR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                article_id:
+                  type: integer
+                text:
+                  type: string
+              required:
+                - user_id
+                - article_id
+                - text
       responses:
         '201':
-          description: Comment created successfully
+          description: 'Comment created successfully'
 
   /delete-comment:
     delete:
       tags:
         - 'M04: Comments'
-      summary: Delete Comment
-      description: Delete a comment
+      operationId: R402
+      summary: 'R402: Delete Comment'
+      description: 'Delete a comment. Access: USR'
+      parameters:
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: comment_id
+          schema:
+            type: integer
+          required: true
       responses:
         '204':
-          description: Comment deleted successfully
+          description: 'Comment deleted successfully'
 
   /edit-comment:
     put:
       tags:
         - 'M04: Comments'
-      summary: Edit Comment
-      description: Edit a comment
+      operationId: R403
+      summary: 'R403: Edit Comment'
+      description: 'Edit a comment. Access: USR'
+      parameters:
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: comment_id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+              required:
+                - text
       responses:
         '200':
-          description: Comment edited successfully
+          description: 'Comment edited successfully'
 
   /like-comment:
     post:
       tags:
         - 'M04: Comments'
-      summary: Like Comment
-      description: Like a comment
+      operationId: R404
+      summary: 'R404: Like Comment'
+      description: 'Like a comment. Access: USR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                comment_id:
+                  type: integer
+              required:
+                - user_id
+                - comment_id
       responses:
         '201':
-          description: Comment liked successfully
+          description: 'Comment liked successfully'
 
   /dislike-comment:
     post:
       tags:
         - 'M04: Comments'
-      summary: Dislike Comment
-      description: Dislike a comment
+      operationId: R405
+      summary: 'R405: Dislike Comment'
+      description: 'Dislike a comment. Access: USR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                comment_id:
+                  type: integer
+              required:
+                - user_id
+                - comment_id
       responses:
         '201':
-          description: Comment disliked successfully
+          description: 'Comment disliked successfully'
 
   ##################################################################
   ############################ ARTICLES ############################
@@ -430,52 +668,112 @@ paths:
     post:
       tags:
         - 'M05: Articles'
-      summary: Create Article
-      description: Create a new article
+      operationId: R501
+      summary: 'R501: Create Article'
+      description: 'Create a new article. Access: USR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                author:
+                  type: string
+              required:
+                - title
+                - content
+                - author
       responses:
         '201':
-          description: Article created successfully
+          description: 'Article created successfully'
 
   /delete-article:
     delete:
       tags:
         - 'M05: Articles'
-      summary: Delete Article
-      description: Delete an article
+      operationId: R502
+      summary: 'R502: Delete Article'
+      description: 'Delete an article. Access: USR'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
       responses:
         '204':
-          description: Article deleted successfully
+          description: 'Article deleted successfully'
 
   /edit-article:
     put:
       tags:
         - 'M05: Articles'
-      summary: Edit Article
-      description: Edit an article
+      operationId: R503
+      summary: 'R503: Edit Article'
+      description: 'Edit an article. Access: USR'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+              required:
+                - title
+                - content
       responses:
         '200':
-          description: Article edited successfully
+          description: 'Article edited successfully'
 
   /article-like:
     post:
       tags:
         - 'M05: Articles'
-      summary: Like Article
-      description: Like an article
+      operationId: R504
+      summary: 'R504: Like Article'
+      description: 'Like an article. Access: USR'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
       responses:
         '201':
-          description: Article liked successfully
+          description: 'Article liked successfully'
 
   /article-dislike:
     post:
       tags:
         - 'M05: Articles'
-      summary: Dislike Article
-      description: Dislike an article
+      operationId: R505
+      summary: 'R505: Dislike Article'
+      description: 'Dislike an article. Access: USR'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
       responses:
         '201':
-          description: Article disliked successfully
-
+          description: 'Article disliked successfully'
+          
   ##################################################################
   ############################# SEARCH #############################
   ##################################################################
@@ -484,18 +782,75 @@ paths:
     get:
       tags:
         - 'M06: Search'
-      summary: Search User
-      description: Search for a user
+      operationId: R601
+      summary: 'R601: Search User'
+      description: 'Search for a user. Access: USR'
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: string
+          required: true
       responses:
         '200':
-          description: User search successful
+          description: 'User search successful'
 
   /search-article:
     get:
       tags:
         - 'M06: Search'
-      summary: Search Article
-      description: Search for an article
+      operationId: R602
+      summary: 'R602: Search Article'
+      description: 'Search for an article. Access: USR'
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: string
+          required: true
       responses:
         '200':
-          description: Article search successful
+          description: 'Article search successful'
+          
+  ##################################################################
+  ############################# TOPICS ##############################
+  ##################################################################
+
+  /create-topic:
+    post:
+      tags:
+        - 'M07: Topics'
+      operationId: R701
+      summary: 'R701: Create Topic'
+      description: 'Create a new topic. Access: ADM'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+      responses:
+        '201':
+          description: 'Topic created successfully'
+
+  /delete-topic:
+    delete:
+      tags:
+        - 'M07: Topics'
+      operationId: R702
+      summary: 'R702: Delete Topic'
+      description: 'Delete a topic. Access: ADM'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '204':
+          description: 'Topic deleted successfully'
