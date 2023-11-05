@@ -1,120 +1,501 @@
 openapi: 3.0.0
 
-info: 
+info:
   version: '1.0'
-  tite: 'LBAW CollabNews Web API'
+  title: 'LBAW CollabNews Web API'
   description: 'Web Resources Specification (A7) for CollabNews'
 
 servers:
-- url: https://lbaw2394.lbaw.fe.up.pt
- description: Production server
+  - url: https://lbaw2394.lbaw.fe.up.pt
+    description: Production server
 
 externalDocs:
- description: Find more info here.
- url: https://git.fe.up.pt/lbaw/lbaw2324/lbaw2394/-/wikis/eap
+  description: Find more info here.
+  url: https://git.fe.up.pt/lbaw/lbaw2324/lbaw2394/-/wikis/eap
 
 tags:
- - name: 'M01: Authentication'
- - name: 'M02: Users'
- - name: 'M03: Admins and Static Pages'
- - name: 'M04: Comments'
- - name: 'M05: Articles'
- - name: 'M05: Search'
+  - name: 'M01: Authentication'
+  - name: 'M02: Users'
+  - name: 'M03: Admins and Static Pages'
+  - name: 'M04: Comments'
+  - name: 'M05: Articles'
+  - name: 'M06: Search'
+  - name: 'M07: Topics'
 
 paths:
+  ##################################################################
+  ######################### AUTHENTICATION #########################
+  ##################################################################
 
-##################################################################
-######################### AUTHENTICATION #########################
-##################################################################
+  /login:
+    get:
+      tags:
+        - 'M01: Authentication'
+      operationId: R101
+      summary: 'R101: Login Form'
+      description: 'Login to the system. Access: VIS'
+      responses:
+        '200':
+          description: 'Ok. Show Log-in UI'
+    post:
+      tags:
+        - 'M01: Authentication'
+      operationId: R102
+      summary: 'R102: Login Action'
+      description: 'Processes the login form submission. Access: VIS'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '302':
+          description: 'Redirect after processing the login credentials.'
+          content:
+            text/html:
+              examples:
+                302Success:
+                  description: 'Successful authentication. Redirect to user profile.'
+                  value: '/users/{id}'
+                302Error:
+                  description: 'Failed authentication. Redirect to login form.'
+                  value: '/login'
 
-# LOGIN
+  /logout:
+    post:
+      tags:
+        - 'M01: Authentication'
+      operationId: R103
+      summary: 'R103: Logout Action'
+      description: 'Logout the current authenticated user. Access: USR, ADM'
+      responses:
+        '302':
+          description: 'Redirect after processing logout.'
+          content:
+            text/html:
+              examples:
+                302Success:
+                  description: 'Successful logout. Redirect to login form.'
+                  value: '/login'
 
-# LOGOUT
+  /register:
+    get:
+      tags:
+        - 'M01: Authentication'
+      operationId: R104
+      summary: 'R104: Register Form'
+      description: 'Provide new user registration form. Access: VIS'
+      responses:
+        '200':
+          description: 'Ok. Show Sign-Up UI'
+    post:
+      tags:
+        - 'M01: Authentication'
+      operationId: R105
+      summary: 'R105: Register Action'
+      description: 'Processes the new user registration form submission. Access: VIS'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                picture:
+                  type: string
+                  format: binary
+              required:
+                - email
+                - name
+                - picture
+      responses:
+        '302':
+          description: 'Redirect after processing the new user information.'
+          content:
+            text/html:
+              examples:
+                302Success:
+                  description: 'Successful authentication. Redirect to user profile.'
+                  value: '/users/{id}'
+                302Failure:
+                  description: 'Failed authentication. Redirect to login form.'
+                  value: '/login'
 
-# REGISTER
+  /users/{id}:
+    get:
+      tags:
+        - 'M01: Authentication'
+      operationId: R106
+      summary: 'R106: View user profile'
+      description: 'Show the individual user profile. Access: USR'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: 'Ok. Show User Profile UI'
 
-# SEND EMAIL
+  /send-email:
+    post:
+      tags:
+        - 'M01: Authentication'
+      operationId: R107
+      summary: 'R107: Send Email'
+      description: 'Send an email. Access: USR, ADM'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                email_destination:
+                  type: string
+              required:
+                - email
+                - name
+                - email_destination
+      responses:
+        '200':
+          description: 'Email sent successfully'
 
-# RECOVER PASSWORD
+  /recover-password:
+    post:
+      tags:
+        - 'M01: Authentication'
+      operationId: R108
+      summary: 'R108: Recover Password'
+      description: 'Recover a users password'
+      responses:
+        '200':
+          description: 'Password recovery initiated successfully'
 
-##################################################################
-############################# USERS ##############################
-##################################################################
+  ##################################################################
+  ############################# USERS ##############################
+  ##################################################################
 
-# PROFILE
+  /profile:
+    get:
+      tags:
+        - 'M02: Users'
+      summary: User Profile
+      description: Get user profile
+      responses:
+        '200':
+          description: User profile retrieved successfully
 
-# HOMEPAGE
+  /homepage:
+    get:
+      tags:
+        - 'M02: Users'
+      summary: Homepage
+      description: Get the user's homepage
+      responses:
+        '200':
+          description: Homepage retrieved successfully
 
-# EDIT PROFILE
+  /edit-profile:
+    put:
+      tags:
+        - 'M02: Users'
+      summary: Edit Profile
+      description: Edit user profile
+      responses:
+        '200':
+          description: User profile updated successfully
 
-# DELETE PROFILE
+  /delete-profile:
+    delete:
+      tags:
+        - 'M02: Users'
+      summary: Delete Profile
+      description: Delete user profile
+      responses:
+        '204':
+          description: User profile deleted successfully
 
-# DELETE
+  /delete:
+    delete:
+      tags:
+        - 'M02: Users'
+      summary: Delete User
+      description: Delete a user
+      responses:
+        '204':
+          description: User deleted successfully
 
-# REMOVE FOLOWER
+  /remove-follower:
+    delete:
+      tags:
+        - 'M02: Users'
+      summary: Remove Follower
+      description: Remove a follower from the user's list
+      responses:
+        '204':
+          description: Follower removed successfully
 
-# FOLLOW
+  /follow:
+    post:
+      tags:
+        - 'M02: Users'
+      summary: Follow User
+      description: Follow another user
+      responses:
+        '201':
+          description: User followed successfully
 
-# UNFOLLOW
+  /unfollow:
+    delete:
+      tags:
+        - 'M02: Users'
+      summary: Unfollow User
+      description: Unfollow a user
+      responses:
+        '204':
+          description: User unfollowed successfully
 
-# NOTIFICATIONS
+  /notifications:
+    get:
+      tags:
+        - 'M02: Users'
+      summary: Notifications
+      description: Get user notifications
+      responses:
+        '200':
+          description: Notifications retrieved successfully
 
-# NOTIFICATION DELETE
+  /notification-delete:
+    delete:
+      tags:
+        - 'M02: Users'
+      summary: Delete Notification
+      description: Delete a notification
+      responses:
+        '204':
+          description: Notification deleted successfully
 
-# NOTIFICATION UPDATE
+  /notification-update:
+    put:
+      tags:
+        - 'M02: Users'
+      summary: Update Notification
+      description: Update a notification
+      responses:
+        '200':
+          description: Notification updated successfully
 
+  ##################################################################
+  #################### ADMINS AND STATIC PAGES #####################
+  ##################################################################
 
+  /admin-page:
+    get:
+      tags:
+        - 'M03: Admins and Static Pages'
+      summary: Admin Page
+      description: Get admin page
+      responses:
+        '200':
+          description: Admin page retrieved successfully
 
-##################################################################
-#################### ADMINS AND STATIC PAGES #####################
-##################################################################
+  /user-ban:
+    post:
+      tags:
+        - 'M03: Admins and Static Pages'
+      summary: Ban User
+      description: Ban a user
+      responses:
+        '201':
+          description: User banned successfully
 
-# ADMIN PAGE
+  /user-unban:
+    post:
+      tags:
+        - 'M03: Admins and Static Pages'
+      summary: Unban User
+      description: Unban a user
+      responses:
+        '201':
+          description: User unbanned successfully
 
-# USER BAN
+  /about-page:
+    get:
+      tags:
+        - 'M03: Admins and Static Pages'
+      summary: About Page
+      description: Get the about page
+      responses:
+        '200':
+          description: About page retrieved successfully
 
-# USER UNBAN
+  /faq-page:
+    get:
+      tags:
+        - 'M03: Admins and Static Pages'
+      summary: FAQ Page
+      description: Get the FAQ page
+      responses:
+        '200':
+          description: FAQ page retrieved successfully
 
-# ABOUT PAGE
+  /media:
+    get:
+      tags:
+        - 'M03: Admins and Static Pages'
+      summary: Media
+      description: Get media resources
+      responses:
+        '200':
+          description: Media resources retrieved successfully
 
-# FAQ PAGE
+  ##################################################################
+  ############################ COMMENTS ############################
+  ##################################################################
 
-# MEDIA
+  /create-comment:
+    post:
+      tags:
+        - 'M04: Comments'
+      summary: Create Comment
+      description: Create a new comment
+      responses:
+        '201':
+          description: Comment created successfully
 
-##################################################################
-############################ COMMENTS ############################
-##################################################################
+  /delete-comment:
+    delete:
+      tags:
+        - 'M04: Comments'
+      summary: Delete Comment
+      description: Delete a comment
+      responses:
+        '204':
+          description: Comment deleted successfully
 
-# CREATE COMMENT
+  /edit-comment:
+    put:
+      tags:
+        - 'M04: Comments'
+      summary: Edit Comment
+      description: Edit a comment
+      responses:
+        '200':
+          description: Comment edited successfully
 
-# DELETE COMMENT
+  /like-comment:
+    post:
+      tags:
+        - 'M04: Comments'
+      summary: Like Comment
+      description: Like a comment
+      responses:
+        '201':
+          description: Comment liked successfully
 
-# EDIT COMMENT
+  /dislike-comment:
+    post:
+      tags:
+        - 'M04: Comments'
+      summary: Dislike Comment
+      description: Dislike a comment
+      responses:
+        '201':
+          description: Comment disliked successfully
 
-# LIKE COMMENT
+  ##################################################################
+  ############################ ARTICLES ############################
+  ##################################################################
 
-# DISLIKE COMMENT
+  /create-article:
+    post:
+      tags:
+        - 'M05: Articles'
+      summary: Create Article
+      description: Create a new article
+      responses:
+        '201':
+          description: Article created successfully
 
+  /delete-article:
+    delete:
+      tags:
+        - 'M05: Articles'
+      summary: Delete Article
+      description: Delete an article
+      responses:
+        '204':
+          description: Article deleted successfully
 
-##################################################################
-############################ ARTICLES ############################
-##################################################################
+  /edit-article:
+    put:
+      tags:
+        - 'M05: Articles'
+      summary: Edit Article
+      description: Edit an article
+      responses:
+        '200':
+          description: Article edited successfully
 
-# CREATE ARTICLE
+  /article-like:
+    post:
+      tags:
+        - 'M05: Articles'
+      summary: Like Article
+      description: Like an article
+      responses:
+        '201':
+          description: Article liked successfully
 
-# DELETE ARTICLE
+  /article-dislike:
+    post:
+      tags:
+        - 'M05: Articles'
+      summary: Dislike Article
+      description: Dislike an article
+      responses:
+        '201':
+          description: Article disliked successfully
 
-# EDIT ARTICLE
+  ##################################################################
+  ############################# SEARCH #############################
+  ##################################################################
 
-# ARTICLE LIKE
+  /search-user:
+    get:
+      tags:
+        - 'M06: Search'
+      summary: Search User
+      description: Search for a user
+      responses:
+        '200':
+          description: User search successful
 
-# ARTICLE DISLIKE
-
-##################################################################
-############################# SEARCH #############################
-##################################################################
-
-# SEARCH USER
-
-# SEARCH ARTICLE
-
+  /search-article:
+    get:
+      tags:
+        - 'M06: Search'
+      summary: Search Article
+      description: Search for an article
+      responses:
+        '200':
+          description: Article search successful
