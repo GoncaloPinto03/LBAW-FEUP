@@ -27,6 +27,7 @@ paths:
   ######################### AUTHENTICATION #########################
   ##################################################################
 
+# LOGIN
   /login:
     get:
       tags:
@@ -52,8 +53,10 @@ paths:
               properties:
                 email:
                   type: string
+                  format: email
                 password:
                   type: string
+                  format: password
               required:
                 - email
                 - password
@@ -61,15 +64,18 @@ paths:
         '302':
           description: 'Redirect after processing the login credentials.'
           content:
-            text/html:
-              examples:
-                302Success:
-                  description: 'Successful authentication. Redirect to user profile.'
-                  value: '/users/{id}'
-                302Error:
-                  description: 'Failed authentication. Redirect to login form.'
-                  value: '/login'
+            Location:
+              schema:
+                type: string
+                  examples:
+                    302Success:
+                      description: 'Successful authentication. Redirect to user profile.'
+                      value: '/users/{id}'
+                    302Error:
+                      description: 'Failed authentication. Redirect to login form.'
+                      value: '/login'
 
+# LOGOUT
   /logout:
     post:
       tags:
@@ -80,13 +86,16 @@ paths:
       responses:
         '302':
           description: 'Redirect after processing logout.'
-          content:
-            text/html:
-              examples:
-                302Success:
-                  description: 'Successful logout. Redirect to login form.'
-                  value: '/login'
+          headers:
+            Location:
+              schema:
+                type: string
+                  examples:
+                    302Success:
+                      description: 'Successful logout. Redirect to login form.'
+                      value: '/login'
 
+# REGISTER
   /register:
     get:
       tags:
@@ -114,13 +123,18 @@ paths:
                   type: string
                 email:
                   type: string
-                picture:
+                  format: email
+                password:
                   type: string
-                  format: binary
+                  format: password
+                confirm_password:
+                  type: string
+                  format: password
               required:
-                - email
                 - name
-                - picture
+                - email
+                - password
+                - confirm_password
       responses:
         '302':
           description: 'Redirect after processing the new user information.'
@@ -134,30 +148,124 @@ paths:
                   description: 'Failed authentication. Redirect to login form.'
                   value: '/login'
 
-  /users/{id}:
-    get:
-      tags:
-        - 'M01: Authentication'
-      operationId: R106
-      summary: 'R106: View user profile'
-      description: 'Show the individual user profile. Access: USR'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '200':
-          description: 'Ok. Show User Profile UI'
-
+# SEND EMAIL
   /send-email:
     post:
       tags:
         - 'M01: Authentication'
+      operationId: R106
+      summary: 'R106: Send Email'
+      description: 'Send an email with a validation code. Access: USR, ADM'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+              required:
+                - email
+      responses:
+        '200':
+          description: 'Success you received a validation code on your email.'
+        '404':
+          description: 'Error. Email doesnt exists.'
+
+# RECOVER PASSWORD
+  /recover-password:
+    post:
+      tags:
+        - 'M01: Authentication'
       operationId: R107
-      summary: 'R107: Send Email'
-      description: 'Send an email. Access: USR, ADM'
+      summary: 'R107: Recover Password'
+      description: 'Recover a users password'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                password:
+                  type: string
+                  format: password
+                confirm_password:
+                  type: string
+                  format: password
+              required:
+                - code
+                - password
+                - confirm_password;
+      responses:
+        '200':
+          description: 'Success. Your password has been changed successfully.'
+        '404':
+          description: 'Error. Invalid code.'
+
+  ##################################################################
+  ############################# USERS ##############################
+  ##################################################################
+
+  /users/{id}:
+      get:
+        tags:
+          - 'M02: Users'
+        operationId: R201
+        summary: 'R201: View user profile'
+        description: 'Show the individual user profile. Access: USR'
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: integer
+            required: true
+        responses:
+          '200':
+            description: 'Ok. Show User Profile UI'
+          '302':
+          description: 'Redirect if user is not logged in or other user doesnt exists'
+          headers:
+            Location:
+              schema:
+                type: string
+              example:
+                302Failure:
+                  description: 'Failure.'
+    
+  /users/edit-profile:
+   get:
+      operationId: R203
+      summary: 'R203: Edit user profile page.'
+      description: 'Shows the edit profile page of the user. Access: USR'
+      tags:
+        - 'M02: Users'
+
+      responses:
+        '200':
+          description: 'Ok. You can now edit. Show edit profile UI.'
+        '401':
+          description: 'Unauthorized. You cannot edit this profile.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                401Success:
+                  description: 'Unauthorized. Redirect to user profile.'
+                  value: '/user/{id}'
+
+    post:
+      operationId: R204
+      summary: 'R204: Edit user profile action'
+      description: 'Processes and saves the changes made by user. Access: USR'
+      tags:
+        - 'M02: Users'
+
       requestBody:
         required: true
         content:
@@ -169,90 +277,38 @@ paths:
                   type: string
                 email:
                   type: string
-                email_destination:
+                  format: email
+                password:
                   type: string
+                  format: password
+                confirm_password:
+                  type: string
+                  format: password
+
               required:
-                - email
-                - name
-                - email_destination
+              - name
+              - email
       responses:
-        '200':
-          description: 'Email sent successfully'
-
-  /recover-password:
-    post:
-      tags:
-        - 'M01: Authentication'
-      operationId: R108
-      summary: 'R108: Recover Password'
-      description: 'Recover a users password'
-      responses:
-        '200':
-          description: 'Password recovery initiated successfully'
-
-  ##################################################################
-  ############################# USERS ##############################
-  ##################################################################
-
-  /profile:
-    get:
-      tags:
-        - 'M02: Users'
-      operationId: R201
-      summary: 'R201: View User Profile'
-      description: 'View user profile. Access: USR'
-      parameters:
-        - in: query
-          name: user_id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '200':
-          description: 'Ok. Show User Profile UI'
+        '302':
+          description: 'Redirect after processing the new user information.'
+          headers:
+            Location:
+              schema:
+                type: string
+              example:
+                302Success:
+                  description: 'Successful update. Redirect to user profile page.'
+                  value: '/users/{id}'
+                302Failure:
+                  description: 'Failed update. Redirect again to edit profile page.'
+                  value: '/users/edit'
     
-  /edit-profile:
-    put:
-      tags:
-        - 'M02: Users'
-      operationId: R202
-      summary: 'R202: Edit User Profile'
-      description: 'Edit user profile. Access: USR'
-      parameters:
-        - in: query
-          name: user_id
-          schema:
-            type: integer
-          required: true
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                email:
-                  type: string
-                picture:
-                  type: string
-                bio:
-                  type: string
-              required:
-                - user_id
-                - name
-                - email
-      responses:
-        '200':
-          description: 'User profile updated successfully'
-    
-  /delete-profile:
+  /user/delete-profile:
     delete:
       tags:
         - 'M02: Users'
-      operationId: R203
-      summary: 'R203: Delete User Profile'
+      operationId: R204
+      summary: 'R204: Delete User Profile'
       description: 'Delete user profile. Access: USR'
       parameters:
         - in: query
@@ -264,29 +320,12 @@ paths:
         '204':
           description: 'User profile deleted successfully'
     
-  /delete:
+  /user/remove-follower:
     delete:
       tags:
         - 'M02: Users'
-      operationId: R204
-      summary: 'R204: Delete User'
-      description: 'Delete a user. Access: ADM'
-      parameters:
-        - in: query
-          name: user_id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '204':
-          description: 'User deleted successfully'
-    
-  /remove-follower:
-    delete:
-      tags:
-        - 'M02: Users'
-      operationId: R205
-      summary: 'R205: Remove Follower'
+      operationId: R206
+      summary: 'R206: Remove Follower'
       description: 'Remove a follower from the users list. Access: USR'
       parameters:
         - in: query
@@ -303,12 +342,12 @@ paths:
         '204':
           description: 'Follower removed successfully'
     
-  /follow:
+  /user/follow:
     post:
       tags:
         - 'M02: Users'
-      operationId: R206
-      summary: 'R206: Follow User'
+      operationId: R207
+      summary: 'R207: Follow User'
       description: 'Follow another user. Access: USR'
       requestBody:
         required: true
@@ -328,12 +367,12 @@ paths:
         '201':
           description: 'User followed successfully'
     
-  /unfollow:
+  /user/unfollow:
     delete:
       tags:
         - 'M02: Users'
-      operationId: R207
-      summary: 'R207: Unfollow User'
+      operationId: R208
+      summary: 'R208: Unfollow User'
       description: 'Unfollow a user. Access: USR'
       parameters:
         - in: query
@@ -350,12 +389,12 @@ paths:
         '204':
           description: 'User unfollowed successfully'
     
-  /notifications:
+  /user/notifications:
     get:
       tags:
         - 'M02: Users'
-      operationId: R208
-      summary: 'R208: Get Notifications'
+      operationId: R209
+      summary: 'R209: Get Notifications'
       description: 'Get user notifications. Access: USR'
       parameters:
         - in: query
@@ -367,12 +406,12 @@ paths:
         '200':
           description: 'Notifications retrieved successfully'
     
-  /notification-delete:
+  /user/notification/delete:
     delete:
       tags:
         - 'M02: Users'
-      operationId: R209
-      summary: 'R209: Delete Notification'
+      operationId: R210
+      summary: 'R210: Delete Notification'
       description: 'Delete a notification. Access: USR'
       parameters:
         - in: query
@@ -389,12 +428,12 @@ paths:
         '204':
           description: 'Notification deleted successfully'
     
-  /notification-update:
+  /user/notification/update:
     put:
       tags:
         - 'M02: Users'
-      operationId: R210
-      summary: 'R210: Update Notification'
+      operationId: R211
+      summary: 'R211: Update Notification'
       description: 'Update a notification. Access: USR'
       parameters:
         - in: query
@@ -424,29 +463,40 @@ paths:
       responses:
         '200':
           description: 'Notification updated successfully'
+        '302'
+          description: 'Forbiden action.'
 
   ##################################################################
   #################### ADMINS AND STATIC PAGES #####################
   ##################################################################
 
-  /admin-page:
+  /admin/{id}:
     get:
       tags:
         - 'M03: Admins and Static Pages'
       operationId: R301
-      summary: 'R301: Admin Page'
+      summary: 'R301: View admin Page'
       description: 'Get admin page. Access: ADM'
       parameters:
-        - in: query
-          name: admin_id
+        - in: path
+          name: id
           schema:
             type: integer
           required: true
       responses:
         '200':
-          description: 'Admin page retrieved successfully'
+          description: 'Ok. Show Admin page UI'
+        '302':
+          description: 'Redirect if admin is not logged in'
+          headers:
+            Location:
+              schema:
+                type: string
+              example:
+                302Failure:
+                  description: 'Failure.'
     
-  /user-ban:
+  /admin/user/ban:
     post:
       tags:
         - 'M03: Admins and Static Pages'
@@ -465,31 +515,8 @@ paths:
             type: integer
           required: true
       responses:
-        '201':
+        '200':
           description: 'User banned successfully'
-    
-  /user-unban:
-    post:
-      tags:
-        - 'M03: Admins and Static Pages'
-      operationId: R303
-      summary: 'R303: Unban User'
-      description: 'Unban a user. Access: ADM'
-      parameters:
-        - in: query
-          name: admin_id
-          schema:
-            type: integer
-          required: true
-        - in: query
-          name: user_id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '201':
-          description: 'User unbanned successfully'
-    
   /about-page:
     get:
       tags:
@@ -527,7 +554,7 @@ paths:
   ############################ COMMENTS ############################
   ##################################################################
 
-  /create-comment:
+  /comment/create:
     post:
       tags:
         - 'M04: Comments'
@@ -537,7 +564,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -552,30 +579,36 @@ paths:
                 - article_id
                 - text
       responses:
-        '201':
+        '200':
           description: 'Comment created successfully'
+        '403'
+          description: 'Forbiden action'
 
-  /delete-comment:
-    delete:
+  /comment/delete:
+    post:
+      operationId: R402
+      summary: 'R402 : Delete comment'
+      description: 'Delete comment. Access: OWN, ADM'
       tags:
         - 'M04: Comments'
-      operationId: R402
-      summary: 'R402: Delete Comment'
-      description: 'Delete a comment. Access: USR'
-      parameters:
-        - in: query
-          name: user_id
-          schema:
-            type: integer
-          required: true
-        - in: query
-          name: comment_id
-          schema:
-            type: integer
-          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+              required:
+                  - id
+
       responses:
-        '204':
-          description: 'Comment deleted successfully'
+        '200':
+          description: 'Redirect after processing the old comment information.'
+        '403':
+          description: 'Forbiden action.'
 
   /edit-comment:
     put:
@@ -664,7 +697,7 @@ paths:
   ############################ ARTICLES ############################
   ##################################################################
 
-  /create-article:
+  /article/create:
     post:
       tags:
         - 'M05: Articles'
@@ -674,111 +707,145 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
-                title:
+                name:
                   type: string
-                content:
+                description:
                   type: string
-                author:
+                media:
                   type: string
+                  format: binary  
               required:
-                - title
-                - content
-                - author
+                - name
+                - description
       responses:
-        '201':
+        '200':
           description: 'Article created successfully'
+        '403':
+          description: 'Forbiden action.'
+        
 
-  /delete-article:
-    delete:
-      tags:
-        - 'M05: Articles'
+  /article/delete:
+
+    post:
       operationId: R502
-      summary: 'R502: Delete Article'
-      description: 'Delete an article. Access: USR'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-      responses:
-        '204':
-          description: 'Article deleted successfully'
-
-  /edit-article:
-    put:
+      summary: 'R502 : Delete article action'
+      description: 'Delete article. Access: USR'
       tags:
         - 'M05: Articles'
-      operationId: R503
-      summary: 'R503: Edit Article'
-      description: 'Edit an article. Access: USR'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+
       requestBody:
         required: true
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
-                title:
-                  type: string
-                content:
-                  type: string
+                id:
+                  type: integer
               required:
-                - title
-                - content
+                  - id
+
       responses:
         '200':
-          description: 'Article edited successfully'
+          description: 'Redirect after processing the new article information.'
+        '403':
+          description: 'Forbiden action.'
 
-  /article-like:
+  /article/edit:
+
+    post:
+      operationId: R503
+      summary: 'R503: Edit article action'
+      description: 'Edit article. Access: USR'
+      tags:
+        - 'M05: Articles'
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                description:
+                  type: string
+                media:
+                  type: string
+                  format: binary
+              required:
+                  - id
+                  - name
+                  - description
+
+      responses:
+        '200':
+          description: 'Edit successfully.'
+        '403':
+          description: 'Forbiden action.'
+
+  /article/like:
     post:
       tags:
         - 'M05: Articles'
       operationId: R504
       summary: 'R504: Like Article'
       description: 'Like an article. Access: USR'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+              required:
+                  - id
       responses:
-        '201':
+        '200':
           description: 'Article liked successfully'
+        '403':
+          description: 'Forbiden action.'
 
-  /article-dislike:
+  /article/dislike:
     post:
+      operationId: R505
+      summary: 'R505: Unlike article'
+      description: 'Unlike article. Access: USR'
       tags:
         - 'M05: Articles'
-      operationId: R505
-      summary: 'R505: Dislike Article'
-      description: 'Dislike an article. Access: USR'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+              required:
+                  - id
+
       responses:
-        '201':
-          description: 'Article disliked successfully'
+        '200':
+          description: 'Unlike successfully.'
+        '403':
+          description: 'Forbiden action.'
           
   ##################################################################
   ############################# SEARCH #############################
   ##################################################################
 
-  /search-user:
+  /search/user:
     get:
       tags:
         - 'M06: Search'
@@ -787,15 +854,18 @@ paths:
       description: 'Search for a user. Access: USR'
       parameters:
         - in: query
-          name: query
+          name: search
+          description: 'Search content'
           schema:
             type: string
           required: true
       responses:
         '200':
-          description: 'User search successful'
+          description: 'Success. Returns some HTML text containing a list of users information'
+        '403':
+          description: 'Forbiden action. You need to be logged in first'
 
-  /search-article:
+  /search/article:
     get:
       tags:
         - 'M06: Search'
@@ -804,19 +874,22 @@ paths:
       description: 'Search for an article. Access: USR'
       parameters:
         - in: query
-          name: query
+          name: description
+          description: 'Search description'
           schema:
             type: string
           required: true
       responses:
         '200':
-          description: 'Article search successful'
+          description: 'Success. Returns some HTML text containing a list of posts information'
+        '403':
+          description: 'Forbiden action. You need to be logged in first'
           
   ##################################################################
   ############################# TOPICS ##############################
   ##################################################################
 
-  /create-topic:
+  /topic/create:
     post:
       tags:
         - 'M07: Topics'
@@ -826,7 +899,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -835,22 +908,37 @@ paths:
               required:
                 - name
       responses:
-        '201':
+        '200':
           description: 'Topic created successfully'
+        '403':
+          description: 'Forbiden action'
 
-  /delete-topic:
-    delete:
+
+  /topic/delete:
+    post:
+      operationId: R702
+      summary: 'R702 : Delete Topic'
+      description: 'Delete Topic. Access: ADM'
       tags:
         - 'M07: Topics'
-      operationId: R702
-      summary: 'R702: Delete Topic'
-      description: 'Delete a topic. Access: ADM'
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+              required:
+                  - id
+
       responses:
-        '204':
-          description: 'Topic deleted successfully'
+        '200':
+          description: 'Topic deleted successfully.'
+        '403':
+          description: 'Forbiden action.'
+
+
+  
