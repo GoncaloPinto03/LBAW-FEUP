@@ -217,7 +217,7 @@ paths:
           - 'M02: Users'
         operationId: R201
         summary: 'R201: View user profile'
-        description: 'Show the individual user profile. Access: USR'
+        description: 'Show the individual user profile. Access: USR, OWN'
         parameters:
           - in: path
             name: id
@@ -241,7 +241,7 @@ paths:
    get:
       operationId: R203
       summary: 'R203: Edit user profile page.'
-      description: 'Shows the edit profile page of the user. Access: USR'
+      description: 'Shows the edit profile page of the user. Access: OWN'
       tags:
         - 'M02: Users'
 
@@ -309,7 +309,7 @@ paths:
         - 'M02: Users'
       operationId: R204
       summary: 'R204: Delete User Profile'
-      description: 'Delete user profile. Access: USR'
+      description: 'Delete user profile. Access: OWN, ADM'
       parameters:
         - in: query
           name: user_id
@@ -326,7 +326,7 @@ paths:
         - 'M02: Users'
       operationId: R206
       summary: 'R206: Remove Follower'
-      description: 'Remove a follower from the users list. Access: USR'
+      description: 'Remove a follower from the users list. Access: OWN'
       parameters:
         - in: query
           name: user_id
@@ -523,7 +523,7 @@ paths:
         - 'M03: Admins and Static Pages'
       operationId: R304
       summary: 'R304: About Page'
-      description: 'Get the about page. Access: VIS'
+      description: 'Get the about page. Access: USR, ADM, VIS'
       responses:
         '200':
           description: 'About page retrieved successfully'
@@ -534,7 +534,7 @@ paths:
         - 'M03: Admins and Static Pages'
       operationId: R305
       summary: 'R305: FAQ Page'
-      description: 'Get the FAQ page. Access: VIS'
+      description: 'Get the FAQ page. Access: USR, ADM, VIS'
       responses:
         '200':
           description: 'FAQ page retrieved successfully'
@@ -616,7 +616,7 @@ paths:
         - 'M04: Comments'
       operationId: R403
       summary: 'R403: Edit Comment'
-      description: 'Edit a comment. Access: USR'
+      description: 'Edit a comment. Access: OWN'
       parameters:
         - in: query
           name: user_id
@@ -649,7 +649,7 @@ paths:
         - 'M04: Comments'
       operationId: R404
       summary: 'R404: Like Comment'
-      description: 'Like a comment. Access: USR'
+      description: 'Like a comment. Access: USR, OWN'
       requestBody:
         required: true
         content:
@@ -674,7 +674,7 @@ paths:
         - 'M04: Comments'
       operationId: R405
       summary: 'R405: Dislike Comment'
-      description: 'Dislike a comment. Access: USR'
+      description: 'Dislike a comment. Access: USR, OWN'
       requestBody:
         required: true
         content:
@@ -733,7 +733,7 @@ paths:
     post:
       operationId: R502
       summary: 'R502 : Delete article action'
-      description: 'Delete article. Access: USR'
+      description: 'Delete article. Access: OWN, ADM'
       tags:
         - 'M05: Articles'
 
@@ -760,7 +760,7 @@ paths:
     post:
       operationId: R503
       summary: 'R503: Edit article action'
-      description: 'Edit article. Access: USR'
+      description: 'Edit article. Access: OWN'
       tags:
         - 'M05: Articles'
 
@@ -797,7 +797,7 @@ paths:
         - 'M05: Articles'
       operationId: R504
       summary: 'R504: Like Article'
-      description: 'Like an article. Access: USR'
+      description: 'Like an article. Access: USR, OWN'
       requestBody:
         required: true
         content:
@@ -819,7 +819,7 @@ paths:
     post:
       operationId: R505
       summary: 'R505: Unlike article'
-      description: 'Unlike article. Access: USR'
+      description: 'Unlike article. Access: USR, OWN'
       tags:
         - 'M05: Articles'
 
