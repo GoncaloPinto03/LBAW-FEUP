@@ -67,7 +67,7 @@ paths:
             Location:
               schema:
                 type: string
-                  examples:
+                examples:
                     302Success:
                       description: 'Successful authentication. Redirect to user profile.'
                       value: '/users/{id}'
@@ -90,7 +90,7 @@ paths:
             Location:
               schema:
                 type: string
-                  examples:
+                examples:
                     302Success:
                       description: 'Successful logout. Redirect to login form.'
                       value: '/login'
@@ -259,7 +259,7 @@ paths:
                   description: 'Unauthorized. Redirect to user profile.'
                   value: '/user/{id}'
 
-    post:
+  post:
       operationId: R204
       summary: 'R204: Edit user profile action'
       description: 'Processes and saves the changes made by user. Access: USR'
@@ -463,7 +463,7 @@ paths:
       responses:
         '200':
           description: 'Notification updated successfully'
-        '302'
+        '302':
           description: 'Forbiden action.'
 
   ##################################################################
@@ -581,7 +581,7 @@ paths:
       responses:
         '200':
           description: 'Comment created successfully'
-        '403'
+        '403':
           description: 'Forbiden action'
 
   /comment/delete:
@@ -939,6 +939,3 @@ paths:
           description: 'Topic deleted successfully.'
         '403':
           description: 'Forbiden action.'
-
-
-  
