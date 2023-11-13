@@ -23,7 +23,9 @@
     <body>
         <main>
             <header>
-                <h1><a href="{{ url('/cards') }}">CollabNews</a></h1>
+                <a href="{{ url('/cards') }}">
+                    <img src="{{ asset('images/logo_big.png') }}" alt="CollabNews Logo" id="header-logo">
+                </a>
                 @if (Auth::check())
                     <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
                 @endif

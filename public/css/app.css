@@ -1,15 +1,11 @@
 body {
     background-color: #F0F3F5;
-    color: #19535F;
+    color: #5a86ba;
   }
   main > header {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
+    display: flex;
     align-items: center;
-    background-color: #19535F;
-    padding: 1em;
-    margin: 1em;
-    border-radius: 10px;
+    
   }
   main > header h1 {
     margin: 0;
@@ -21,6 +17,10 @@ body {
   main > header span {
     margin: 1em;
     justify-self: center;
+  }
+
+  #header-logo {
+    width: 200px;
   }
   #cards {
     display: grid;
@@ -86,8 +86,8 @@ body {
   #content > form {
     margin: 0 auto;
     padding: 1em;
-    max-width: 20em;
-    border: 1px solid #19535F;
+    max-width: 30em;
+    border: 1px solid #5a86ba;
     border-radius: 10px;
   }
   #content > form .error {
@@ -101,6 +101,15 @@ body {
   #content > form input {
     background-color: white;
   }
+
+  #content > #forms  {
+    margin: 0 auto;
+    padding: 1em;
+    max-width: 40em;
+    border: 1px solid #5a86ba;
+    border-radius: 10px;
+  }
+
   @media (max-width: 70em) {
     #cards {
       grid-template-columns: repeat(2, 1fr);
@@ -143,15 +152,15 @@ body {
    * Some styles might be missing
    **/
   button {
-    background-color: #19535F;
-    border-color: #19535F;
+    background-color: #5a86ba;
+    border-color: #5a86ba;
   }
   a.button {
-    background-color: #19535F;
-    border-color: #19535F;
+    background-color: #5a86ba;
+    border-color: #5a86ba;
   }
   a.button.button-outline {
-    color: #19535F;
+    color: #5a86ba;
   }
   a {
     color: #F0F3F5;
@@ -159,6 +168,8 @@ body {
   input[type=text]:focus,
   input[type=email]:focus,
   input[type=password]:focus {
-    border-color: #19535F;
+    border-color: #5a86ba;
   }
+
+
   

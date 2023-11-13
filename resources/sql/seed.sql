@@ -1,5 +1,5 @@
-DROP SCHEMA lbaw2394 CASCADE;
-CREATE SCHEMA lbaw2394	
+DROP SCHEMA IF EXISTS lbaw2394 CASCADE;
+CREATE SCHEMA IF NOT EXISTS lbaw2394;
 SET search_path TO lbaw2394;
 
 ------------------------------------------------------------------------------------
@@ -469,31 +469,6 @@ EXECUTE FUNCTION prevent_duplicate_topic_follow();
 ------------------------------------- TRANSACTIONS ---------------------------------
 ------------------------------------------------------------------------------------
 
-------TRAN 01------
-
-BEGIN TRANSACTION;
-
-SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
-
-INSERT INTO report (description, date)
- VALUES ($description, TIMESTAMP);
-
-INSERT INTO article_report (article_id, report_id)
- VALUES (currval('article_id_seq'), $report_id);
-
-END TRANSACTION;
-
-
-------TRAN 02------
-
-BEGIN TRANSACTION;
-
-SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
-
-    INSERT INTO comment (text, date, likes, dislikes, user_id, article_id)
-     VALUES ($text, TIMESTAMP, 0, 0, $user_id, $article_id);
-
-COMMIT;
 
 -- Populate
 

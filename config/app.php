@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('CollabNews', 'Laravel'),
+    'name' => env('APP_NAME', 'CollabNews'),
 
     /*
     |--------------------------------------------------------------------------
