@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @include('partials.sidebar')
+@include('partials.topbar')
+
 
 @section('content')
-
 
 
 <div id="forms">

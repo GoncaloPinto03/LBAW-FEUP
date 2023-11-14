@@ -16,14 +16,14 @@ body {
 }
 
 #sidebar {
-    height: 42%;
+    height: 38%;
     width: 250px;
     position: fixed;
     background-color: #F0F3F5;
     color: black;
     border-top: 2px solid #5a86ba;
     border-bottom: 2px solid #5a86ba;   
-    top: 90px; 
+    top: 250px; 
     left: 75px;
 }
 
@@ -36,8 +36,6 @@ body {
     color: black;
     display: block;
     transition: color 0.3s, transform 0.3s; 
-
-
 }
 
 #sidebar a:hover {
@@ -47,9 +45,66 @@ body {
 }
 
 
-
 #content {
     margin-left: 300px;
     padding: 20px;
 }
+
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+
+
+.search-box {
+    display: flex;
+    border-radius: 30px;
+    width: 40%;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    border-radius: 5px 0 0 5px;
+    padding: 10px;
+    width: 1000px; 
+}
+
+
+.search-button {
+    background-color: #F0F3F5;
+    color:#5a86ba;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+}
+
+.search-button:hover{
+    background-color: #5a86ba;
+    color: white;
+
+}
+
+
+.sign-in-button {
+    background-color: #5a86ba;
+    color: white;
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sign-in-button:hover {
+    background-color: #3c6393;
+
+}
+
 

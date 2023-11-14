@@ -12,4 +12,5 @@
         <a href="#">Celebrities</a>
     </div>
 
+
 @endsection

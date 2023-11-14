@@ -29,10 +29,14 @@
                 @endif
             </header>
 
+            <section id="topbar">
+                @yield ('topbar')
+            </section>
+                
+
 
             <nav id="sidebar">
-                @section('sidebar')
-                @show
+                @yield ('sidebar')
             </nav>
 
             
