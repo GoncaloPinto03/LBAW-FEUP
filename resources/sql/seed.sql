@@ -51,7 +51,7 @@ CREATE TABLE admin (
     admin_id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL
+    password VARCHAR(50) NOT NULL,
 );
 
 ------- USER -------
@@ -60,7 +60,8 @@ CREATE TABLE users(
     email TEXT NOT NULL CONSTRAINT user_email_uk UNIQUE,
     name TEXT NOT NULL,
     password TEXT NOT NULL,
-    reputation INTEGER
+    reputation INTEGER,
+    remember_token VARCHAR
 );
 
 -------- BAN --------

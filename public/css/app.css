@@ -102,7 +102,7 @@ body {
     background-color: white;
   }
 
-  #content > #forms  {
+ #forms  {
     margin: 0 auto;
     padding: 1em;
     max-width: 40em;
@@ -110,6 +110,11 @@ body {
     border-radius: 10px;
   }
 
+#form-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   @media (max-width: 70em) {
     #cards {
       grid-template-columns: repeat(2, 1fr);

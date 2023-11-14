@@ -3,6 +3,9 @@
 @section('content')
 <div id="forms">
     <form method="POST" action="{{ route('login') }}">
+        <a href="{{ url('/cards') }} " id="form-logo">
+            <img src="{{ asset('images/logo_big.png') }}" alt="CollabNews Logo" id="header-logo"> 
+        </a>
         {{ csrf_field() }}
 
         <label for="email">E-mail</label>
