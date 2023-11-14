@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="sidebar2">
+
+<div id="sidebar">
         <h1 style="margin: 5px;">Topics</h1>
         <ul style="list-style-type: none; padding: 0; margin: 0;">
-            <li><a href="#" style="color:black; margin:2px;"><i class="fa-solid fa-gamepad" style="color: black; margin: 2px;"></i>Games</a></li>
-            <li><a href="#" style="color:black;margin:2px;"><i class="fa-regular fa-futbol" style="color: black; margin: 2px;"></i>Sports</a></li>
-            <li><a href="#" style="color:black;margin:2px;"><i class="fa-solid fa-briefcase" style="color: black; margin: 2px;"></i>Business</a></li>
-            <li><a href="#" style="color:black;margin:2px;"><i class="fa-brands fa-bitcoin" style="color: black; margin: 2px;"></i>Crypto</a></li>
-            <li><a href="#" style="color:black;margin:2px;"><i class="fa-solid fa-tv" style="color: black; margin: 2px;"></i>Television</a></li>
-            <li><a href="#" style="color:black;margin:2px;">Celebrities</a></li>
+            <li><a href="#" style=><i class="fa-solid fa-gamepad" style="color: black; margin: 2px;"></i>Games</a></li>
+            <li><a href="#" style=><i class="fa-regular fa-futbol" style="color: black; margin: 2px;"></i>Sports</a></li>
+            <li><a href="#" style=><i class="fa-solid fa-briefcase" style="color: black; margin: 2px;"></i>Business</a></li>
+            <li><a href="#" style=><i class="fa-brands fa-bitcoin" style="color: black; margin: 2px;"></i>Crypto</a></li>
+            <li><a href="#" style=><i class="fa-solid fa-tv" style="color: black; margin: 2px;"></i>Television</a></li>
+            <li><a href="#" style=>Celebrities</a></li>
         </ul>
     </div>
 

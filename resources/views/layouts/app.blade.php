@@ -12,6 +12,7 @@
 
         <!-- Styles -->
         <link href="{{ url('css/milligram.min.css') }}" rel="stylesheet">
+        <link href="{{ url('css/sidebar.css') }}" rel="stylesheet">
         <link href="{{ url('css/app.css') }}" rel="stylesheet">
         <script type="text/javascript">
             // Fix for Firefox autofocus CSS bug
@@ -32,9 +33,6 @@
             </header>
 
 
-            <section id="side_bar">
-                @yield('sidebar')
-            </section>
 
             <section id="content">
                 @yield('content')
