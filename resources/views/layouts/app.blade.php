@@ -30,9 +30,16 @@
                     <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
                 @endif
             </header>
+
+
+            <section id="side_bar">
+                @yield('sidebar')
+            </section>
+
             <section id="content">
                 @yield('content')
             </section>
+
         </main>
     </body>
 </html>
