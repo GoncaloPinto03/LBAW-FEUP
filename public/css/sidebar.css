@@ -18,7 +18,7 @@ body {
 #sidebar {
     height: 38%;
     width: 250px;
-    position: fixed;
+    position:absolute;
     background-color: #F0F3F5;
     color: black;
     border-top: 2px solid #5a86ba;
@@ -56,6 +56,10 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+}
+
+#header-container logo {
+    width: 0px; 
 }
 
 

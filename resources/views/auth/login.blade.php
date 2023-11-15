@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @include('partials.sidebar')
 @include('partials.topbar')
+@include('partials.articles_home')
 
 
-@section('content')
+@section('content1')
 
 
 <div id="forms">
