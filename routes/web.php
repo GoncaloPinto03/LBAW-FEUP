@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,13 @@ use App\Http\Controllers\HomeController;
 
 // Home route accessible to everyone
 Route::redirect('/', '/home');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
+Route::get('/profile', [HomeController::class, 'profile'])->name('profile')->middleware('auth');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('auth', 'admin');
+
+
 
 // Authentication routes
 Route::controller(LoginController::class)->group(function () {

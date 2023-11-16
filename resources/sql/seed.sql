@@ -474,25 +474,24 @@ EXECUTE FUNCTION prevent_duplicate_topic_follow();
 
 INSERT INTO admin (name, email, password) 
 VALUES
-    ('John Doe', 'johndoe@example.com', 'adminpass1'),
-    ('Jane Smith', 'janesmith@example.com', 'adminpass2'),
-    ('Michael Johnson', 'michaeljohnson@example.com', 'adminpass3'),
-    ('Emily Wilson', 'emilywilson@example.com', 'adminpass4'),
-    ('David Brown', 'davidbrown@example.com', 'adminpass5');
-
+    ('John Doe', 'johndoe@example.com', '{{ Hash::make('adminpass1') }}'),
+    ('Jane Smith', 'janesmith@example.com', '{{ Hash::make('adminpass2') }}'),
+    ('Michael Johnson', 'michaeljohnson@example.com', '{{ Hash::make('adminpass3') }}'),
+    ('Emily Wilson', 'emilywilson@example.com', '{{ Hash::make('adminpass4') }}'),
+    ('David Brown', 'davidbrown@example.com', '{{ Hash::make('adminpass5') }}');
 
 INSERT INTO users (email, name, password, reputation)
 VALUES
-    ('alice@example.com', 'Alice Johnson', 'password1', 100),
-    ('bob@example.com', 'Bob Smith', 'password2', 150),
-    ('charlie@example.com', 'Charlie Davis', 'password3', 200),
-    ('david@example.com', 'David Wilson', 'password4', 50),
-    ('eva@example.com', 'Eva Martin', 'password5', 300),
-    ('frank@example.com', 'Frank Harris', 'password6', 75),
-    ('grace@example.com', 'Grace Lee', 'password7', 250),
-    ('helen@example.com', 'Helen White', 'password8', 30),
-    ('ian@example.com', 'Ian Clark', 'password9', 180),
-    ('judy@example.com', 'Judy Brown', 'password10', 90);
+    ('alice@example.com', 'Alice Johnson', '{{ Hash::make('password1') }}', 100),
+    ('bob@example.com', 'Bob Smith', '{{ Hash::make('password2') }}', 150),
+    ('charlie@example.com', 'Charlie Davis', '{{ Hash::make('password3') }}', 200),
+    ('david@example.com', 'David Wilson', '{{ Hash::make('password4') }}', 50),
+    ('eva@example.com', 'Eva Martin', '{{ Hash::make('password5') }}', 300),
+    ('frank@example.com', 'Frank Harris', '{{ Hash::make('password6') }}', 75),
+    ('grace@example.com', 'Grace Lee', '{{ Hash::make('password7') }}', 250),
+    ('helen@example.com', 'Helen White', '{{ Hash::make('password8') }}', 30),
+    ('ian@example.com', 'Ian Clark', '{{ Hash::make('password9') }}', 180),
+    ('judy@example.com', 'Judy Brown', '{{ Hash::make('password10') }}', 90);
 
 
 INSERT INTO ban (user_id, admin_id) 
