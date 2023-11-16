@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-@extends('layouts.app')
-
-@section('sidebar')
-
-    <div id="sidebar2">
-=======
 @section('sidebar')
 
     <div id="sidebar">
->>>>>>> login/register
         <h1>Topics</h1>
         <a href="#"><i class="fa-solid fa-gamepad" style="color: black; margin: 2px;"></i>Games</a>
         <a href="#"><i class="fa-regular fa-futbol"style="color: black; margin: 2px;"></i>Sports</a>

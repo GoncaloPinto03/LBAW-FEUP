@@ -24,29 +24,9 @@
     </head>
     <body>
         <main>
-<<<<<<< HEAD
-            <header>
-                @if (Auth::check())
-                    <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
-                @endif
-            </header>
-
-            <section id="topbar">
-                @yield ('topbar')
-            </section>
-                
-
-
-            <nav id="sidebar">
-                @yield ('sidebar')
-            </nav>
-
-            
-=======
 
                 @yield('topbar')
 
->>>>>>> login/register
             <section id="content">
                 @yield('content')
             </section>
