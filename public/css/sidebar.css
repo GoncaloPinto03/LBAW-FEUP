@@ -1,25 +1,12 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> login/register
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
 }
 
-<<<<<<< HEAD
-
-#sidebar h1{
-    color: #5a86ba;
-    font-size: 30px;
-    margin-top: 2px;
-    margin-bottom: 5px;
-=======
 #sidebar h1 {
     color: #5a86ba;
     font-size: 30px;
->>>>>>> login/register
     padding: 15px;
     border-bottom: 0.5px solid #5a86ba;
 }
@@ -27,18 +14,6 @@ body {
 #sidebar {
     height: 38%;
     width: 250px;
-<<<<<<< HEAD
-    position:absolute;
-    background-color: #F0F3F5;
-    color: black;
-    border: 0.5px solid #5a86ba; 
-    border-radius: 10px;  
-    top: 250px; 
-    left: 45px;
-}
-
-
-=======
     position: absolute;
     background-color: #F0F3F5;
     color: black;
@@ -48,7 +23,6 @@ body {
     left: 45px;
 }
 
->>>>>>> login/register
 #sidebar a {
     padding: 0.3em;
     margin-left: 0.3em;
@@ -56,31 +30,14 @@ body {
     font-size: 20px;
     color: black;
     display: block;
-<<<<<<< HEAD
-    transition: color 0.3s, transform 0.3s; 
-=======
     transition: color 0.3s, transform 0.3s;
->>>>>>> login/register
 }
 
 #sidebar a:hover {
     color: #5a86ba;
     transform: scale(1.1);
-<<<<<<< HEAD
-
 }
 
-
-#content {
-    margin-left: 300px;
-    padding: 20px;
-}
-
-
-=======
-}
-
->>>>>>> login/register
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -88,46 +45,6 @@ body {
     padding: 10px;
 }
 
-<<<<<<< HEAD
-#header-container logo {
-    width: 0px; 
-}
-
-
-
-.search-box {
-    display: flex;
-    border-radius: 30px;
-    width: 40%;
-}
-
-.search-input {
-    flex: 1;
-    border: none;
-    outline: none;
-    border-radius: 5px 0 0 5px;
-    padding: 10px;
-    width: 1000px; 
-}
-
-
-.search-button {
-    background-color: #F0F3F5;
-    color:#5a86ba;
-    border: none;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    transition: background-color 0.3s ease; 
-}
-
-.search-button:hover{
-    background-color: #5a86ba;
-    color: white;
-
-}
-
-
-=======
 .search-box {
     display: flex;
     border-radius: 30px;
@@ -154,7 +71,6 @@ body {
     color: white;
 }
 
->>>>>>> login/register
 .sign-in-button {
     background-color: #5a86ba;
     color: white;
@@ -167,12 +83,6 @@ body {
 
 .sign-in-button:hover {
     background-color: #3c6393;
-<<<<<<< HEAD
-
-}
-
-
-=======
 }
 
 /* Responsive styles */
@@ -188,4 +98,3 @@ body {
         align-items: flex-end; /* Align items to the right */
     }
 }
->>>>>>> login/register
