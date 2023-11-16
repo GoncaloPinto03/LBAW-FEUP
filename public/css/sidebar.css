@@ -21,10 +21,10 @@ body {
     position:absolute;
     background-color: #F0F3F5;
     color: black;
-    border-top: 2px solid #5a86ba;
-    border-bottom: 2px solid #5a86ba;   
+    border: 0.5px solid #5a86ba; 
+    border-radius: 10px;  
     top: 250px; 
-    left: 75px;
+    left: 45px;
 }
 
 
