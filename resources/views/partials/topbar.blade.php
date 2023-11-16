@@ -8,7 +8,7 @@
             <button class="search-button">Search</button>
         </div>
         @if (Auth::check())
-            <a href="{{ route('home') }}" class="button">Profile</a>
+            <a href="{{ url('/profile/'.Auth::user()->user_id) }}" class="button">Profile</a>
             <a class="button" href="{{ url('/logout') }}"> Logout </a>
         @else
             <a href="{{ route('login') }}" class="button">Sign In</a>

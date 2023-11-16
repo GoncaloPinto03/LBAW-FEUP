@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,10 @@ Route::controller(RegisterController::class)->group(function () {
     Route::post('/register', 'register');
 });
 
+Route::get('/profile/{id}', [UsersController::class, 'index'])->where('id', '[0-9]+');
+//Route::get('user/{id}', [UserController::class, 'index'])->where('id', '[0-9]+')->name('profile');
+
+/*
+Route::controller(UserController::class)->group(function () {
+    Route::get('user/{id}', 'show');     // visualização de um perfil de utilizador
+}); */
