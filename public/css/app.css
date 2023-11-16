@@ -141,6 +141,7 @@ align-items: center;
     padding: 0.5em;
   }
   main > header span {
+<<<<<<< HEAD
     margin: 0;
   }
   #content form {
@@ -178,3 +179,76 @@ input[type=password]:focus {
 
 
 
+=======
+    margin: 1em;
+    justify-self: center;
+  }
+
+  #header-logo {
+    width: 200px;
+  }
+  
+  #content label {
+    font-weight: normal;
+  }
+  #content > form {
+    margin: 0 auto;
+    padding: 1em;
+    max-width: 30em;
+    border: 1px solid #5a86ba;
+    border-radius: 10px;
+  }
+  #content > form .error {
+    font-weight: bold;
+    color: #ff3333;
+  }
+  #content > form .success {
+    font-weight: bold;
+    color: #106af1;
+  }
+  #content > form input {
+    background-color: white;
+  }
+
+ #forms  {
+    margin: 0 auto;
+    padding: 1em;
+    max-width: 40em;
+    border: 1px solid #5a86ba;
+    border-radius: 10px;
+  }
+
+#form-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+  /**
+   * Override milligram colors
+   * Some styles might be missing
+   **/
+  button {
+    background-color: #5a86ba;
+    border-color: #5a86ba;
+  }
+  a.button {
+    background-color: #5a86ba;
+    border-color: #5a86ba;
+  }
+  a.button.button-outline {
+    color: #5a86ba;
+  }
+  a {
+    color: #F0F3F5;
+  }
+  input[type=text]:focus,
+  input[type=email]:focus,
+  input[type=password]:focus {
+    border-color: #5a86ba;
+  }
+
+ #content #homepage {
+    margin-left: 300px;
+  }
+>>>>>>> login/register

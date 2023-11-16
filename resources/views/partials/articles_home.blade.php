@@ -1,5 +1,4 @@
 @section('content')
-
     <section id="articlebox">
         <!-- Main Article Box -->
         <div class="boxes-container">

@@ -1,3 +1,6 @@
+#articlebox{
+  margin-left: 300px;  
+}
 .article-box {
     display: flex;
     flex-direction: column; /* Stack children vertically */

@@ -24,6 +24,7 @@
     </head>
     <body>
         <main>
+<<<<<<< HEAD
             <header>
                 @if (Auth::check())
                     <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
@@ -41,6 +42,11 @@
             </nav>
 
             
+=======
+
+                @yield('topbar')
+
+>>>>>>> login/register
             <section id="content">
                 @yield('content')
             </section>

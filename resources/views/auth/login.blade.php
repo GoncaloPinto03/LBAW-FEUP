@@ -7,12 +7,21 @@
 @section('content1')
 
 
+<<<<<<< HEAD
 <div id="forms">
     <form method="POST" action="{{ route('login') }}">
         <a href="{{ url('/cards') }} " id="form-logo">
             <img src="{{ asset('images/logo_big.png') }}" alt="CollabNews Logo" id="header-logo"> 
         </a>
 
+=======
+@section('content')
+
+    <form method="POST" action="{{ route('login') }}">
+        <a href="{{ url('/home') }} " id="form-logo">
+            <img src="{{ asset('images/logo_big.png') }}" alt="CollabNews Logo" id="header-logo"> 
+        </a>
+>>>>>>> login/register
         {{ csrf_field() }}
 
         <label for="email">E-mail</label>
@@ -31,10 +40,6 @@
             </span>
         @endif
 
-        <label>
-            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-        </label>
-
         <button type="submit">
             Login
         </button>
@@ -45,5 +50,5 @@
             </p>
         @endif
     </form>
-</div>
+
 @endsection
