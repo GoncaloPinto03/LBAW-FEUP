@@ -1,0 +1,100 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar h1 {
+    color: #5a86ba;
+    font-size: 30px;
+    padding: 15px;
+    border-bottom: 0.5px solid #5a86ba;
+}
+
+#sidebar {
+    height: 38%;
+    width: 250px;
+    position: absolute;
+    background-color: #F0F3F5;
+    color: black;
+    border: 0.5px solid #5a86ba;
+    border-radius: 10px;
+    top: 250px;
+    left: 45px;
+}
+
+#sidebar a {
+    padding: 0.3em;
+    margin-left: 0.3em;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    display: block;
+    transition: color 0.3s, transform 0.3s;
+}
+
+#sidebar a:hover {
+    color: #5a86ba;
+    transform: scale(1.1);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.search-box {
+    display: flex;
+    border-radius: 30px;
+    width: 70%;
+    
+}
+
+.search-input {
+    border-radius: 5px 0 0 5px;
+    padding: 10px;
+}
+
+.search-button {
+    background-color: #F0F3F5;
+    color: #5a86ba;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #5a86ba;
+    color: white;
+}
+
+.sign-in-button {
+    background-color: #5a86ba;
+    color: white;
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sign-in-button:hover {
+    background-color: #3c6393;
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 768px) {
+    #sidebar {
+        display: none; /* Hide the sidebar on smaller screens */
+    }
+    .search-box {
+        width: 100%; /* Adjust the width of the search box */
+    }
+    .header-container {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: flex-end; /* Align items to the right */
+    }
+}

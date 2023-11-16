@@ -12,7 +12,9 @@
 
         <!-- Styles -->
         <link href="{{ url('css/milligram.min.css') }}" rel="stylesheet">
+        <link href="{{ url('css/sidebar.css') }}" rel="stylesheet">
         <link href="{{ url('css/app.css') }}" rel="stylesheet">
+        <link href="{{ url('css/article_home.css') }}" rel="stylesheet">
         <script type="text/javascript">
             // Fix for Firefox autofocus CSS bug
             // See: http://stackoverflow.com/questions/18943276/html-5-autofocus-messes-up-css-loading/18945951#18945951
@@ -22,15 +24,11 @@
     </head>
     <body>
         <main>
-            <header>
-            @if (Auth::check())
-                <a class="button" href="{{ url('/logout') }}"> Logout </a> <a href="{{ route('home') }}">Home</a> <span>{{ Auth::user()->name }}</span>
-            @endif
 
-            </header>
+                @yield('topbar')
+
             <section id="content">
                 @yield('content')
-                
             </section>
         </main>
     </body>
