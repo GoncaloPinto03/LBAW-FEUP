@@ -3,7 +3,7 @@
 @include('partials.sidebar')
 @yield('sidebar')
 @section('content')
-    <section id="homepage23">
+    <section id="homepage">
         @include('partials.articles_home')
     </section>
 @endsection
