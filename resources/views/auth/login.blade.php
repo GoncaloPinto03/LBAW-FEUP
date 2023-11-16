@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="forms">
+
     <form method="POST" action="{{ route('login') }}">
-        <a href="{{ url('/cards') }} " id="form-logo">
+        <a href="{{ url('/home') }} " id="form-logo">
             <img src="{{ asset('images/logo_big.png') }}" alt="CollabNews Logo" id="header-logo"> 
         </a>
         {{ csrf_field() }}
@@ -24,10 +24,6 @@
             </span>
         @endif
 
-        <label>
-            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-        </label>
-
         <button type="submit">
             Login
         </button>
@@ -38,5 +34,5 @@
             </p>
         @endif
     </form>
-</div>
+
 @endsection

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="forms"> 
+
   <form method="POST" action="{{ route('register') }}">
-      <a href="{{ url('/cards') }}" id="form-logo">
+      <a href="{{ url('/home') }}" id="form-logo">
         <img src="{{ asset('images/logo_big.png') }}" alt="CollabNews Logo" id="header-logo"> 
       </a>
       {{ csrf_field() }}
@@ -40,5 +40,5 @@
       </button>
       <a class="button button-outline" href="{{ route('login') }}">Login</a>
   </form>
-</div>
+
 @endsection
