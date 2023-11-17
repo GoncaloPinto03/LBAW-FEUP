@@ -31,7 +31,7 @@ class UsersController extends Controller
         //$this->authorize('editUser', Auth::user());
         $request->validate([
             'name' => 'max:255',
-            'emaiil' => 'email|unique:users,email'.$user->id.'|max:255'
+            'emaiil' => 'required|email|max:250|unique:users'
         ]);
 
         $user->name = $request->input('name');

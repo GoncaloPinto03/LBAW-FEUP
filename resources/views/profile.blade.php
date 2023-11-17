@@ -6,7 +6,7 @@
         <h1><strong>User Profile</strong></h1>
         <div class="profile-header">
             <div class="profile-pic">
-                <img src="{{ asset('images/default_pic.jpg')}}">
+                <img src="{{ Auth::user()->photo() }}">
             </div>
             <h2><strong>{{ $user->name }}</strong><h2>
         </div>
