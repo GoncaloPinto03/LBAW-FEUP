@@ -36,9 +36,6 @@ Route::controller(RegisterController::class)->group(function () {
 });
 
 Route::get('/profile/{id}', [UsersController::class, 'index'])->where('id', '[0-9]+');
-//Route::get('user/{id}', [UserController::class, 'index'])->where('id', '[0-9]+')->name('profile');
-
-/*
-Route::controller(UserController::class)->group(function () {
-    Route::get('user/{id}', 'show');     // visualização de um perfil de utilizador
-}); */
+Route::get('/profile/edit', [UsersController::class, 'edit']);
+Route::post('/profile/edit', [UsersController::class, 'update']);
+//LEMBRAR ERRO EM LINHA 259 DE CREATE_DB.SQL

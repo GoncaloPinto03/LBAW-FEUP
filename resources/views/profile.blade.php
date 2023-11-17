@@ -2,16 +2,20 @@
 @include('partials.topbar')
 
 @section('content')
-    <h1>User Profile</h1>
-    <section id='profile'>
-        <div class="profile-pic">
-            <img src="{{ asset('images/default_pic.jpg')}}">
+<section id='profile'>
+        <h1><strong>User Profile</strong></h1>
+        <div class="profile-header">
+            <div class="profile-pic">
+                <img src="{{ asset('images/default_pic.jpg')}}">
+            </div>
+            <h2><strong>{{ $user->name }}</strong><h2>
         </div>
-        <h2><strong>{{ $user->name }}</strong><h2>
-        <p>Email: {{ $user->email }}<p>
-        <p>Reputation: {{ $user->reputation }}<p>
+        <div class='profile-info'>
+            <p>Email: {{ $user->email }}<p>
+            <p>Reputation: {{ $user->reputation }}<p>
+        </div>
+        @if (Auth::user()->user_id == $user->user_id)
+        <a href="{{ url('/profile/edit') }}" class="button">Edit Profile</a>
+        @endif
     </section>
-    @if (Auth::user()->user_id == $user->user_id)
-        <a href="{{ url('/home') }}" class="button">Edit Profile</a>
-    @endif
 @endsection
