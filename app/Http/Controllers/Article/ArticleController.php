@@ -16,47 +16,9 @@ class ArticleController extends Controller
 {
 
     /**
-     * Display a login form.
+     * Display article page.
      */
-    public function showArticle()
-    {
-        if (Auth::check()) {
-            return redirect('/home');
-        } else {
-            return view('auth.login');
-        }
+    public function showArticle(){
+        return view('articles.article');
     }
-
-    /**
-     * Handle an authentication attempt.
-     */
-    public function authenticate(Request $request): RedirectResponse
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
- 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
-            $request->session()->regenerate();
- 
-            return redirect()->intended('/home');
-        }
- 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
-    }
-
-    /**
-     * Log out the user from application.
-     */
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('login')
-            ->withSuccess('You have logged out successfully!');
-    } 
 }
