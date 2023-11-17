@@ -1,0 +1,32 @@
+.boxes-container {
+    display: flex;
+    margin-left: 140px; 
+}
+
+.article-box {
+    width: 60%; 
+    padding: 20px; 
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+.popular-news-section {
+    float: right; 
+    width: 25%;
+    margin-left: 150px; 
+    margin-top: 50px;
+}
+
+.topic-list {
+    list-style: none;
+    padding: 0;
+}
+
+.topic-list li {
+    margin-bottom: 10px;
+}
+
+.topic-list li a{
+    color: black;
+}
+

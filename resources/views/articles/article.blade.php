@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<link rel="stylesheet" href="{{ asset('css/article_pages.css') }}">
     <!-- Search bar and top things -->
     <div class="header-container">
         <a href="{{ url('/home') }} " id="form-logo">
@@ -18,10 +18,6 @@
             <a href="{{ route('login') }}" class="button-signin">Sign In</a>
         @endif
     </div>
-    <head>
-        <script src="https://kit.fontawesome.com/dbd6c8e80d.js" crossorigin="anonymous"></script>
-
-    </head>
 
     <!-- Page itself -->
     <section id="articlebox">
@@ -31,7 +27,6 @@
                 <div class="article-content">
                     <h1>Messi o PIOR do mundo, GOAT PAPAI CRIS</h1>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
-                    <a href="#" class="button">Read More</a>
                 </div>
 
                 <div class="article-image">
@@ -39,33 +34,44 @@
                 </div>
 
                 <div class="comments-section">
-                <h2>Comments</h2>
-                <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
-                <form action="{}" method="post">
-                    @csrf
-                    <label for="comment">Leave a comment:</label>
-                    <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
-                    <button type="submit">Submit Comment</button>
-                </form>
+                    <h2>Comments</h2>
+                    <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
+                    <form action="{}" method="post">
+                        @csrf
+                        <label for="comment">Leave a comment:</label>
+                        <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+                        <button type="submit">Submit Comment</button>
+                    </form>
 
-                <ul class="comment-list">
-                    <li>
-                        <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </li>
-                    <li>
-                        <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </li>
-                    <li>
-                        <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </li>
-                    <li>
-                        <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </li>
-                    <li>
-                        <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </li>
-                </ul>
+                    <ul class="comment-list">
+                        <li>
+                            <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </li>
+                        <li>
+                            <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </li>
+                        <li>
+                            <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </li>
+                        <li>
+                            <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </li>
+                        <li>
+                            <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </li>
+                    </ul>
+                </div>
             </div>
+
+            <div class="popular-news-section">
+                <h2>Most Popular News </h2>
+                    <ul class="topic-list">
+                            <li><a href="#">Topic 1</a></li>
+                            <li><a href="#">Topic 2</a></li>
+                            <li><a href="#">Topic 3</a></li>
+                            <li><a href="#">Topic 4</a></li>
+                            <li><a href="#">Topic 5</a></li>
+                    </ul>
             </div>
 
     </section>
