@@ -1,125 +1,135 @@
-#articlebox{
-    margin-left: 300px;  
-  }
-  .article-box {
-      display: flex;
-      flex-direction: column; /* Stack children vertically */
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      margin: 20px;
-      width: 60%;
-      background-color: #F0F3F5;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .article-image img {
-      max-width: 100%;
-      height: auto;
-      border-top-right-radius: 10px;
-      border-top-left-radius: 10px;
-  }
-  
-  .article-content {
-      padding: 20px;
-  }
-  
-  .article-content h1 {
-      font-size: 30px;
-      font-weight: bold;
-      color: #3498db;
-      margin-bottom: 10px;
-  }
-  
-  .article-content p {
-      font-size: 16px;
-      color: #555;
-      margin-bottom: 20px;
-  }
-  
-  .button {
-      display: inline-block;
-      font-size: 16px;
-      text-align: center;
-      text-decoration: none;
-      background-color: #F0F3F5;
-      color: #fff;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-  }
-  
-  .button:hover {
-      background-color: #2980b9;
-  }
-  
-  
-  
-  
-  .article-box {
-      grid-column: span 2; 
-  }
-  
-  .small-box-container {
-      display: grid;
-      grid-template-columns: 2fr 2fr 2fr 2fr; /* Four equal-width columns */
-      grid-column-gap: 20px; /* Adjust spacing between columns */
-      margin-left: 20px;
-      margin-right: 20px;
-  }
-  
-  .small-box {
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      background-color: #F0F3F5;
-      margin-bottom: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  
-  .small-box h2 {
-      font-size: 18px;
-      color: #2980b9;
-      margin: 10px;
-  }
-  
-  .small-box p {
-      font-size: 14px;
-      color: #2980b9;
-      margin: 10px;
-  }
-  
-  .small-box:hover {
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  
-  .small-button{
-      display: inline-block;
-      font-size: 16px;
-      text-align: center;
-      text-decoration: underline;
-      color: #2980b9;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-  }
-  
-  .small-box > .small-button {
-      margin: 10px;
-      padding: 10px;
-  }
-  
-  
-  .boxes-container{
-      display: flex;
-  }
-  
-  .additional-box-container {
-      display: flex;
-  }
-  
-  .column {
-      flex: 1;
-      margin-right: 20px; 
-      margin-top: 20px;
-  }
-  
-  
+/* Default styles for larger screens (PCs) */
+#articlebox {
+    margin-left: 20em;
+}
+
+.article-box {
+    display: fixed;
+    flex-direction: column;
+    border-radius: 1em;
+    border: 0.1em solid #F0F3F5;
+    margin: 2em;
+    width: 60%;
+    background-color: #F0F3F5;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.article-image img {
+    max-width: 100%;
+    height: auto;
+    border-top-right-radius: 1em;
+    border-top-left-radius: 1em;
+}
+
+.article-content {
+    padding: 2em;
+}
+
+.article-content h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: #3498db;
+    margin-bottom: 1em;
+}
+
+.article-content p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 2em;
+}
+
+.button {
+    display: inline-block;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: none;
+    background-color: #F0F3F5;
+    color: #fff;
+    border-radius: 0.5em;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+
+.article-box {
+    grid-column: span 2;
+}
+
+.small-box-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Modify for smaller screens */
+    grid-column-gap: 2em;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+/* Additional styles for tablets */
+@media screen and (min-width: 600px) {
+    .small-box-container {
+        grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+    }
+}
+
+/* Additional styles for PCs */
+@media screen and (min-width: 768px) {
+    .small-box-container {
+        grid-template-columns: 1fr 1fr 1fr 1fr; /* Four equal-width columns */
+    }
+}
+
+.small-box {
+    border: 0.1em solid #ccc;
+    border-radius: 1em;
+    background-color: #F0F3F5;
+    margin-bottom: 2em;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+}
+
+.small-box h2 {
+    font-size: 2em;
+    color: #2980b9;
+    margin: 1em;
+}
+
+.small-box p {
+    font-size: 1em;
+    color: #2980b9;
+    margin: 1em;
+    padding-left: 1em;
+}
+
+.small-box:hover {
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
+}
+
+.small-button {
+    display: inline-block;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: underline;
+    color: #2980b9;
+    border-radius: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.small-box > .small-button {
+    margin: 1em;
+    padding: 1em;
+}
+
+.boxes-container {
+    display: flex;
+}
+
+.additional-box-container {
+    display: flex;
+}
+
+.column {
+    flex: 1;
+    margin-right: 2em;
+    margin-top: 2em;
+}

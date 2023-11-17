@@ -6,28 +6,28 @@ body {
 
 #sidebar h1 {
     color: #5a86ba;
-    font-size: 30px;
-    padding: 15px;
-    border-bottom: 0.5px solid #5a86ba;
+    font-size: 2em;
+    padding: 0.5em;
+    border-bottom: 0.02em solid #5a86ba;
 }
 
 #sidebar {
-    height: 38%;
-    width: 250px;
+    height: 29%;
+    width: 10%;
     position: absolute;
     background-color: #F0F3F5;
     color: black;
     border: 0.5px solid #5a86ba;
     border-radius: 10px;
-    top: 250px;
-    left: 45px;
+    top: 15%;
+    left: 2%;
 }
 
 #sidebar a {
     padding: 0.3em;
     margin-left: 0.3em;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 1.3em;
     color: black;
     display: block;
     transition: color 0.3s, transform 0.3s;
@@ -42,48 +42,37 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 1em;
 }
-
 .search-box {
     display: flex;
-    border-radius: 30px;
-    width: 70%;
-    
+    border-radius: 1em;
+    width: 50%;
+    background-color: #F0F3F5; 
 }
 
-.search-input {
-    border-radius: 5px 0 0 5px;
-    padding: 10px;
+.search-box input { 
+    border: 1px solid #5a86ba; 
+    border-radius: 1em;
+    padding: 0.5em;
+    width: 100%;
 }
 
 .search-button {
-    background-color: #F0F3F5;
+    background-color: #f0f3f5;
     color: #5a86ba;
     border: none;
-    border-radius: 0 5px 5px 0;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .search-button:hover {
-    background-color: #5a86ba;
+    background-color: transparent;
     color: white;
 }
 
-.sign-in-button {
-    background-color: #5a86ba;
-    color: white;
-    border: none;
-    text-align: center;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
 
-.sign-in-button:hover {
-    background-color: #3c6393;
-}
+
 
 /* Responsive styles */
 @media only screen and (max-width: 768px) {
@@ -97,4 +86,30 @@ body {
         flex-direction: column; /* Stack items vertically on smaller screens */
         align-items: flex-end; /* Align items to the right */
     }
+}
+
+
+.button-signin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5a86ba;
+    color: #f0f3f5;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1em;
+    transition: background-color 0.3s ease;
+    width: 100px;
+    height: 40px;
+}
+
+.button-signin a {
+    text-decoration: none;
+    color: #f0f3f5;
+}
+
+.button-signin:hover {
+    background-color: #5a86ba;
+    color: white;
 }
