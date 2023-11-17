@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Article\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,13 @@ Route::controller(RegisterController::class)->group(function () {
     Route::post('/register', 'register');
 });
 
+// Article page
+
+Route::controller(ArticleController::class)->group(function () {
+    Route::get('/article', 'showArticle') ->name('article');
+
+    /*Route::post('article/new', 'create');
+    Route::get('/article/{id}', function () {
+        return view('pages.article');
+    });*/
+});
