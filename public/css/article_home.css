@@ -60,7 +60,7 @@
 
 .small-box-container {
     display: grid;
-    grid-template-columns: 1fr; /* Modify for smaller screens */
+    grid-template-columns: 1fr; 
     grid-column-gap: 2em;
     margin-left: 2em;
     margin-right: 2em;
@@ -69,14 +69,14 @@
 /* Additional styles for tablets */
 @media screen and (min-width: 600px) {
     .small-box-container {
-        grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+        grid-template-columns: 1fr 1fr; 
     }
 }
 
 /* Additional styles for PCs */
 @media screen and (min-width: 768px) {
     .small-box-container {
-        grid-template-columns: 1fr 1fr 1fr 1fr; /* Four equal-width columns */
+        grid-template-columns: 1fr 1fr 1fr 1fr; 
     }
 }
 

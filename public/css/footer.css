@@ -6,20 +6,6 @@
     background-color: #f0f3f5;
 }
 
-#footer-text p {
-    margin-left: 2em;
-    color: #5a86ba;
-    font-size: 1em;
-}
-
-#footer-text a {
-    background-color: #F0F3F5;
-    border: none;
-    text-decoration: underline;
-    color: #5a86ba;
-    font-size: 1em;
-}
-
 #footer #form-logo { 
     margin-top: auto;
     margin-left: 10px;
@@ -30,5 +16,27 @@
     align-items: center;
     justify-content: space-between;
     padding: 1em;
+    margin-right: 2em;
     background-color: #f0f3f5;
+}
+
+#footer-text a {
+    flex: 1; 
+    margin: 0; 
+    color: #5a86ba;
+    font-size: 0.8em;
+    margin-right: 2em; 
+    text-decoration: underline; 
+}
+
+#footer-text p {
+    flex: 2.1; 
+    margin: 0;
+    margin-right: 0; 
+    margin-left: 0;
+    color: #5a86ba;
+    text-decoration: none; 
+    white-space: nowrap;
+    font-size: 0.8em;
+    overflow: hidden; 
 }
