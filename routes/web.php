@@ -18,26 +18,20 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-
-// Home route accessible to everyone
+// HOME
 Route::redirect('/', '/home');
-// Route::get('/home', [HomeController::class, 'index'])->name('home');
-
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
+
+// PROFILE
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile')->middleware('auth');
+
+// ADMIN
 Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('auth', 'admin');
 
-
-
-// Authentication routes
-Route::controller(LoginController::class)->group(function () {
-    Route::get('/login', 'showLoginForm')->name('login');
-    Route::post('/login', 'authenticate');
-    Route::get('/logout', 'logout')->name('logout');
-});
-
-Route::controller(RegisterController::class)->group(function () {
-    Route::get('/register', 'showRegistrationForm')->name('register');
-    Route::post('/register', 'register');
-});
+// AUTHENTICATION
+Route::get('/login', 'showLoginForm')->name('login');
+Route::post('/login', 'authenticate');
+Route::get('/logout', 'logout')->name('logout');
+Route::get('/register', 'showRegistrationForm')->name('register');
+Route::post('/register', 'register');
 

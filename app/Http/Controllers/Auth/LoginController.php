@@ -36,13 +36,19 @@ class LoginController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
- 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
+
+        // Check if the provided credentials match an admin
+        if (Auth::guard('admin')->attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
- 
+            return redirect()->intended('/admin'); // Use the appropriate route name for the admin page
+        }
+
+        // Check if the provided credentials match a regular user
+        if (Auth::guard('web')->attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
             return redirect()->intended('/home');
         }
- 
+
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');

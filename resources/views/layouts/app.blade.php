@@ -24,9 +24,7 @@
     </head>
     <body>
         <main>
-
-                @yield('topbar')
-
+            @yield('topbar')
             <section id="content">
                 @yield('content')
             </section>
