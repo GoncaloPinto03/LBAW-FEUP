@@ -1,0 +1,42 @@
+#footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em;
+    background-color: #f0f3f5;
+}
+
+#footer #form-logo { 
+    margin-top: auto;
+    margin-left: 10px;
+}
+
+#footer-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em;
+    margin-right: 2em;
+    background-color: #f0f3f5;
+}
+
+#footer-text a {
+    flex: 1; 
+    margin: 0; 
+    color: #5a86ba;
+    font-size: 0.8em;
+    margin-right: 2em; 
+    text-decoration: underline; 
+}
+
+#footer-text p {
+    flex: 2.1; 
+    margin: 0;
+    margin-right: 0; 
+    margin-left: 0;
+    color: #5a86ba;
+    text-decoration: none; 
+    white-space: nowrap;
+    font-size: 0.8em;
+    overflow: hidden; 
+}

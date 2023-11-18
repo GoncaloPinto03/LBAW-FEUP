@@ -1,4 +1,8 @@
 @section('content')
+    <head>
+        <script src="https://kit.fontawesome.com/dbd6c8e80d.js" crossorigin="anonymous"></script>
+
+    </head>
     <section id="articlebox">
         <!-- Main Article Box -->
         <div class="boxes-container">
@@ -7,8 +11,8 @@
                     <img src="{{ asset('images/teste.jpg') }}" alt="Article Image">
                 </div>
                 <div class="article-content">
-                    <h1>Cristiano Ronaldo to FC Porto, here we go!</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+                    <h1>Messi O MELHOR DO MUNDO, GOAT D10Sx</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
                     <a href="#" class="button">Read More</a>
                 </div>
             </div>
@@ -33,6 +37,7 @@
                         <p>Additional Small Box 3 Content</p>
                         <a href="#" class="small-button">Read More</a>
                     </div>
+                    
                     <div class="small-box">
                         <h2>Additional Small Box 3 Title</h2>
                         <p>Additional Small Box 3 Content</p>
@@ -95,10 +100,12 @@
                     <p>Small Box 4 Content</p>
                     <a href="#" class="small-button">Read More</a>
                 </div>
+                <div class="small-box">
+                    <h2>Small Box 4 Title</h2>
+                    <p>Small Box 4 Content</p>
+                    <a href="#" class="small-button">Read More</a>
+                </div>
             </div>
-
-            
-        
 
     </section>
 
