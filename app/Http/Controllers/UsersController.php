@@ -31,8 +31,8 @@ class UsersController extends Controller
         $user = Auth::user();
         //$this->authorize('editUser', Auth::user());
         $request->validate([
-            'name' => 'max:255',
-            'email' => 'email|max:250|unique:users'
+            'name' => 'unique:users,name,'.$user->user_id.',user_id|max:255',
+            'email' => 'email|unique:users,email,'.$user->user_id.',user_id|max:255'
         ]);
         if($request->file('image')){
             if( !in_array(pathinfo($_FILES["image"]["name"],PATHINFO_EXTENSION),['jpg','jpeg','png'])) {
