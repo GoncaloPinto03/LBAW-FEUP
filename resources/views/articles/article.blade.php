@@ -25,8 +25,8 @@
         <div class="boxes-container">
             <div class="article-box">
                 <div class="article-content">
-                    <h1>Messi o PIOR do mundo, GOAT PAPAI CRIS</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+                    <h1>name<h1>
+                    <p>description</p>
                     <button class="share-button">Share</button>
                 </div>
                 <div class="article-image">
