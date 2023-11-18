@@ -1,6 +1,6 @@
 .boxes-container {
     display: flex;
-    margin-left: 140px; 
+    margin-left: 130px; 
 }
 
 .article-box {
@@ -10,11 +10,40 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
+.article-content {
+    position: relative;
+    overflow: hidden;
+}
+
+.share-button {
+    background-color: #5a86ba;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.share-button:hover {
+    background-color: #405c80;
+}
+
+.article-image {
+    position: relative;
+    overflow: hidden;
+}
+
 .popular-news-section {
     float: right; 
     width: 25%;
-    margin-left: 150px; 
+    margin-left: 120px; 
     margin-top: 50px;
+}
+
+/* Topics list */
+
+.topic-list li a{
+    color: black;
 }
 
 .topic-list {
@@ -22,11 +51,21 @@
     padding: 0;
 }
 
-.topic-list li {
-    margin-bottom: 10px;
+.topic-item {
+    position: relative;
 }
 
-.topic-list li a{
-    color: black;
+.topic-image {
+    position: relative;
+    overflow: hidden;
 }
 
+.image-text {
+    position: absolute;
+    bottom: 10px; 
+    left: 50%;
+    transform: translateX(-50%);
+    color: white; 
+    font-size: 20px; 
+    text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+}
