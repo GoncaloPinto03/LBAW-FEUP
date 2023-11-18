@@ -36,7 +36,7 @@ class UsersController extends Controller
         ]);
         if($request->file('image')){
             if( !in_array(pathinfo($_FILES["image"]["name"],PATHINFO_EXTENSION),['jpg','jpeg','png'])) {
-                return redirect('user/edit')->with('error', 'File not supported');
+                return redirect('profile/edit');
             }
             $request->validate([
                 'image' =>  'mimes:png,jpeg,jpg',
