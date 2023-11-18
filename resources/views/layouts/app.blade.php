@@ -27,13 +27,13 @@
     <body>
         <main>
 
-                @yield('topbar')
-
+            @yield('topbar')
+            @yield('sidebar')
             <section id="content">
                 @yield('content')
 
             </section>
-                @yield('footer')
+            @yield('footer')
 
 
         </main>

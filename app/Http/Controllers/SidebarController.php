@@ -10,7 +10,6 @@ class SidebarController extends Controller
     //
     function showSidebar() {
         $topics = Topic::all();
-        dd($topics);
         return view('partials.sidebar', ['topics' => $topics]); 
     }
 }
