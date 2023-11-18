@@ -16,7 +16,7 @@
         <link href="{{ url('css/app.css') }}" rel="stylesheet">
         <link href="{{ url('css/article_home.css') }}" rel="stylesheet">
         <link href="{{ url('css/profile.css')}}" rel="stylesheet">
-        <link href="{{ url('css/editprofile.css')}}" rel="stylesheet">
+        <link href="{{ url('css/edit_profile.css')}}" rel="stylesheet">
         <link href="{{ url('css/footer.css') }}" rel="stylesheet">
 
         <script type="text/javascript">

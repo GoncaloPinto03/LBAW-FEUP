@@ -23,6 +23,7 @@ use App\Http\Controllers\UserController;
 // HOME
 Route::redirect('/', '/home');
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // PROFILE
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile')->middleware('auth');
