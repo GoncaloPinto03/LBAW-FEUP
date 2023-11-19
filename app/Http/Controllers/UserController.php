@@ -52,7 +52,7 @@ class UserController extends Controller
 
     {
         $user = User::find($id);
-        $user = Auth::user();
+        //$user = Auth::user();
         //$this->authorize('editUser', Auth::user());
         $request->validate([
             'name' => 'unique:users,name,'.$user->user_id.',user_id|max:255',
