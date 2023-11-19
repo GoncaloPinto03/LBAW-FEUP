@@ -10,7 +10,18 @@ class AdminController extends Controller
 {
     public function index() 
     {   
-        return view('pages.admin');
+        $users = $this->getUsersList();
+
+        return view('pages.admin', compact('users'));
     }
 
+    function showUsers() {
+        $users = User::all();
+        return view('pages.admin', ['users' => $users]); 
+    }
+    private function getUsersList()
+    {
+        $adminController = new AdminController();
+        return $adminController->showUsers()->getData()['users'];
+    }
 }

@@ -6,25 +6,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use App\Models\Admin;
 use App\Models\Photo;
 
 class UserController extends Controller
 {
-    // not sure if this works
-    public function list()
-    { 
-      if (!Auth::check()) {
-        $users = User::all->get();
-        return view('pages.home', ['users' => $users]);
-      }
-      $this->authorize('list', User::class);
-      $users = Auth::user()->get();
-      return view('pages.home', ['users' => $users]);
+    function showUsersList() {
+        $users = User::all();
+        return view('pages.admin', ['users' => $users]); 
     }
 
     public function index(int $id) 
     {   
         $user = User::find($id);
+
+        if(Auth::guard('admin')->check()) {
+            return view('profile', ['user' => $user]);    
+        }
+        if(!Auth::check()) {
+            return redirect()->intended('/home');
+        }
 
         return view('profile', ['user' => $user]);
     }

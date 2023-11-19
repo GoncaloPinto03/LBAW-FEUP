@@ -10,8 +10,12 @@
         @if (Auth::check())
             <a href="{{ url('/profile/'.Auth::user()->user_id) }}" class="button">Profile</a>
             <a class="button-signin" href="{{ url('/logout') }}"> Logout </a>
+        
+        <!--@elseif (Auth::guard('admin')->check())-->
+            
         @else
             <a href="{{ route('login') }}" class="button-signin">Sign In</a>
+        
         @endif
     </div>
 @endsection
