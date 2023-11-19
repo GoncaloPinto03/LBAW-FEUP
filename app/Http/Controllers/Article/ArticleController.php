@@ -7,7 +7,7 @@
 class ArticleController extends Controller
 {
     public function showArticle(){
-        return view('articles.article');
+        return view('article');
     }
 } 
 
