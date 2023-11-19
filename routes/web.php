@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SidebarController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +20,11 @@ use App\Http\Controllers\AdminController;
 |
 */
 
+
 // HOME
 Route::redirect('/', '/home');
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // PROFILE
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile')->middleware('auth');
@@ -29,9 +33,17 @@ Route::get('/profile', [HomeController::class, 'profile'])->name('profile')->mid
 Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('auth', 'admin');
 
 // AUTHENTICATION
-Route::get('/login', 'showLoginForm')->name('login');
-Route::post('/login', 'authenticate');
-Route::get('/logout', 'logout')->name('logout');
-Route::get('/register', 'showRegistrationForm')->name('register');
-Route::post('/register', 'register');
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/login', 'showLoginForm')->name('login');
+    Route::post('/login', 'authenticate');
+    Route::get('/logout', 'logout')->name('logout');
+});
+
+Route::get('sidebar',[SidebarController::class,'showSidebar']);
+
+Route::get('/profile/{id}', [UserController::class, 'index'])->where('id', '[0-9]+');
+Route::get('/profile/edit', [UserController::class, 'edit']);
+Route::post('/profile/edit', [UserController::class, 'update']);
+
+
 

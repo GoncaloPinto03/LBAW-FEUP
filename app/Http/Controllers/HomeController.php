@@ -15,6 +15,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $topics = $this->getSidebarData();
+
+        return view('home', compact('topics'));
     }
+
+    private function getSidebarData()
+    {
+        $sidebarController = new SidebarController();
+        return $sidebarController->showSidebar()->getData()['topics'];
+    }
+
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 
 class AdminController extends Controller
 {
@@ -15,4 +16,15 @@ class AdminController extends Controller
     }
 
 
+=======
+use App\Models\Admin;
+
+class AdminController extends Controller
+{
+    public function index() 
+    {   
+        return view('pages.admin');
+    }
+
+>>>>>>> home_page
 }

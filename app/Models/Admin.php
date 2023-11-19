@@ -24,4 +24,5 @@ class Admin extends Model implements Authenticatable
     public $timestamps = false;
 
     
+
 }

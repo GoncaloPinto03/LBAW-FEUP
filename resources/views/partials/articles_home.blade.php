@@ -8,7 +8,7 @@
         <div class="boxes-container">
             <div class="article-box">
                 <div class="article-image">
-                    <img src="{{ asset('images/teste.jpg') }}" alt="Article Image">
+                    <img src="{{ asset('images/teste2.jpg') }}" alt="Article Image">
                 </div>
                 <div class="article-content">
                     <h1>Messi O MELHOR DO MUNDO, GOAT D10Sx</h1>

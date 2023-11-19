@@ -51,5 +51,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function photo() {
+        $files = glob("images/profile/".$this->user_id.".jpg", GLOB_BRACE);
+        $default = "/images/profile/default_pic.jpg";
+        if(sizeof($files) < 1) return $default;
+        return "/".$files[0];
+    }
 
 }
