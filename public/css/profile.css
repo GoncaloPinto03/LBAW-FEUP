@@ -7,6 +7,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    min-height: 86vh;
 }
 
 #profile .profile-header{
@@ -30,4 +31,13 @@
 #profile .profile-pic img {
  width: 100%;
  height: auto;
+}
+
+.profile-box {
+    margin: 20px;
+    border: 1px solid #5a86ba;
+    border-radius: 1em;
+    padding: 50px;
+    width: 30%;
+    
 }

@@ -11,6 +11,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    min-height: 86vh;
 }
 
 #edit-profile .edit-profile-pic-options {

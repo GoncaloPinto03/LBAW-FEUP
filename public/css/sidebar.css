@@ -48,6 +48,7 @@ body {
     border-radius: 1em;
     width: 50%;
     background-color: #F0F3F5; 
+    padding-top: 0.5em;
 }
 
 .search-box input { 
@@ -55,6 +56,10 @@ body {
     border-radius: 1em;
     padding: 0.5em;
     width: 100%;
+}
+
+.search-input{
+    margin-bottom: 0px;
 }
 
 .search-button {
