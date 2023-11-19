@@ -4,7 +4,7 @@
 @section('content')
 <section id='edit-profile'>
     <h1><strong>Edit User Profile</strong></h1>
-    <form class="edit-form" action="{{ url('/profile/edit') }}" enctype="multipart/form-data" method="post">
+    <form class="edit-form" action="{{ url('/profile/edit/' . $user->user_id ) }}" enctype="multipart/form-data" method="post">
         @csrf
         <section class="edit-profile-pic-options">
             <section class="profile-pic">
@@ -18,9 +18,10 @@
             <input placeholder="New name" type="text" value="{{ $user->name }}" id="name" name="name">
             <br>
             <label for="email">Email:</label>
-            <input placeholder="New email" type="text" value="{{ $user->email }}" id="email" name="email"55>
+            <input placeholder="New email" type="text" value="{{ $user->email }}" id="email" name="email">
         </section>
         <button type="submit">Save Changes</button>
     </form>
-    </section>
+    @include('partials.footer')
+</section>
 @endsection

@@ -29,9 +29,7 @@
                                 <img src="{{ $user->photo() }}" class="admin-dashboard-user-photo">
                                 <p class="admin-dashboard-user-name">{{ $user->name }}</p>
                             </div>
-                            
                                 <a href="{{ url('/profile/'.$user->user_id) }}" class="button">Profile</a>
-                            
                         </div>
                     @endforeach
                 </div>
