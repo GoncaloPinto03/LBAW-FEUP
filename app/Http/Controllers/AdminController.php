@@ -52,7 +52,7 @@ class AdminController extends Controller
 
         $request->validate([
             'name' => 'unique:admin,name,'.$admin->admin_id.',admin_id|max:255',
-            'email' => 'email:admin,email,'.$admin->admin_id.',admin_id|max:255'
+            'email' => 'email|unique:users,email|unique:admin,email,'.$admin->admin_id.',admin_id|max:255'
         ]);
         $admin->name = $request->input('name');
         $admin->email = $request->input('email');
