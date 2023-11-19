@@ -25,7 +25,7 @@ use App\Http\Controllers\ProfileController;
 
 // HOME
 Route::redirect('/', '/home');
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
+//Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // PROFILE
