@@ -39,6 +39,9 @@ Route::post('/profile/edit', [UserController::class, 'update']);
 // ADMIN
 Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('auth', 'admin');
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+Route::get('/profile_admin/{id}', [AdminController::class, 'show_profile'])->where('id', '[0-9]+');
+Route::get('/admin-profile/edit', [AdminController::class, 'edit_profile']);
+Route::post('/admin-profile/edit', [AdminController::class, 'update_profile']);
 
 // AUTHENTICATION
 Route::controller(LoginController::class)->group(function () {

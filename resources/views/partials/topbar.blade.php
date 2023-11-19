@@ -7,7 +7,7 @@
             <input type="text" class="search-input" placeholder="Search...">
         </div>
         @if (Auth::guard('admin')->check())
-            <a href="{{ url('/admin') }}" class="button-signin">Profile</a>
+            <a href="{{ url('/profile_admin/'.Auth::guard('admin')->user()->admin_id) }}" class="button-signin">Profile</a>
             <a class="button-signin" href="{{ url('/logout') }}"> Logout </a>
         @elseif (Auth::check())
             <a href="{{ url('/profile/'.Auth::user()->user_id) }}" class="button-signin">Profile</a>
