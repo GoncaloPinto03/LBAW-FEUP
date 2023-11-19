@@ -38,15 +38,17 @@ Route::controller(RegisterController::class)->group(function () {
 
 // Article page
 
-Route::controller(ArticleController::class)->group(function () {
+
+Route::get('/articles/{articleId}', [ArticleController::class, 'getArticleInformation']);
+/*Route::controller(ArticleController::class)->group(function () {
     Route::get('/article', 'showArticle') ->name('article');
     //Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
     /*Route::post('article/new', 'create');
     Route::get('/article/{id}', function () {
         return view('pages.article');
-    });*/
+    });
 });
-
+*/
 /*Route::get('/article/{id}',function(){
     return view('pages.article');
 });

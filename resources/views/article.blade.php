@@ -9,8 +9,12 @@
         <div class="boxes-container">
             <div class="article-box">
                 <div class="article-content">
-                    <h1>name<h1>
-                    <p>description</p>
+                    <h1>{{ $articleName }}</h1>
+                    <p><strong>Description:</strong> {{ $articleDescription }}</p>
+                    <p><strong>Date:</strong> {{ $articleDate }}</p>
+    
+                    <p><strong>Author:</strong> {{ $authorName }}</p>
+                    <p><strong>Topic:</strong> {{ $topicName }}</p>
                     <button class="share-button">Share</button>
                 </div>
                 <div class="article-image">
