@@ -6,7 +6,7 @@
         </a>
         <div id="footer-text">
             <a href="#">About Us</a>
-            <p><i class="fa-regular fa-copyright" style="margin: 2px;"></i>LBAW Copyright</p>
+            <p>&copy LBAW Copyright</p>
         </div>
         
     </footer>

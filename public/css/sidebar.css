@@ -12,7 +12,7 @@ body {
 }
 
 #sidebar {
-    width: 15%;
+    width: 10%;
     position: absolute;
     background-color: #F0F3F5;
     color: black;
@@ -112,3 +112,5 @@ body {
     background-color: #5a86ba;
     color: white;
 }
+
+
