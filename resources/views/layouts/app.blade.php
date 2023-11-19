@@ -28,12 +28,16 @@
     </head>
     <body>
         <main>
+
             @yield('topbar')
+            @yield('sidebar')
             <section id="content">
                 @yield('content')
 
             </section>
             @yield('footer')
+
+
         </main>
     </body>
 </html>

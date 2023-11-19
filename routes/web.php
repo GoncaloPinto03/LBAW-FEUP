@@ -28,9 +28,13 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // PROFILE
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile')->middleware('auth');
+Route::get('/profile/{id}', [UserController::class, 'index'])->where('id', '[0-9]+');
+Route::get('/profile/edit', [UserController::class, 'edit']);
+Route::post('/profile/edit', [UserController::class, 'update']);
 
 // ADMIN
 Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('auth', 'admin');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
 // AUTHENTICATION
 Route::controller(LoginController::class)->group(function () {
@@ -39,11 +43,15 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/logout', 'logout')->name('logout');
 });
 
+Route::controller(RegisterController::class)->group(function () {
+    Route::get('/register', 'showRegistrationForm')->name('register');
+    Route::post('/register', 'register');
+});
+
+
 Route::get('sidebar',[SidebarController::class,'showSidebar']);
 
-Route::get('/profile/{id}', [UserController::class, 'index'])->where('id', '[0-9]+');
-Route::get('/profile/edit', [UserController::class, 'edit']);
-Route::post('/profile/edit', [UserController::class, 'update']);
+
 
 
 

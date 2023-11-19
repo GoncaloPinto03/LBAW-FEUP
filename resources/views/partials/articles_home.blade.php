@@ -100,11 +100,6 @@
                     <p>Small Box 4 Content</p>
                     <a href="#" class="small-button">Read More</a>
                 </div>
-                <div class="small-box">
-                    <h2>Small Box 4 Title</h2>
-                    <p>Small Box 4 Content</p>
-                    <a href="#" class="small-button">Read More</a>
-                </div>
             </div>
 
     </section>
