@@ -22,5 +22,6 @@
         </section>
         <button type="submit">Save Changes</button>
     </form>
+    @include('partials.footer')
     </section>
 @endsection
