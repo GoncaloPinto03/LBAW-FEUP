@@ -93,7 +93,7 @@ body {
 }
 
 
-.button-signin {
+.button-signin, .button-profile {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,7 +102,7 @@ body {
     border: none;
     text-align: center;
     cursor: pointer;
-    border-radius: 1em;
+    border-radius: 0.5em;
     transition: background-color 0.3s ease;
     width: 100px;
     height: 40px;
@@ -113,7 +113,7 @@ body {
     color: #f0f3f5;
 }
 
-.button-signin:hover {
+.button-signin:hover, .button-profile:hover {
     background-color: #5a86ba;
     color: white;
 }

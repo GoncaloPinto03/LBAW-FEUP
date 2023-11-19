@@ -17,6 +17,7 @@
         <link href="{{ url('css/article_home.css') }}" rel="stylesheet">
         <link href="{{ url('css/profile.css')}}" rel="stylesheet">
         <link href="{{ url('css/edit_profile.css')}}" rel="stylesheet">
+        <link href="{{ url('css/admin_page.css') }}" rel="stylesheet">
         <link href="{{ url('css/footer.css') }}" rel="stylesheet">
 
         <script type="text/javascript">
@@ -33,7 +34,6 @@
             @yield('sidebar')
             <section id="content">
                 @yield('content')
-
             </section>
             @yield('footer')
 

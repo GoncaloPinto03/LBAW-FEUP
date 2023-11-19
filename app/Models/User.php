@@ -20,7 +20,7 @@ class User extends Authenticatable
 
     public $primaryKey = 'user_id';
 
-    /**
+    /**x§
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

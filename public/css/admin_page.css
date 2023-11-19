@@ -1,0 +1,65 @@
+#adminpage {
+    padding: 1em;
+}
+
+.admin-container {
+    display: grid;
+    grid-template-columns: 15% 85%; /* Adjust the percentage based on your preference */
+}
+
+.admin-sidebar {
+    display: flex;
+    background-color: #5a86ba;
+    border: 0.5px solid #5a86ba;
+    border-radius: 10px;
+    justify-content: center;
+    height: auto;
+    font-size: 1.3em;
+}
+
+.admin-sidebar a {
+    display: flex;
+    color: #F0F3F5;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.admin-sidebar a:hover {
+    color: white;
+    transform: scale(1.3);
+}
+
+.admin-dashboard {
+    margin-left: 1em;
+    background-color: #F0F3F5;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1em;
+}
+
+.admin-dashboard-user {
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 1em;
+    display: flex;
+    padding: 1em;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-dashboard-user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-dashboard-user-photo {
+    border-radius: 10px;
+    width: 50px;  
+    height: auto;
+    margin-right: 2em;
+}

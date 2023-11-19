@@ -6,40 +6,53 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use App\Models\Admin;
 use App\Models\Photo;
 
 class UserController extends Controller
 {
-    // not sure if this works
-    public function list()
-    { 
-      if (!Auth::check()) {
-        $users = User::all->get();
-        return view('pages.home', ['users' => $users]);
-      }
-      $this->authorize('list', User::class);
-      $users = Auth::user()->get();
-      return view('pages.home', ['users' => $users]);
+    function showUsersList() {
+        $users = User::all();
+        return view('pages.admin', ['users' => $users]); 
     }
 
     public function index(int $id) 
     {   
         $user = User::find($id);
 
+        if(Auth::guard('admin')->check()) {
+            return view('profile', ['user' => $user]);    
+        }
+        if(!Auth::check()) {
+            return redirect()->intended('/home');
+        }
+
         return view('profile', ['user' => $user]);
     }
 
-    public function edit()
+    public function edit($id)
     {
-        $user = Auth::User();
+        //$user = Auth::User();
         //$this->authorize('editUser', Auth::user());
-        
-        return view('edit_profile', compact('user'));
+        $user = User::find($id);
+
+        // Check if the authenticated user is an admin
+        if (Auth::guard('admin')->check()) {
+            // If the authenticated user is an admin, pass the user information for editing
+            return view('edit_profile', ['user' => $user]);
+        } elseif (Auth::user()->user_id == $user->user_id) {
+            // If the authenticated user is the owner of the profile, allow editing
+            return view('edit_profile', ['user' => $user]);
+        }
+        // If the authenticated user is neither an admin nor the owner of the profile, redirect to home
+        return redirect()->intended('/home');
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
+
     {
-        $user = Auth::user();
+        $user = User::find($id);
+        //$user = Auth::user();
         //$this->authorize('editUser', Auth::user());
         $request->validate([
             'name' => 'unique:users,name,'.$user->user_id.',user_id|max:255',

@@ -256,7 +256,7 @@ BEGIN
          IF (NEW.name <> OLD.name OR NEW.email <> OLD.email) THEN
             NEW.tsvectors = (
             setweight(to_tsvector('simple', NEW.name), 'A') ||
-            setweight(to_tsvector('simple', NEW.description), 'B')
+            setweight(to_tsvector('simple', NEW.email), 'B')
            );
     END IF;
  END IF;
