@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SidebarController;
@@ -29,7 +30,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile')->middleware('auth');
 
 // ADMIN
-Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('auth', 'admin');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
 // AUTHENTICATION
 Route::controller(LoginController::class)->group(function () {
