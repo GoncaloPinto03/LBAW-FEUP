@@ -15,9 +15,9 @@ class Article extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function topic()
+    /*public function topic()
     {
         return $this->belongsTo(Topic::class, 'topic_id');
-    }
+    }*/
 
 }
