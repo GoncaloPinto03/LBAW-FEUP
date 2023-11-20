@@ -308,7 +308,7 @@ EXECUTE FUNCTION adjust_likes_dislikes_and_notification();
 
 
 ------TRIGGER 02------
-
+/*
 CREATE OR REPLACE FUNCTION undo_like_dislike_and_update_reputation()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -327,22 +327,22 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER undo_like_dislike_and_update_reputation
 AFTER DELETE ON article_vote
 FOR EACH ROW
-EXECUTE FUNCTION undo_like_dislike_and_update_reputation();
+EXECUTE FUNCTION undo_like_dislike_and_update_reputation();*/
 
 ------TRIGGER 03------
 
 CREATE OR REPLACE FUNCTION delete_related_data()
 RETURNS TRIGGER AS $$
 BEGIN
-    DELETE FROM comment WHERE article_id = OLD.article_id;
+    DELETE FROM favourite WHERE article_id = OLD.article_id;
 
     DELETE FROM article_vote WHERE article_id = OLD.article_id;
-
-    DELETE FROM favourite WHERE article_id = OLD.article_id;
 
     DELETE FROM article_notification WHERE article_id = OLD.article_id;
 
     DELETE FROM article_report WHERE article_id = OLD.article_id;
+
+    DELETE FROM comment WHERE article_id = OLD.article_id;
 
     RETURN OLD;
 END;
@@ -360,6 +360,7 @@ RETURNS TRIGGER AS $$
 BEGIN
     DELETE FROM comment_vote WHERE comment_id = OLD.comment_id;
     DELETE FROM comment_notification WHERE comment_id = OLD.comment_id;
+    DELETE FROM comment_report WHERE comment_id = OLD.comment_id;
     
     UPDATE article
     SET likes = likes - OLD.likes,

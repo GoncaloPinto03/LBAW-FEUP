@@ -53,12 +53,7 @@ class ArticleController extends Controller
         $article->description = $request->input('description');
         
         $article->save();
-        /*
----------------------ERRO AQUI---------------------------------
-    Segundo o ChatGPT, depois de editar o article o Laravel cria um "updated_at" e como a table não tem essa coluna dá erro.
-    É um pouco estranho. O chat diz para criar uns ficheiros no database/migrations mas não sei se devemos fazer isso.
-    Se calhar é melhor falar com o Fábio Sá ou com o stor sobre isso.        
-        */
+
 
         return redirect('articles/'.$article->article_id);
     }
@@ -71,15 +66,20 @@ class ArticleController extends Controller
             return redirect()->back()->with('error', 'Article not found');
         }
 
-        $article->delete();
+        $comments = $article->comments();
+        if(!$comments)
+        {
+            return redirect('home');
+        }
+        else
+        {
+            foreach($comments as $comment) $comment->delete();
+    
+            $article->delete();
+    
+        }
     }
-        /*
---------------------ERRO AQUI-----------------------------------
-        Há algo muito mau no nosso código sql, o trigger 3 que é ativado ao dar delete a article não está a funcionar direito e eu não faço ideia porquê.
-        Parece que deveria dar bem mas está a dar uns erros estranhos.
 
-        return redirect('/home');
-        */
 
 
     public function createArticlePage()
@@ -98,14 +98,15 @@ class ArticleController extends Controller
 
         $article->save();
 
-        return redirect('/home');
+        return redirect('profile/articles');
     }
 
     public function search_user_articles(Request $request)
     {
         $search_text = $request->input('query');
+        $user_id = Auth::user()->user_id;
 
-        $articles = Article::where('name', 'ilike', '%'.$search_text.'%')->get();
+        $articles = Article::where('name', 'ilike', '%'.$search_text.'%')->where('user_id', $user_id)->get();
 
         return view('user-articles', compact('articles'));
     }
