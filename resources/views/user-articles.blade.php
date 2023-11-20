@@ -36,11 +36,11 @@
         <p> {{ $article->description }} </p>
         <a href="{{ url('/articles/'.$article->article_id) }}" class="small-button">Read More </a>
         <a href="{{ url('/article/edit/'.$article->article_id) }}" class="small-button">Edit Article </a>
-        <form action="{{ url('/article/delete') }}" method="post">
+        <form action="{{ url('/article/delete/') }}" method="post">
             @csrf
             @method('delete')
             <input type="hidden" name="article_id" value="{{ $article->article_id }}">
-            <button type="submit">Delete Article</button>
+            <button type="submit" id="deleteArticleBtn">Delete Article</button>
         </form>
         
     </div>
