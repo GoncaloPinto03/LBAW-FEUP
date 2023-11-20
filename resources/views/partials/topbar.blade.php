@@ -5,6 +5,7 @@
         </a>
         <div class="search-box">
             <input type="text" class="search-input" placeholder="Search...">
+            <button type="submit" class="search-button-user">Search</button>
         </div>
         @if (Auth::guard('admin')->check())
             <a href="{{ url('/profile_admin/'.Auth::guard('admin')->user()->admin_id) }}" class="button-signin">Profile</a>
