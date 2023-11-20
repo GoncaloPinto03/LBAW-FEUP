@@ -211,7 +211,7 @@ paths:
   ############################# USERS ##############################
   ##################################################################
 
-  /users/{id}:
+  /profile/{id}:
       get:
         tags:
           - 'M02: Users'
@@ -237,10 +237,10 @@ paths:
                   302Failure:
                     description: 'Failure.'
     
-  /users/edit-profile:
+  /profile/edit/{id}:
    get:
-      operationId: R203
-      summary: 'R203: Edit user profile page.'
+      operationId: R202
+      summary: 'R202: Edit user profile page.'
       description: 'Shows the edit profile page of the user. Access: OWN'
       tags:
         - 'M02: Users'
@@ -260,8 +260,8 @@ paths:
                   value: '/user/{id}'
 
   post:
-      operationId: R204
-      summary: 'R204: Edit user profile action'
+      operationId: R203
+      summary: 'R203: Edit user profile action'
       description: 'Processes and saves the changes made by user. Access: USR'
       tags:
         - 'M02: Users'
@@ -303,7 +303,7 @@ paths:
                   description: 'Failed update. Redirect again to edit profile page.'
                   value: '/users/edit'
     
-  /user/delete-profile:
+  /profile/delete/{id}:
     delete:
       tags:
         - 'M02: Users'
@@ -320,12 +320,12 @@ paths:
         '204':
           description: 'User profile deleted successfully'
     
-  /user/remove-follower:
+  /profile/{id}/remove-follower:
     delete:
       tags:
         - 'M02: Users'
-      operationId: R206
-      summary: 'R206: Remove Follower'
+      operationId: R205
+      summary: 'R205: Remove Follower'
       description: 'Remove a follower from the users list. Access: OWN'
       parameters:
         - in: query
@@ -342,12 +342,12 @@ paths:
         '204':
           description: 'Follower removed successfully'
     
-  /user/follow:
+  /profile/{id}/follow:
     post:
       tags:
         - 'M02: Users'
-      operationId: R207
-      summary: 'R207: Follow User'
+      operationId: R206
+      summary: 'R206: Follow User'
       description: 'Follow another user. Access: USR'
       requestBody:
         required: true
@@ -367,12 +367,12 @@ paths:
         '201':
           description: 'User followed successfully'
     
-  /user/unfollow:
+  /profile/{id}/unfollow:
     delete:
       tags:
         - 'M02: Users'
-      operationId: R208
-      summary: 'R208: Unfollow User'
+      operationId: R207
+      summary: 'R207: Unfollow User'
       description: 'Unfollow a user. Access: USR'
       parameters:
         - in: query
@@ -389,12 +389,12 @@ paths:
         '204':
           description: 'User unfollowed successfully'
     
-  /user/notifications:
+  /profile/{id}/notifications:
     get:
       tags:
         - 'M02: Users'
-      operationId: R209
-      summary: 'R209: Get Notifications'
+      operationId: R208
+      summary: 'R208: Get Notifications'
       description: 'Get user notifications. Access: USR'
       parameters:
         - in: query
@@ -406,12 +406,12 @@ paths:
         '200':
           description: 'Notifications retrieved successfully'
     
-  /user/notification/delete:
+  /profile/{id}/notification/delete:
     delete:
       tags:
         - 'M02: Users'
-      operationId: R210
-      summary: 'R210: Delete Notification'
+      operationId: R209
+      summary: 'R209: Delete Notification'
       description: 'Delete a notification. Access: USR'
       parameters:
         - in: query
@@ -428,12 +428,12 @@ paths:
         '204':
           description: 'Notification deleted successfully'
     
-  /user/notification/update:
+  /profile/{id}/notification/update:
     put:
       tags:
         - 'M02: Users'
-      operationId: R211
-      summary: 'R211: Update Notification'
+      operationId: R210
+      summary: 'R210: Update Notification'
       description: 'Update a notification. Access: USR'
       parameters:
         - in: query
@@ -470,7 +470,7 @@ paths:
   #################### ADMINS AND STATIC PAGES #####################
   ##################################################################
 
-  /admin/{id}:
+  /admin/:
     get:
       tags:
         - 'M03: Admins and Static Pages'
@@ -549,6 +549,44 @@ paths:
       responses:
         '200':
           description: 'Media resources retrieved successfully'
+
+/profile_admin/{id}:
+  get:
+    tags:
+      - 'M03: View admin profile'
+    operationId: R307
+    summary: 'R307: View admin profile'
+    description: 'Get admin profile. Access: ADM'
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+    responses:
+      '200':
+        description: 'Admin profile retrieved successfully'
+
+/admin-profile/edit:
+  get:
+    tags:
+      - 'M03: Edit admin profile'
+    operationId: R308
+    summary: 'R308: Edit admin profile'
+    description: 'Get admin profile editing page. Access: ADM'
+    responses:
+      '200':
+        description: 'Admin profile editing page retrieved successfully'
+
+  post:
+    tags:
+      - 'M03: Edit admin profile'
+    operationId: R309
+    summary: 'R309: Edit admin profile'
+    description: 'Edit admin profile. Access: ADM'
+    responses:
+      '200':
+        description: 'Admin profile edited successfully'
 
   ##################################################################
   ############################ COMMENTS ############################
@@ -730,7 +768,7 @@ paths:
 
   /article/delete:
 
-    post:
+    delete:
       operationId: R502
       summary: 'R502 : Delete article action'
       description: 'Delete article. Access: OWN, ADM'
@@ -755,48 +793,62 @@ paths:
         '403':
           description: 'Forbiden action.'
 
-  /article/edit:
-
-    post:
-      operationId: R503
-      summary: 'R503: Edit article action'
-      description: 'Edit article. Access: OWN'
-      tags:
-        - 'M05: Articles'
-
-      requestBody:
+  /article/edit/{articleId}:
+  get:
+    operationId: R503
+    summary: 'R503: View article edit page'
+    description: 'View the page for editing an article. Access: OWN'
+    tags:
+      - 'M05: Articles'
+    parameters:
+      - in: path
+        name: articleId
+        schema:
+          type: integer
         required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: integer
-                name:
-                  type: string
-                description:
-                  type: string
-                media:
-                  type: string
-                  format: binary
-              required:
-                  - id
-                  - name
-                  - description
+    responses:
+      '200':
+        description: 'Article edit page retrieved successfully'
 
-      responses:
-        '200':
-          description: 'Edit successfully.'
-        '403':
-          description: 'Forbiden action.'
+  post:
+    operationId: R504
+    summary: 'R504: Edit article action'
+    description: 'Edit article. Access: OWN'
+    tags:
+      - 'M05: Articles'
+    requestBody:
+      required: true
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+              media:
+                type: string
+                format: binary
+            required:
+                - id
+                - name
+                - description
+    responses:
+      '200':
+        description: 'Edit successfully.'
+      '403':
+        description: 'Forbidden action.'
+
 
   /article/like:
     post:
       tags:
         - 'M05: Articles'
-      operationId: R504
-      summary: 'R504: Like Article'
+      operationId: R505
+      summary: 'R505: Like Article'
       description: 'Like an article. Access: USR, OWN'
       requestBody:
         required: true
@@ -817,8 +869,8 @@ paths:
 
   /article/dislike:
     post:
-      operationId: R505
-      summary: 'R505: Unlike article'
+      operationId: R506
+      summary: 'R506: Unlike article'
       description: 'Unlike article. Access: USR, OWN'
       tags:
         - 'M05: Articles'
@@ -865,7 +917,7 @@ paths:
         '403':
           description: 'Forbiden action. You need to be logged in first'
 
-  /search/article:
+  /search-user-post:
     get:
       tags:
         - 'M06: Search'
