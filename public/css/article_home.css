@@ -18,8 +18,7 @@
 .article-image img {
     max-width: 100%;
     height: auto;
-    border-top-right-radius: 1em;
-    border-top-left-radius: 1em;
+    border-radius: 1em;
 }
 
 .article-content {
@@ -56,6 +55,8 @@
 
 .article-box {
     grid-column: span 2;
+    justify-content: center;
+    padding: 1em;
 }
 
 .small-box-container {
@@ -132,4 +133,8 @@
     flex: 1;
     margin-right: 2em;
     margin-top: 2em;
+}
+
+#category-filter {
+    
 }

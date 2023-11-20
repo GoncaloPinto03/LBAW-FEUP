@@ -17,6 +17,11 @@ class Article extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment')->where('previous', null)->get();
+    }
+
     /*public function topic()
     {
         return $this->belongsTo(Topic::class, 'topic_id');
