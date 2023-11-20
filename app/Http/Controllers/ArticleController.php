@@ -20,9 +20,10 @@ class ArticleController extends Controller
             $articleDescription = $article->description;
             $articleDate = $article->date;
             $authorName = $article->user->name;
+            $authorRep= $article->user->reputation;
             //$topicName = $article->topic->name;
 
-        return view('article', compact('articleName', 'articleDescription', 'articleDate', 'authorName'/*, 'topicName'*/));
+        return view('article', compact('articleName', 'articleDescription', 'articleDate', 'authorName','authorRep'/*, 'topicName'*/));
         } else {
             return response()->json(['message' => 'Article not found'], 404);
         }

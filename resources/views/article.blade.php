@@ -14,6 +14,7 @@
                     <p>{{ $articleDate }}</p>
     
                     <p><strong>Author:</strong> {{ $authorName }}</p>
+                    <p><strong>Author Reputation:</strong>{{$authorRep}}</p>
                     <button class="share-button">Share</button>
                 </div>
                 <div class="article-image">
