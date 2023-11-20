@@ -19,6 +19,7 @@
         <link href="{{ url('css/edit_profile.css')}}" rel="stylesheet">
         <link href="{{ url('css/admin_page.css') }}" rel="stylesheet">
         <link href="{{ url('css/footer.css') }}" rel="stylesheet">
+        <!--<link href="{{ url('css/article_solo.css') }}" rel="stylesheet">-->
 
         <script type="text/javascript">
             // Fix for Firefox autofocus CSS bug

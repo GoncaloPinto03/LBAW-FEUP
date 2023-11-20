@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ArticleController;
 
 
 /*
@@ -56,6 +57,9 @@ Route::controller(RegisterController::class)->group(function () {
 Route::get('sidebar',[SidebarController::class,'showSidebar']);
 
 
+// Article page
 
 
+Route::get('/articles/{articleId}', [ArticleController::class, 'getArticleInformation']);
+Route::get('article', [ArticleController::class, 'showArticles']);
 
