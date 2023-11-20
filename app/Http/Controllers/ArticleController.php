@@ -24,8 +24,9 @@ class ArticleController extends Controller
     }
 
     public function showArticles() {
-        $articles = Article::all();
-        return view('partials.articles_home', compact('articles'));
+        $articles1 = Article::take(5)->get();
+        $articles2 = Article::take(5)->get();
+        return view('partials.articles_home', compact('articles1', 'articles2'));
     }
 }
 

@@ -21,8 +21,8 @@
                 <!-- First Column -->
                 <div class="column">
 
-                    @foreach($articles as $article)
-                        <div class="small box">
+                    @foreach($columns['column1'] as $article)
+                        <div class="small-box">
                             <h2> {{ $article->name }} </h2>
                             <p> {{ $article->description }} </p>
                             <a href="#" class="small-button">Read More </a>
@@ -59,7 +59,16 @@
 
                 <!-- Second Column -->
                 <div class="column">
-                    <div class="small-box">
+                    
+                    @foreach($columns['column2'] as $article)
+                        <div class="small-box">
+                            <h2> {{ $article->name }} </h2>
+                            <p> {{ $article->description }} </p>
+                            <a href="#" class="small-button">Read More </a>
+                        </div>
+                    @endforeach
+                    
+                    <!--<div class="small-box">
                         <h2>Additional Small Box 4 Title</h2>
                         <p>Additional Small Box 4 Content</p>
                         <a href="#" class="small-button">Read More</a>
@@ -81,43 +90,15 @@
                         <h2>Additional Small Box 6 Title</h2>
                         <p>Additional Small Box 6 Content</p>
                         <a href="#" class="small-button">Read More</a>
-                    </div>
+                    </div>-->
+                
+                
+                
                 </div>
             </div>
         </div>
         </div>
 
-       
-            <div class="small-box-container">
-                <div class="small-box">
-                    <h2>Small Box 1 Title</h2>
-                    <p>Bem vindos a vila moleza, o lugar onde vais querer estar</p>
-                    <a href="#" class="small-button">Read More</a>
-                </div>
-
-                <div class="small-box">
-                    <h2>Small Box 2 Title</h2>
-                    <p>Small Box 2 Content</p>
-                    <a href="#" class="small-button">Read More</a>
-                </div>
-
-                <div class="small-box">
-                    <h2>Small Box 3 Title</h2>
-                    <p>Small Box 3 Content</p>
-                    <a href="#" class="small-button">Read More</a>
-                </div>
-
-                <div class="small-box">
-                    <h2>Small Box 4 Title</h2>
-                    <p>Small Box 4 Content</p>
-                    <a href="#" class="small-button">Read More</a>
-                </div>
-                <div class="small-box">
-                    <h2>Small Box 4 Title</h2>
-                    <p>Small Box 4 Content</p>
-                    <a href="#" class="small-button">Read More</a>
-                </div>
-            </div>
 
     </section>
 
