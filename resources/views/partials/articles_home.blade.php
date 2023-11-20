@@ -20,6 +20,16 @@
             <div class="additional-box-container">
                 <!-- First Column -->
                 <div class="column">
+
+                    @foreach($articles as $article)
+                        <div class="small box">
+                            <h2> {{ $article->name }} </h2>
+                            <p> {{ $article->description }} </p>
+                            <a href="#" class="small-button">Read More </a>
+                        </div>
+                    @endforeach
+
+                    <!--
                     <div class="small-box">
                         <h2>Additional Small Box 1 Title</h2>
                         <p>Additional Small Box 1 Content</p>
@@ -42,7 +52,9 @@
                         <h2>Additional Small Box 3 Title</h2>
                         <p>Additional Small Box 3 Content</p>
                         <a href="#" class="small-button">Read More</a>
-                    </div>
+                    </div>-->
+
+
                 </div>
 
                 <!-- Second Column -->

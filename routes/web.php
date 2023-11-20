@@ -40,6 +40,7 @@ Route::controller(RegisterController::class)->group(function () {
 
 
 Route::get('/articles/{articleId}', [ArticleController::class, 'getArticleInformation']);
+Route::get('article', [ArticleController::class, 'showArticles']);
 /*Route::controller(ArticleController::class)->group(function () {
     Route::get('/article', 'showArticle') ->name('article');
     //Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');

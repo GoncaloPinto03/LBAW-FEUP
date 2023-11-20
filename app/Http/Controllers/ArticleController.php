@@ -22,5 +22,10 @@ class ArticleController extends Controller
             return response()->json(['message' => 'Article not found'], 404);
         }
     }
+
+    public function showArticles() {
+        $articles = Article::all();
+        return view('partials.articles_home', compact('articles'));
+    }
 }
 
