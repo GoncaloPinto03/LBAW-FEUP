@@ -15,6 +15,7 @@
     </div>
     @if (Auth::guard('admin')->user()->admin_id == $admin->admin_id)
         <a href="{{ url('/admin-profile/edit') }}" class="button">Edit Profile</a>
+        <a href="{{ url('/admin') }}" class="button">Manage Users</a>
     @endif
 </section>
 @endsection
