@@ -34,6 +34,7 @@ Route::get('/profile', [HomeController::class, 'profile'])->name('profile')->mid
 Route::get('/profile/{id}', [UserController::class, 'index'])->where('id', '[0-9]+');
 Route::get('/profile/edit/{id}', [UserController::class, 'edit']);
 Route::post('/profile/edit/{id}', [UserController::class, 'update']);
+Route::get('/profile/articles', [UserController::class, 'showArticles']);
 
 
 
@@ -65,4 +66,8 @@ Route::get('sidebar',[SidebarController::class,'showSidebar']);
 
 Route::get('/articles/{articleId}', [ArticleController::class, 'getArticleInformation']);
 Route::get('article', [ArticleController::class, 'showArticles']);
-
+Route::get('/article/edit/{articleId}', [ArticleController::class, 'editArticle']);
+Route::post('/article/edit/{articleId}', [ArticleController::class, 'updateArticle']);
+Route::delete('/article/delete/', [ArticleController::class, 'deleteArticle']);
+Route::get('/article/create', [ArticleController::class, 'createArticlePage']);
+Route::post('/article/create-confirm', [ArticleController::class, 'newArticle']);

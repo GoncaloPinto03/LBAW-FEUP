@@ -58,4 +58,9 @@ class User extends Authenticatable
         return "/".$files[0];
     }
 
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'user_id');
+    }
+
 }
