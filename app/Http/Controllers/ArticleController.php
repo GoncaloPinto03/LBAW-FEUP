@@ -78,24 +78,17 @@ class ArticleController extends Controller
     {
         $article = Article::find($request->input('article_id'));
 
-        foreach($article->comments() as $comment) $comment->delete();
-
         if (!$article) {
             return redirect()->back()->with('error', 'Article not found');
         }
 
         $comments = $article->comments();
-        if(!$comments)
-        {
-            return redirect('home');
-        }
-        else
+        if($comments)
         {
             foreach($comments as $comment) $comment->delete();
-    
+        }    
             $article->delete();
     
-        }
     }
 
 
