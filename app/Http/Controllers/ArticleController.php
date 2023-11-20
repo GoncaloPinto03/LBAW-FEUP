@@ -28,11 +28,27 @@ class ArticleController extends Controller
         }
     }
 
+    
     public function showArticles() {
         $articles1 = Article::take(5)->get();
         $articles2 = Article::take(5)->get();
         return view('partials.articles_home', compact('articles1', 'articles2'));
     }
+/*
+    public function showArticles($category = null)
+{
+    if ($category) {
+        $articles1 = Article::where('category', $category)->take(5)->get();
+        $articles2 = Article::where('category', $category)->take(5)->get();
+    } else {
+        $articles1 = Article::take(5)->get();
+        $articles2 = Article::take(5)->get();
+    }
+
+    return view('partials.articles_home', compact('articles1', 'articles2'));
+}
+
+*/
 
     public function editArticle($id)
     {
@@ -61,6 +77,8 @@ class ArticleController extends Controller
     public function deleteArticle(Request $request)
     {
         $article = Article::find($request->input('article_id'));
+
+        foreach($article->comments() as $comment) $comment->delete();
 
         if (!$article) {
             return redirect()->back()->with('error', 'Article not found');

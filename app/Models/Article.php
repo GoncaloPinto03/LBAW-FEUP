@@ -20,6 +20,7 @@ class Article extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class, 'article_id')->get();
+
     }
 
     /*public function topic()

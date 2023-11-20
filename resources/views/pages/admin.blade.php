@@ -38,8 +38,6 @@
                 <div class="admin-sidebar">
                     <ul>
                         <li><a>Users</a></li>
-                        <li><a>Admins</a></li>
-                        <li><a>Articles</a></li>
                         <li><a>Comments</a></li>
                         <li><a>Topics</a></li>
                         <li><a>Topic Proposals</a></li>

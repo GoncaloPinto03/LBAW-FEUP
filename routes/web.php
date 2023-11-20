@@ -73,3 +73,11 @@ Route::delete('/article/delete/', [ArticleController::class, 'deleteArticle']);
 Route::get('/article/create', [ArticleController::class, 'createArticlePage']);
 Route::post('/article/create-confirm', [ArticleController::class, 'newArticle']);
 Route::get('/search-user-post', [ArticleController::class, 'search_user_articles']);
+// web.php
+
+// web.php
+Route::get('/home/{category?}', 'HomeController@index')->name('home');
+// web.php
+Route::get('/articles/show/{category?}', 'ArticleController@showArticles')->name('articles.show');
+
+
