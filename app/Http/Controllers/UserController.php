@@ -74,9 +74,9 @@ class UserController extends Controller
         return redirect('profile/'.$user->user_id);
     }
 
-    public function showArticles()
+    public function showArticles(int $id)
     {
-        $user = Auth::user();
+        $user = User::find($id);
 
         $articles = $user->articles;
 

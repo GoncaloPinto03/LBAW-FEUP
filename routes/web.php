@@ -34,7 +34,7 @@ Route::get('/profile', [HomeController::class, 'profile'])->name('profile')->mid
 Route::get('/profile/{id}', [UserController::class, 'index'])->where('id', '[0-9]+');
 Route::get('/profile/edit/{id}', [UserController::class, 'edit']);
 Route::post('/profile/edit/{id}', [UserController::class, 'update']);
-Route::get('/profile/articles', [UserController::class, 'showArticles']);
+Route::get('/profile/articles/{id}', [UserController::class, 'showArticles'])->where('id', '[0-9]+');
 
 
 
