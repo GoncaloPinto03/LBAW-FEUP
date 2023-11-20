@@ -10,11 +10,12 @@
     <a href="{{ url('/home') }} " id="form-logo">
         <img src="{{ asset('images/logo_big.png') }}" alt="CollabNews Logo" id="header-logo" style="width:100px;"> 
     </a>
-    <div class="search-box">
-        <form method="get" action="{{ url('/search-user-post') }}">
-            <input type="search" name="query" class="search-input" placeholder="Search...">
-            <button type="submit">Search</button>
+    <div class="search-box-user">
+        <form method="get" action="{{ url('/search-user-post') }}" class="form-user">
+            <input type="search" name="query" class="search-input-user" placeholder="Search...">
         </form>
+        <button type="submit" class="search-button-user">Search</button>
+
     </div>
     @if (Auth::guard('admin')->check())
         <a href="{{ url('/profile_admin/'.Auth::guard('admin')->user()->admin_id) }}" class="button-signin">Profile</a>
@@ -36,16 +37,15 @@
         <p> {{ $article->description }} </p>
         <a href="{{ url('/articles/'.$article->article_id) }}" class="small-button">Read More </a>
         <a href="{{ url('/article/edit/'.$article->article_id) }}" class="small-button">Edit Article </a>
-        <form action="{{ url('/article/delete/') }}" method="post">
+        <form action="{{ url('/article/delete') }}" method="post">
             @csrf
             @method('delete')
             <input type="hidden" name="article_id" value="{{ $article->article_id }}">
-            <button type="submit" id="deleteArticleBtn">Delete Article</button>
+            <button type="submit" class="user-article-button">Delete Article</button>
         </form>
         
     </div>
     @endforeach
-    @if (!Auth::guard('admin')->check())
-        <a href="{{ '/article/create' }}" class="button">Create Article</a>
-    @endif
+    <a href="{{ '/article/create' }}" class="user-article-button">Create Article</a>
+    @include('partials.footer')
 @endsection

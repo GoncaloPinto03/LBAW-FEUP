@@ -1,4 +1,9 @@
 /* Default styles for larger screens (PCs) */
+
+#content{
+    min-height: 86vh;
+}
+
 #articlebox {
     margin-left: 20em;
 }
@@ -18,7 +23,8 @@
 .article-image img {
     max-width: 100%;
     height: auto;
-    border-radius: 1em;
+    border-top-right-radius: 1em;
+    border-top-left-radius: 1em;
 }
 
 .article-content {
@@ -55,8 +61,6 @@
 
 .article-box {
     grid-column: span 2;
-    justify-content: center;
-    padding: 1em;
 }
 
 .small-box-container {
@@ -135,6 +139,71 @@
     margin-top: 2em;
 }
 
-#category-filter {
-    
+.user-article-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5a86ba;
+    color: #f0f3f5;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.5em;
+    transition: background-color 0.3s ease;
+    width: 10em;
+    height: 40px;
+    margin-left: 1em;
+}
+
+.user-article-button a {
+    text-decoration: none;
+    color: #f0f3f5;
+}
+
+.user-article-button:hover {
+    background-color: #5a86ba;
+    color: white;
+}
+
+
+.search-box-user {
+    display: flex;
+    border-radius: 1em;
+    width: 50%;
+    background-color: #F0F3F5;
+    align-items: center; /* Add this line to vertically align items */
+}
+
+.search-box-user input { 
+    border: 1px solid #5a86ba; 
+    border-radius: 1em;
+    padding: 0.5em;
+    margin-top: 1em;
+    width: 100%;
+}
+
+.search-input-user{
+    margin-bottom: 0px;
+}
+
+.search-button-user {
+    color: #F0F3F5;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5em;
+    transition: background-color 0.3s ease;
+    margin-left: 0.5em;
+}
+
+.search-button-user:hover {
+    color: white;
+    background-color: #5a86ba
+}
+
+.form-user {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }

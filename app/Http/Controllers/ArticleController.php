@@ -9,6 +9,8 @@ use App\Models\Article;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Comment; 
+
 class ArticleController extends Controller
 {
     public function getArticleInformation($articleId)
@@ -21,9 +23,10 @@ class ArticleController extends Controller
             $articleDate = $article->date;
             $authorName = $article->user->name;
             $authorRep= $article->user->reputation;
+            $comments= Comment::where('article_id', $articleId)->get();
             //$topicName = $article->topic->name;
 
-        return view('article', compact('articleName', 'articleDescription', 'articleDate', 'authorName','authorRep'/*, 'topicName'*/));
+        return view('article', compact('articleName', 'articleDescription', 'articleDate', 'authorName','authorRep','comments' /*, 'topicName'*/));
         } else {
             return response()->json(['message' => 'Article not found'], 404);
         }

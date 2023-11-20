@@ -11,7 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    
+    public function getComment($comments)
+    {
+        $comments = Comment::where($article_id = 'article_id')->get();
+        return view('article', compact('comments'));
+    }
 
 
     public function deleteComment(Request $request)
