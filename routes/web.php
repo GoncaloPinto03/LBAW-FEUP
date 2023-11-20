@@ -76,7 +76,7 @@ Route::get('/search-user-post', [ArticleController::class, 'search_user_articles
 // web.php
 
 // web.php
-Route::get('/home/{category?}', 'HomeController@index')->name('home');
+//Route::get('/home/{category?}', 'HomeController@index')->name('home');
 // web.php
 Route::get('/articles/show/{category?}', 'ArticleController@showArticles')->name('articles.show');
 
