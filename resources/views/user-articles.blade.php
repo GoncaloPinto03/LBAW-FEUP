@@ -45,5 +45,7 @@
         
     </div>
     @endforeach
-    <a href="{{ '/article/create' }}" class="button">Create Article</a>
+    @if (!Auth::guard('admin')->check())
+        <a href="{{ '/article/create' }}" class="button">Create Article</a>
+    @endif
 @endsection
