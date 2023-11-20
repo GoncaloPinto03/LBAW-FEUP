@@ -60,4 +60,12 @@ class AdminController extends Controller
 
         return redirect('profile_admin/'.$admin->admin_id);
     }
+
+    public function search_user(Request $request)
+    {
+        $search_text = $request->input('query');
+        $users = User::where('name', 'ilike', $search_text)->get();
+
+        return view('pages.admin', compact('users'));
+    }
 }

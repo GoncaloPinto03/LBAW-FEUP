@@ -106,7 +106,7 @@ class ArticleController extends Controller
         $search_text = $request->input('query');
         $user_id = Auth::user()->user_id;
 
-        $articles = Article::where('name', 'ilike', '%'.$search_text.'%')->where('user_id', $user_id)->get();
+        $articles = Article::where('user_id', $user_id)->whereRaw("tsvectors @@ to_tsquery(?)", [$search_text])->get();
 
         return view('user-articles', compact('articles'));
     }
