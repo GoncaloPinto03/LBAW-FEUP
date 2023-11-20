@@ -71,3 +71,4 @@ Route::post('/article/edit/{articleId}', [ArticleController::class, 'updateArtic
 Route::delete('/article/delete/', [ArticleController::class, 'deleteArticle']);
 Route::get('/article/create', [ArticleController::class, 'createArticlePage']);
 Route::post('/article/create-confirm', [ArticleController::class, 'newArticle']);
+Route::get('/search-user-post', [ArticleController::class, 'search_user_articles']);

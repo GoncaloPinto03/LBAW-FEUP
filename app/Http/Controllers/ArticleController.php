@@ -101,5 +101,14 @@ class ArticleController extends Controller
         return redirect('/home');
     }
 
+    public function search_user_articles(Request $request)
+    {
+        $search_text = $request->input('query');
+
+        $articles = Article::where('name', 'ilike', '%'.$search_text.'%')->get();
+
+        return view('user-articles', compact('articles'));
+    }
+
 }
 
