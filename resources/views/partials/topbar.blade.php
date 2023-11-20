@@ -17,7 +17,7 @@
             <a href="{{ url('/profile_admin/'.Auth::guard('admin')->user()->admin_id) }}" class="button-signin">Profile</a>
             <a class="button-signin" href="{{ url('/logout') }}"> Logout </a>
         @elseif (Auth::check())
-            <a href="{{ '/article/create' }}" class="button">Create Article</a>
+            <a href="{{ '/article/create' }}" class="button-signin">Create Article</a>
             <a href="{{ url('/profile/'.Auth::user()->user_id) }}" class="button-signin">Profile</a>
             <a class="button-signin" href="{{ url('/logout') }}"> Logout </a>
         @else
