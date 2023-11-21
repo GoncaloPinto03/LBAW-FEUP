@@ -16,8 +16,8 @@
             <p>Reputation: {{ $user->reputation }}<p>
         </div>
         @if (Auth::guard('admin')->check() || Auth::user()->user_id == $user->user_id)
-        <a href="{{ url('/profile/edit/' . $user->user_id) }}" class="button">Edit Profile</a>
-        <a href= "{{ url('/profile/articles/'.$user->user_id) }}" class="button">Manage Articles</a>
+            <a href="{{ url('/profile/edit/' . $user->user_id) }}" class="button">Edit Profile</a>
+            <a href= "{{ url('/profile/articles/'.$user->user_id) }}" class="button">Manage Articles</a>
         @endif
     </div>
     @include('partials.footer')

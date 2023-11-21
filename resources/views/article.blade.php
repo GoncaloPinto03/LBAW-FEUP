@@ -9,12 +9,12 @@
         <div class="boxes-container">
             <div class="article-box">
                 <div class="article-content">
-                    <h1>{{ $articleName }}</h1>
-                    <p>{{ $articleDescription }}</p>
-                    <p>{{ $articleDate }}</p>
+                    <h1>{{ $article->title }}</h1>
+                    <p>{{ $article->description }}</p>
+                    <p>{{ $article->date }}</p>
     
-                    <p><strong>Author:</strong> {{ $authorName }}</p>
-                    <p><strong>Author Reputation:</strong>{{$authorRep}}</p>
+                    <a href="{{ url('profile/'.$article->user_id) }}"><strong>{{ $article->user->name }}</strong></a>
+                    <p><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
                     <button class="share-button">Share</button>
                 </div>
                 <div class="article-image">

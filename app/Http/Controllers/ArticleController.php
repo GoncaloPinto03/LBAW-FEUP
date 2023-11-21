@@ -17,18 +17,18 @@ class ArticleController extends Controller
     {
         $article = Article::find($articleId);
 
-        if ($article) {
-            $articleName = $article->name;
+        if (!$article) {
+            return response()->json(['message' => 'Article not found'], 404);
+        } else {
+            /*$articleName = $article->name;
             $articleDescription = $article->description;
             $articleDate = $article->date;
             $authorName = $article->user->name;
-            $authorRep= $article->user->reputation;
+            $authorRep= $article->user->reputation;*/
             $comments= Comment::where('article_id', $articleId)->get();
             //$topicName = $article->topic->name;
 
-        return view('article', compact('articleName', 'articleDescription', 'articleDate', 'authorName','authorRep','comments' /*, 'topicName'*/));
-        } else {
-            return response()->json(['message' => 'Article not found'], 404);
+            return view('article', compact('article', 'comments' /*, 'topicName'*/));
         }
     }
 
@@ -113,7 +113,7 @@ class ArticleController extends Controller
 
         $article->save();
 
-        return redirect('profile/articles');
+        return redirect('profile/articles/'.$article->user_id);
     }
 
     public function search_user_articles(Request $request)

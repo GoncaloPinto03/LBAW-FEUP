@@ -41,11 +41,13 @@
             @csrf
             @method('delete')
             <input type="hidden" name="article_id" value="{{ $article->article_id }}">
-            <button type="submit" class="user-article-button">Delete Article</button>
+            <button type="submit" id="deleteArticleBtn" class="user-article-button">Delete Article</button>
         </form>
         
     </div>
     @endforeach
-    <a href="{{ '/article/create' }}" class="user-article-button">Create Article</a>
+    @if (!Auth::guard('admin')->check())
+        <a href="{{ '/article/create' }}" class="button">Create Article</a>
+    @endif
     @include('partials.footer')
 @endsection

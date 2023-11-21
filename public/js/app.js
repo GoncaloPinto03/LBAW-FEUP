@@ -59,7 +59,6 @@ console.log('Delete Buttons:', deleteButtons);
 
 deleteButtons.forEach(function(button) {
     button.addEventListener('click', function(e) {
-        // Your event handling code here
         let articleId = e.target.closest('form').querySelector('input[name="article_id"]').value;
         console.log('Button clicked! Article ID:', articleId);
         sendAjaxRequest('delete', '/article/delete/', { article_id: articleId }, articleDeletedHandler);
