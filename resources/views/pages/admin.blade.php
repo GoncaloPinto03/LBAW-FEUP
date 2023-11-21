@@ -8,11 +8,12 @@
         <a href="{{ url('/home') }} " id="form-logo">
             <img src="{{ asset('images/logo_big.png') }}" alt="CollabNews Logo" id="header-logo" style="width:100px;"> 
         </a>
-        <div class="search-box">
-            <form method="get" action="{{ url('/search-user') }}">
-                <input type="search" name="query" class="search-input" placeholder="Search...">
-                <button type="submit">Search</button>
+        <div class="search-box-admin">
+            <form method="get" action="{{ url('/search-user') }}" class="form-admin">
+                <input type="search" name="query" class="search-input-admin" placeholder="Search...">
             </form>
+            <button type="submit" class="search-button-admin">Search</button>
+
         </div>
         @if (Auth::guard('admin')->check())
             <a href="{{ url('/profile_admin/'.Auth::guard('admin')->user()->admin_id) }}" class="button-signin">Profile</a>

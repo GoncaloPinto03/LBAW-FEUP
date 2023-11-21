@@ -17,7 +17,7 @@
                     <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
                 <!---FALTA TRIGGER QUE ATUALIZA VALORES DE LIKE E DISLIKE A PARTIR DO ARTICLE VOTE--->
     
-                    <a href="{{ url('profile/'.$article->user_id) }}"><strong>{{ $article->user->name }}</strong></a>
+                    <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{ $article->user->name }}</strong></a>
                     <p><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
                     <button class="share-button">Share</button>
                 </div>
@@ -37,7 +37,7 @@
 
                     <ul class="comment-list">
                         @foreach($comments as $comment)
-                        <li><strong>{{$comment->user->name}}: </strong>{{$comment->text}}
+                        <li><a href="{{ url('profile/'.$article->user_id) }}" class="author-name2"><strong>{{$comment->user->name}}</strong></a>:{{$comment->text}}
                         </li>
                         @endforeach
                     </ul>

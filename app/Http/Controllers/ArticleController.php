@@ -57,8 +57,19 @@ class ArticleController extends Controller
     public function editArticle($id)
     {
         $article = Article::find($id);
+        
 
-        return view('edit_article', compact('article'));
+        if (!$article) {
+            return response()->json(['message' => 'Article not found'], 404);
+        } else {
+            $comments= Comment::where('article_id', $id)->get();
+            
+
+            return view('article', compact('article', 'comments' /*, 'topicName'*/));
+        }
+
+
+        return view('edit_article', compact('article','comments'));
     }
 
     public function updateArticle(Request $request, $id)

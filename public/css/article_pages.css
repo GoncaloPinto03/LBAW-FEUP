@@ -70,3 +70,13 @@
     text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
 }
 
+
+.author-name{
+    color: #555;
+    text-decoration: underline;
+}
+
+.author-name2{
+    color: #5a86ba;
+    text-decoration: underline;
+}

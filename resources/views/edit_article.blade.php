@@ -39,21 +39,9 @@
                     </form>
 
                     <ul class="comment-list">
-                        <li>
-                            <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </li>
-                        <li>
-                            <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </li>
-                        <li>
-                            <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </li>
-                        <li>
-                            <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </li>
-                        <li>    
-                            <strong>Username:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </li>
+                        @foreach($comments as $comment)
+                        <li><strong>{{$comment->user->name}}: </strong>{{$comment->text}}</li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
