@@ -10,6 +10,8 @@ use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AboutController;
+
 
 
 /*
@@ -80,4 +82,8 @@ Route::get('/search-user-post', [ArticleController::class, 'search_user_articles
 // web.php
 Route::get('/articles/show/{category?}', 'ArticleController@showArticles')->name('articles.show');
 
+
+
+//ABOUT
+Route::get('/about', [AboutController::class, 'about'])->name('about');
 

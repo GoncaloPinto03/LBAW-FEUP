@@ -19,6 +19,8 @@
         <link href="{{ url('css/edit_profile.css')}}" rel="stylesheet">
         <link href="{{ url('css/admin_page.css') }}" rel="stylesheet">
         <link href="{{ url('css/footer.css') }}" rel="stylesheet">
+        <link href="{{ url('css/about.css') }}" rel="stylesheet">
+
         <!--<link href="{{ url('css/article_solo.css') }}" rel="stylesheet">-->
 
         

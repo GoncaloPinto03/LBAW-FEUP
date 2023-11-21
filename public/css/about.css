@@ -1,0 +1,46 @@
+#about-us{
+    background-color: #f5f5f5;
+    border-radius: 1em;
+    border: solid 1px #5a86ba;
+    padding: 30px;
+    margin: 0 20px;
+}
+
+.title{
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: bolder;
+    font-size: 4em;
+
+}
+
+.subtitle{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-weight: bolder;
+    font-size: 2em;
+    color: #f5f5f5;
+}
+
+
+.text{
+    margin-bottom: 50px;
+    text-align: center;
+    color: #5a86ba;
+
+
+}
+
+.text-box{
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #f5f5f5;
+
+}
+
+.about-box{
+    margin: 50px;
+    padding: 30px;
+    border-radius: 1em;
+    background-color: #5a86ba;
+}
