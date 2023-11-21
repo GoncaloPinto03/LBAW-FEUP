@@ -302,7 +302,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER adjust_likes_dislikes_and_notification
-AFTER INSERT ON comment_vote
+AFTER INSERT ON article_vote
 FOR EACH ROW
 EXECUTE FUNCTION adjust_likes_dislikes_and_notification();
 

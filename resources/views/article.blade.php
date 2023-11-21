@@ -12,6 +12,10 @@
                     <h1>{{ $article->title }}</h1>
                     <p>{{ $article->description }}</p>
                     <p>{{ $article->date }}</p>
+                <!----------------------------------------------------------------------------------->
+                    <p><strong>Likes: </strong> {{ $article->likes }}</p>
+                    <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
+                <!---FALTA TRIGGER QUE ATUALIZA VALORES DE LIKE E DISLIKE A PARTIR DO ARTICLE VOTE--->
     
                     <a href="{{ url('profile/'.$article->user_id) }}"><strong>{{ $article->user->name }}</strong></a>
                     <p><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
