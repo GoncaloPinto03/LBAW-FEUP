@@ -549,11 +549,13 @@ VALUES
 INSERT INTO article_vote (is_like, article_id, user_id)
 VALUES
     (TRUE, 1, 2),
-    (TRUE, 2, 3),
+    (TRUE, 1, 4),
+    (TRUE, 1, 3),
     (FALSE, 3, 4),
     (TRUE, 4, 5),
     (FALSE, 5, 6),
     (TRUE, 6, 7),
+    (TRUE, 6, 1),
     (FALSE, 7, 8),
     (TRUE, 8, 9),
     (FALSE, 9, 10),

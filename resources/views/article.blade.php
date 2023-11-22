@@ -9,13 +9,11 @@
         <div class="boxes-container">
             <div class="article-box">
                 <div class="article-content">
-                    <h1>{{ $article->title }}</h1>
+                    <h1>{{ $article->name }}</h1>
                     <p>{{ $article->description }}</p>
                     <p>{{ $article->date }}</p>
-                <!----------------------------------------------------------------------------------->
                     <p><strong>Likes: </strong> {{ $article->likes }}</p>
                     <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
-                <!---FALTA TRIGGER QUE ATUALIZA VALORES DE LIKE E DISLIKE A PARTIR DO ARTICLE VOTE--->
     
                     <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{ $article->user->name }}</strong></a>
                     <p><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
@@ -37,7 +35,7 @@
 
                     <ul class="comment-list">
                         @foreach($comments as $comment)
-                        <li><a href="{{ url('profile/'.$article->user_id) }}" class="author-name2"><strong>{{$comment->user->name}}</strong></a>:{{$comment->text}}
+                        <li><a href="{{ url('profile/'.$comment->user_id) }}" class="author-name2"><strong>{{$comment->user->name}}</strong></a>:{{$comment->text}}
                         </li>
                         @endforeach
                     </ul>
@@ -55,10 +53,9 @@
                                     </div>
                                 </a>
                             </li>
-                            <li><a href="#">Lorem ipsum dolor</a></li>
-                            <li><a href="#">Lorem ipsum dolor</a></li>
-                            <li><a href="#">Lorem ipsum dolor</a></li>
-                            <li><a href="#">Lorem ipsum dolor</a></li>
+                            @foreach ($popular as $topArticle)
+                            <li><a href="{{  url('articles/'.$topArticle->article_id) }}">{{ $topArticle->name }}</a></li>
+                            @endforeach
                     </ul>
             </div>
 

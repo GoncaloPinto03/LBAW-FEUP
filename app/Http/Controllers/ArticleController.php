@@ -13,10 +13,12 @@ use App\Models\Comment;
 
 class ArticleController extends Controller
 {
+    
     public function getArticleInformation($articleId)
     {
         $article = Article::find($articleId);
-
+        $popular = Article::getPopularArticles();
+        
         if (!$article) {
             return response()->json(['message' => 'Article not found'], 404);
         } else {
@@ -27,12 +29,11 @@ class ArticleController extends Controller
             $authorRep= $article->user->reputation;*/
             $comments= Comment::where('article_id', $articleId)->get();
             //$topicName = $article->topic->name;
+            
+        return view('article', compact('article', 'comments', 'popular' /*, 'topicName'*/));        
+    }        
+}        
 
-            return view('article', compact('article', 'comments' /*, 'topicName'*/));
-        }
-    }
-
-    
     public function showArticles() {
         $articles1 = Article::take(5)->get();
         $articles2 = Article::take(5)->get();
