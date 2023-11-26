@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="login-forms">
         <a href="{{ url('/home') }} " id="form-logo">
             <img src="{{ asset('images/logo_big.png') }}" alt="CollabNews Logo" id="header-logo"> 
         </a>
@@ -27,7 +27,7 @@
         <button type="submit">
             Login
         </button>
-        <a class="button button-outline" href="{{ route('register') }}">Register</a>
+        <a class="no-account-button" href="{{ route('register') }}">Don't have an account!</a>
         @if (session('success'))
             <p class="success">
                 {{ session('success') }}
