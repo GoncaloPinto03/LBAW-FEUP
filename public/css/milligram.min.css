@@ -405,10 +405,7 @@ a {
     color: #5a86ba;
     text-decoration: none;
 }
-a:focus,
-a:hover {
-    color: #606c76;
-}
+
 dl,
 ol,
 ul {

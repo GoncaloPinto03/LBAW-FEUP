@@ -20,6 +20,7 @@
         <link href="{{ url('css/admin_page.css') }}" rel="stylesheet">
         <link href="{{ url('css/footer.css') }}" rel="stylesheet">
         <link href="{{ url('css/about.css') }}" rel="stylesheet">
+        <link href="{{ url('css/register.css') }}" rel="stylesheet">
 
         <!--<link href="{{ url('css/article_solo.css') }}" rel="stylesheet">-->
 
@@ -34,14 +35,12 @@
     </head>
     <body>
         <main>
-
             @yield('topbar')
             @yield('sidebar')
             <section id="content">
                 @yield('content')
             </section>
             @yield('footer')
-
 
         </main>
     </body>

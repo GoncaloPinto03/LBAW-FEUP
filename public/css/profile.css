@@ -15,6 +15,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    color: #00003e;
 }
 
 #profile p {
@@ -31,13 +32,19 @@
 #profile .profile-pic img {
  width: 100%;
  height: auto;
+ border-radius: 10px;
 }
 
 .profile-box {
     margin: 20px;
-    border: 1px solid #5a86ba;
     border-radius: 1em;
     padding: 50px;
     width: 30%;
-    
+    background-color: rgba(255,255,255,.7);
+    backdrop-filter: blur(5px);
+    color: #00003e;
+}
+
+.profile-box h1 {
+    color: #00003e;
 }

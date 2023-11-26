@@ -2,7 +2,7 @@
 
 @section('content')
 
-  <form method="POST" action="{{ route('register') }}">
+  <form method="POST" action="{{ route('register') }}" class="register-forms">
       <a href="{{ url('/home') }}" id="form-logo">
         <img src="{{ asset('images/logo_big.png') }}" alt="CollabNews Logo" id="header-logo"> 
       </a>

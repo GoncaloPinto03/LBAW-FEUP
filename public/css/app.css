@@ -1,6 +1,8 @@
 body {
-  background-color: #F0F3F5;
-  color: #5a86ba;
+  color: white;
+  background-image: url('../images/bg.jpg');
+  background-size: cover;
+  height: 100vh; 
 }
 main > header {
   display: flex;
@@ -25,13 +27,15 @@ main > header span {
 
 #content label {
   font-weight: normal;
+  color: white;
 }
 #content > form {
-  margin: 0 auto;
+  margin: 10% auto;
   padding: 1em;
   max-width: 30em;
-  border: 1px solid #5a86ba;
+  border: 1px solid #00003e;
   border-radius: 10px;
+  box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.7);
 }
 #content > form .error {
   font-weight: bold;
@@ -39,17 +43,18 @@ main > header span {
 }
 #content > form .success {
   font-weight: bold;
-  color: #106af1;
+  color: #71f110;
 }
 #content > form input {
   background-color: white;
+  border-radius: 15px;
 }
 
 #forms  {
   margin: 0 auto;
   padding: 1em;
   max-width: 40em;
-  border: 1px solid #5a86ba;
+  border: 1px solid #00003e;
   border-radius: 10px;
 }
 
@@ -64,15 +69,15 @@ align-items: center;
  * Some styles might be missing
  **/
 button {
-  background-color: #5a86ba;
-  border-color: #5a86ba;
+  background-color: #00003e;
+  border-color: #00003e;
 }
 a.button {
-  background-color: #5a86ba;
-  border-color: #5a86ba;
+  background-color: #00003e;
+  border-color: #00003e;
 }
 a.button.button-outline {
-  color: #5a86ba;
+  color: #00003e;
 }
 a {
   color: #F0F3F5;
@@ -80,7 +85,7 @@ a {
 input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus {
-  border-color: #5a86ba;
+  border-color: #00003e;
 }
 
 #content #homepage {

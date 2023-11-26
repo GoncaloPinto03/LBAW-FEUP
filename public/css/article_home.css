@@ -9,16 +9,19 @@
 }
 
 .article-box {
+    
     display: fixed;
     flex-direction: column;
     border-radius: 1em;
-    border: 0.1em solid #F0F3F5;
+    border: 0.1em solid #00003e;
     margin: 2em;
     width: 60%;
-    background-color: #F0F3F5;
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    background-color: rgba(255,255,255,.7);
     overflow: hidden;
+    backdrop-filter: blur(5px);
 }
+
 
 .article-image img {
     max-width: 100%;
@@ -34,13 +37,13 @@
 .article-content h1 {
     font-size: 2em;
     font-weight: bold;
-    color: #3498db;
+    color: #00003e;
     margin-bottom: 1em;
 }
 
 .article-content p {
     font-size: 1em;
-    color: #555;
+    color: #00003e;
     margin-bottom: 2em;
 }
 
@@ -88,20 +91,22 @@
 .small-box {
     border: 0.1em solid #ccc;
     border-radius: 1em;
-    background-color: #F0F3F5;
+    background-color: rgba(255,255,255,.7);
     margin-bottom: 2em;
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    height: 300px;
 }
 
 .small-box h2 {
     font-size: 2em;
-    color: #2980b9;
+    color: #00003e;
     margin: 1em;
 }
 
 .small-box p {
     font-size: 1em;
-    color: #2980b9;
+    color: #00003e;
     margin: 1em;
     padding-left: 1em;
 }
@@ -115,7 +120,7 @@
     font-size: 1em;
     text-align: center;
     text-decoration: underline;
-    color: #2980b9;
+    color: #00003e;
     border-radius: 1em;
     transition: background-color 0.3s ease;
 }
@@ -206,4 +211,5 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    color: #00003e;
 }

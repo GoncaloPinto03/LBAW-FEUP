@@ -37,6 +37,8 @@
     font-size: 1.4em;
     margin-bottom: 10%;
     width: 130%;
+    background-color: white;
+    color: #00003e;
 }
 
 #edit-profile .profile-pic {
@@ -62,6 +64,7 @@
 }
 
 #edit-profile button:hover {
-    background-color: #2980b9;
+    background-color: white;
+    color: #00003e;
 }
 

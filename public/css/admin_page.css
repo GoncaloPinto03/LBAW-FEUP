@@ -1,5 +1,6 @@
 #adminpage {
     padding: 1em;
+    color: white;
 }
 
 .admin-container {
@@ -9,12 +10,16 @@
 
 .admin-sidebar {
     display: flex;
-    background-color: #5a86ba;
-    border: 0.5px solid #5a86ba;
+    background-color: #00003e;
+    border: 0.5px solid #00003e;
     border-radius: 10px;
     justify-content: center;
-    height: auto;
     font-size: 1.3em;
+}
+
+.admin-sidebar ul {
+    list-style-type: none;
+    padding: 2em;
 }
 
 .admin-sidebar a {
@@ -30,7 +35,7 @@
 
 .admin-dashboard {
     margin-left: 1em;
-    background-color: #F0F3F5;
+    background-color: rgba(255,255,255,.7);
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
     overflow: hidden;
     border-radius: 10px;
@@ -49,6 +54,8 @@
     padding: 1em;
     justify-content: space-between;
     align-items: center;
+    background-color: #F0F3F5;
+    color: #00003e;
 }
 
 .admin-dashboard-user-info {

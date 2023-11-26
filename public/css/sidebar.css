@@ -5,18 +5,18 @@ body {
 }
 
 #sidebar h1 {
-    color: #5a86ba;
+    color: #00003e;
     font-size: 2em;
     padding: 0.5em;
-    border-bottom: 0.02em solid #5a86ba;
+    border-bottom: 0.02em solid #00003e;
 }
 
 #sidebar {
-    width: 10%;
+    width: 15%;
     position: absolute;
-    background-color: #F0F3F5;
+    background-color: rgba(255,255,255,.7);
     color: black;
-    border: 0.5px solid #5a86ba;
+    border: 0.5px solid #00003e;
     border-radius: 10px;
     top: 15%;
     left: 2%;
@@ -33,7 +33,7 @@ body {
 }
 
 #sidebar a:hover {
-    color: #5a86ba;
+    color: #00003e;
     transform: scale(1.1);
 }
 
@@ -47,18 +47,16 @@ body {
     display: flex;
     border-radius: 1em;
     width: 50%;
-    background-color: #F0F3F5; 
+    background-color: transparent; 
+
 }
 
-.search-box input { 
-    border: 1px solid #5a86ba; 
+.search-input { 
+    border: 1px solid #00003e; 
+    background-color: #F0F3F5;
     border-radius: 1em;
     padding: 0.5em;
     width: 100%;
-}
-
-.search-input{
-    margin-bottom: 0px;
 }
 
 .search-button {
@@ -96,7 +94,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #5a86ba;
+    background-color: #00003e;
     color: #f0f3f5;
     border: none;
     text-align: center;
@@ -114,7 +112,7 @@ body {
 }
 
 .button-signin:hover, .button-profile:hover {
-    background-color: #5a86ba;
+    background-color: #00003e;
     color: white;
 }
 
