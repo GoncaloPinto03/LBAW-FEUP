@@ -15,6 +15,13 @@
                         <input type="text" id="name" name="name">
                         <label for="description">Description:</label>
                         <input type="text" id="descriptiom" name="description">
+
+                        <label for="topic">Topic:</label>
+                        <select id="topic" name="topic">
+                            @foreach ($topics as $topic)
+                               <option value="{{ $topic->name }}">{{ $topic->name }}</option>
+                            @endforeach
+                        </select>
                         
 
                         <button type="submit">Save Changes</button>

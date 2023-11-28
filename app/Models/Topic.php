@@ -10,6 +10,7 @@ class Topic extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+    protected $primaryKey = 'topic_id';
     protected $table = 'topic';
 
     public $timestamps = false;

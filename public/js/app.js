@@ -45,7 +45,7 @@ function sendAjaxRequest(method, url, data, handler) {
 
   
 function articleDeletedHandler() {
-    if (this.status != 200) window.location = '/';
+    //if (this.status != 200) window.location = '/';
     let item = JSON.parse(this.responseText);
     let element = document.querySelector('li.item[data-id="' + item.id + '"]');
     element.remove();

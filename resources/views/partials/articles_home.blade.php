@@ -52,28 +52,6 @@
         </div>
         </div>
     </section>
-    <script>
-        // Update the category filter on page load
-        $(document).ready(function () {
-            filterArticles();
-        });
 
-        function filterArticles() {
-            var selectedCategory = $("#category-filter").val();
-
-            $.ajax({
-                url: "{{ route('home', ['category' => '']) }}/" + selectedCategory,
-                method: 'GET',
-                success: function(response) {
-                    // Replace the content of the existing articles with the filtered articles
-                    $('.column .small-box').remove();
-                    $('.column').append(response);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        }
-    </script>
 
 @endsection

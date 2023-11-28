@@ -12,6 +12,7 @@
                     <h1>{{ $article->name }}</h1>
                     <p>{{ $article->description }}</p>
                     <p>{{ $article->date }}</p>
+                    <p><strong>Topic: </strong>{{ $topicName }}</p>
                     <p><strong>Likes: </strong> {{ $article->likes }}</p>
                     <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
     

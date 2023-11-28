@@ -15,9 +15,12 @@
                         <input type="text" value="{{ $article->name }}" id="name" name="name">
                         <label for="description">Description:</label>
                         <input type="text" value="{{ $article->description }}" id="descriptiom" name="description">
-                        
-                        <!--<h1>{{ $article->name }}</h1>
-                        <p>{{ $article->description }}</p>-->
+                        <label for="topic">Topic:</label>
+                        <select id="topic" name="topic">
+                            @foreach ($topics as $topic)
+                               <option value="{{ $topic->name }}">{{ $topic->name }}</option>
+                            @endforeach
+                        </select>
                         <button type="submit">Save Changes</button>
                     </form>
                     <p>{{ $article->date }}</p>

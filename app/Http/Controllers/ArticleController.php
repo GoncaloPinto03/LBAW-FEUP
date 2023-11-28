@@ -8,6 +8,7 @@ use App\Models\Article;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Topic;
 
 use App\Models\Comment; 
 
@@ -28,9 +29,9 @@ class ArticleController extends Controller
             $authorName = $article->user->name;
             $authorRep= $article->user->reputation;*/
             $comments= Comment::where('article_id', $articleId)->get();
-            //$topicName = $article->topic->name;
+            $topicName = Topic::find($article->topic_id)->name;
             
-        return view('article', compact('article', 'comments', 'popular' /*, 'topicName'*/));        
+        return view('article', compact('article', 'comments', 'popular' , 'topicName'));        
     }        
 }        
 
@@ -39,26 +40,13 @@ class ArticleController extends Controller
         $articles2 = Article::take(5)->get();
         return view('partials.articles_home', compact('articles1', 'articles2'));
     }
-/*
-    public function showArticles($category = null)
-{
-    if ($category) {
-        $articles1 = Article::where('category', $category)->take(5)->get();
-        $articles2 = Article::where('category', $category)->take(5)->get();
-    } else {
-        $articles1 = Article::take(5)->get();
-        $articles2 = Article::take(5)->get();
-    }
 
-    return view('partials.articles_home', compact('articles1', 'articles2'));
-}
-
-*/
 
     public function editArticle($id)
     {
         $article = Article::find($id);
-        
+        $popular = Article::getPopularArticles();
+        $topics = Topic::all();
 
         if (!$article) {
             return response()->json(['message' => 'Article not found'], 404);
@@ -66,11 +54,11 @@ class ArticleController extends Controller
             $comments= Comment::where('article_id', $id)->get();
             
 
-            return view('article', compact('article', 'comments' /*, 'topicName'*/));
+        //    return view('article', compact('article', 'comments' , 'popular', 'topicName'));
         }
 
 
-        return view('edit_article', compact('article','comments'));
+        return view('edit_article', compact('article', 'topics', 'comments'));
     }
 
     public function updateArticle(Request $request, $id)
@@ -83,6 +71,7 @@ class ArticleController extends Controller
         ]);
         $article->name = $request->input('name');
         $article->description = $request->input('description');
+        $article->topic_id = Topic::where('name', '=', $request->input('topic'))->first()->topic_id;
         
         $article->save();
 
@@ -111,7 +100,8 @@ class ArticleController extends Controller
 
     public function createArticlePage()
     {
-        return view('create-article');
+        $topics = Topic::all();
+        return view('create-article', compact('topics'));
     }
 
     public function newArticle(Request $request)
@@ -121,7 +111,7 @@ class ArticleController extends Controller
         $article->description = $request->input('description');
         $article->date = Carbon::now(); 
         $article->user_id = Auth::user()->user_id;
-        $article->topic_id = 2; //Só para ver se dá certo
+        $article->topic_id = Topic::where('name', '=', $request->topic)->first()->topic_id;
 
         $article->save();
 
@@ -131,12 +121,13 @@ class ArticleController extends Controller
     public function search_user_articles(Request $request)
     {
         $search_text = $request->input('query');
+        $search_words = explode(' ', $search_text);
+        $ts_query = implode(' & ', $search_words);
         $user_id = Auth::user()->user_id;
 
-        $articles = Article::where('user_id', $user_id)->whereRaw("tsvectors @@ to_tsquery(?)", [$search_text])->get();
+        $articles = Article::where('user_id', $user_id)->whereRaw("to_tsvector('english', name) @@ to_tsquery(?)", ['"'.$ts_query.'"'])->orWhereRaw("to_tsvector('english', description) @@ to_tsquery(?)", ['"'.$ts_query.'"'])->get();
 
         return view('user-articles', compact('articles'));
     }
 
 }
-
