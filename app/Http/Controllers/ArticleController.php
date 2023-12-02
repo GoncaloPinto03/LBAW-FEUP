@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Topic;
 
 use App\Models\Comment; 
+use App\Models\Article_vote; 
+
+
+
+//use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -23,15 +28,27 @@ class ArticleController extends Controller
         if (!$article) {
             return response()->json(['message' => 'Article not found'], 404);
         } else {
-            /*$articleName = $article->name;
-            $articleDescription = $article->description;
-            $articleDate = $article->date;
-            $authorName = $article->user->name;
-            $authorRep= $article->user->reputation;*/
+            $user = Auth::user();
+
+
+            /*DB::listen(function ($query) {
+                dump($query->sql);
+                dump($query->bindings);
+                dump($query->time);
+            });*/
+
+            $article_vote = Article_vote::where('user_id', $user->user_id)->where('article_id', $articleId)->first();
+
+
+            /*DB::flushQueryLog();
+            dd($article_vote);*/
+
+
+
             $comments= Comment::where('article_id', $articleId)->get();
             $topicName = Topic::find($article->topic_id)->name;
             
-        return view('article', compact('article', 'comments', 'popular' , 'topicName'));        
+        return view('article', compact('article', 'comments', 'popular' , 'article_vote', 'topicName'));        
     }        
 }        
 

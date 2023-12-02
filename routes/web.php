@@ -10,6 +10,7 @@ use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleVoteController;
 use App\Http\Controllers\AboutController;
 
 
@@ -75,6 +76,11 @@ Route::delete('/article/delete/', [ArticleController::class, 'deleteArticle']);
 Route::get('/article/create', [ArticleController::class, 'createArticlePage']);
 Route::post('/article/create-confirm', [ArticleController::class, 'newArticle']);
 Route::get('/search-user-post', [ArticleController::class, 'search_user_articles']);
+
+Route::post('/article/{articleId}/like', [ArticleVoteController::class, 'like'])->middleware('auth');
+Route::post('/article/{articleId}/unlike', [ArticleVoteController::class, 'unlike'])->middleware('auth');
+Route::post('/article/{articleId}/dislike', [ArticleVoteController::class, 'dislike'])->middleware('auth');
+Route::post('/article/{articleId}/undislike', [ArticleVoteController::class, 'undislike'])->middleware('auth');
 // web.php
 
 // web.php

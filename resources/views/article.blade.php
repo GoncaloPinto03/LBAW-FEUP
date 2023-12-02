@@ -18,6 +18,14 @@
     
                     <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{ $article->user->name }}</strong></a>
                     <p><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
+                    <div>
+                        <form action="{{ url('/article/'.$article->article_id.'/like') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="fw-light nav-link fs-6"> <span class="fas fa-heart"> </span>
+                            </button>
+                        </form>
+                    </div>
+
                     <button class="share-button">Share</button>
                 </div>
                 <div class="article-image">
