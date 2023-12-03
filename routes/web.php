@@ -77,10 +77,10 @@ Route::get('/article/create', [ArticleController::class, 'createArticlePage']);
 Route::post('/article/create-confirm', [ArticleController::class, 'newArticle']);
 Route::get('/search-user-post', [ArticleController::class, 'search_user_articles']);
 
-Route::post('/article/{articleId}/like', [ArticleVoteController::class, 'like'])->middleware('auth');
-Route::post('/article/{articleId}/unlike', [ArticleVoteController::class, 'unlike'])->middleware('auth');
-Route::post('/article/{articleId}/dislike', [ArticleVoteController::class, 'dislike'])->middleware('auth');
-Route::post('/article/{articleId}/undislike', [ArticleVoteController::class, 'undislike'])->middleware('auth');
+Route::post('/articles/{articleId}/like', [ArticleVoteController::class, 'like'])->middleware('auth');
+Route::post('/articles/{articleId}/unlike', [ArticleVoteController::class, 'unlike'])->middleware('auth');
+Route::post('/articles/{articleId}/dislike', [ArticleVoteController::class, 'dislike'])->middleware('auth');
+Route::post('/articles/{articleId}/undislike', [ArticleVoteController::class, 'undislike'])->middleware('auth');
 // web.php
 
 // web.php

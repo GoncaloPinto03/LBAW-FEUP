@@ -19,11 +19,26 @@
                     <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{ $article->user->name }}</strong></a>
                     <p><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
                     <div>
-                        <form action="{{ url('/article/'.$article->article_id.'/like') }}" method="POST">
+                        <form action="{{ url('/articles/'.$article->article_id.'/like') }}" method="POST">
                             @csrf
                             <button type="submit" class="fw-light nav-link fs-6"> <span class="fas fa-heart"> </span>
                             </button>
                         </form>
+                    </div>
+                    <div>
+                        @if($article_vote && $article_vote->is_like === TRUE)
+                            <p>Post liked</p>
+                        @else
+                            <p>Post not liked</p>
+                        @endif
+                    </div>
+
+                    <div>
+                        @if($article_vote && $article_vote->is_like === FALSE)
+                            <p>Post disliked</p>
+                        @else
+                            <p>Post not disliked</p>
+                        @endif
                     </div>
 
                     <button class="share-button">Share</button>
