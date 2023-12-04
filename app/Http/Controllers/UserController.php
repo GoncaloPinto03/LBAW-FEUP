@@ -83,5 +83,22 @@ class UserController extends Controller
         return view('user-articles', compact('user', 'articles'));
     }
 
+
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+
+        if (Auth::guard('admin')->check() || Auth::user()->user_id == $user->user_id) {
+            $user->delete();
+
+            return redirect('/home')->with('success', 'User deleted successfully');
+        }
+
+        return redirect('/home')->with('error', 'Unauthorized to delete user');
+    }
+
+
+  
+
 }
 

@@ -18,6 +18,12 @@
         @if (Auth::guard('admin')->check() || Auth::user()->user_id == $user->user_id)
             <a href="{{ url('/profile/edit/' . $user->user_id) }}" class="button">Edit Profile</a>
             <a href= "{{ url('/profile/articles/'.$user->user_id) }}" class="button">Manage Articles</a>
+            <form action="{{ url('/profile/delete') }}" method="post">
+            @csrf
+            @method('delete')
+            <input type="hidden" name="user_id" value="{{ $user->user_id }}">
+            <button type="submit" id="deleteAccountBtn" class="button-delete">Delete Acount</button>
+        </form>
         @endif
     </div>
     @include('partials.footer')

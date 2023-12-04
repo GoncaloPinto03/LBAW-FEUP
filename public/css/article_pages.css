@@ -80,3 +80,38 @@
     color: #5a86ba;
     text-decoration: underline;
 }
+
+
+#share{
+    background-color: #00003e;
+}
+
+#share:hover{
+    background-color: #00003e;
+}
+
+
+
+#like{
+    background-color: #00003e;
+}
+
+#like:hover{
+    background-color: #00003e;
+}
+
+#dislike{
+    background-color: #00003e;
+}
+
+#dislike:hover{
+    background-color: #00003e;
+}
+
+#like.liked {
+    color: #5a86ba; /* Change this to the color you want when liked */
+}
+
+#dislike.disliked {
+    color: #5a86ba; /* Change this to the color you want when disliked */
+}

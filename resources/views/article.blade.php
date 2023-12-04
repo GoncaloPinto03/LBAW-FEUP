@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @include('partials.topbar')
 
+
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/article_pages.css') }}">
+<script src="https://kit.fontawesome.com/dbd6c8e80d.js" crossorigin="anonymous"></script>
 
     <section id="articlebox">
         <!-- Main Article Box -->
@@ -18,7 +20,8 @@
     
                     <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{ $article->user->name }}</strong></a>
                     <p><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
-                    <button class="share-button">Share</button>
+                    <button id="like"><i class="fa-regular fa-thumbs-up" style="font-size:20px;"></i></button>
+                    <button id="dislike"><i class="fa-regular fa-thumbs-down" style="font-size:20px;"></i></button>
                 </div>
                 <div class="article-image">
                     <img src="{{ asset('images/papai.jpg') }}" alt="Article Image">
@@ -65,3 +68,31 @@
 @include('partials.footer')
 
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Like button
+        var likeButton = document.getElementById('like');
+        likeButton.addEventListener('click', function() {
+            toggleButtonState(likeButton, 'liked', 'fa-regular fa-thumbs-up', 'fa-solid fa-thumbs-up');
+        });
+
+
+        // Dislike button
+        var dislikeButton = document.getElementById('dislike');
+        dislikeButton.addEventListener('click', function() {
+            toggleButtonState(dislikeButton, 'disliked', 'fa-regular fa-thumbs-down', 'fa-solid fa-thumbs-down');
+        });
+
+        // Function to toggle button state
+        function toggleButtonState(button, className, regularIcon, solidIcon) {
+            if (button.classList.contains(className)) {
+                button.classList.remove(className);
+                button.innerHTML = '<i class="' + regularIcon + '" style="font-size:20px;"></i>';
+            } else {
+                button.classList.add(className);
+                button.innerHTML = '<i class="' + solidIcon + '" style="font-size:20px;"></i>';
+            }
+        }
+    });
+</script>

@@ -48,3 +48,22 @@
 .profile-box h1 {
     color: #00003e;
 }
+
+
+.button-delete{
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button-delete:hover {
+    background-color: #5a86ba;
+    color: white;
+}
+
+
+

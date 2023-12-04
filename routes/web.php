@@ -37,6 +37,8 @@ Route::get('/profile/{id}', [UserController::class, 'index'])->where('id', '[0-9
 Route::get('/profile/edit/{id}', [UserController::class, 'edit']);
 Route::post('/profile/edit/{id}', [UserController::class, 'update']);
 Route::get('/profile/articles/{id}', [UserController::class, 'showArticles'])->where('id', '[0-9]+');
+Route::delete('/profile/delete/{id}', [UserController::class, 'deleteUser']);
+
 
 
 
@@ -47,6 +49,7 @@ Route::get('/profile_admin/{id}', [AdminController::class, 'show_profile'])->whe
 Route::get('/admin-profile/edit', [AdminController::class, 'edit_profile']);
 Route::post('/admin-profile/edit', [AdminController::class, 'update_profile']);
 Route::get('/search-user', [AdminController::class, 'search_user']);
+
 
 // AUTHENTICATION
 Route::controller(LoginController::class)->group(function () {
