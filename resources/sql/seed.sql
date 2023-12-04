@@ -308,7 +308,7 @@ EXECUTE FUNCTION adjust_likes_dislikes_and_notification();
 
 
 ------TRIGGER 02------
-/*
+
 CREATE OR REPLACE FUNCTION undo_like_dislike_and_update_reputation()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -327,7 +327,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER undo_like_dislike_and_update_reputation
 AFTER DELETE ON article_vote
 FOR EACH ROW
-EXECUTE FUNCTION undo_like_dislike_and_update_reputation();*/
+EXECUTE FUNCTION undo_like_dislike_and_update_reputation();
 
 ------TRIGGER 03------
 

@@ -39,6 +39,9 @@ class ArticleController extends Controller
 
             $article_vote = Article_vote::where('user_id', $user->user_id)->where('article_id', $articleId)->first();
 
+            $likes = Article_vote::where('article_id', $articleId)->where('is_like', TRUE)->count();
+            $dislikes = Article_vote::where('article_id', $articleId)->where('is_like', FALSE)->count();
+
 
             /*DB::flushQueryLog();
             dd($article_vote);*/
@@ -48,15 +51,16 @@ class ArticleController extends Controller
             $comments= Comment::where('article_id', $articleId)->get();
             $topicName = Topic::find($article->topic_id)->name;
             
-        return view('article', compact('article', 'comments', 'popular' , 'article_vote', 'topicName'));        
+        return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topicName'));        
     }        
 }        
 
-    public function showArticles() {
+    /*public function showArticles() {
+        $bigArticle = Article::take(1)->first();
         $articles1 = Article::take(5)->get();
         $articles2 = Article::take(5)->get();
-        return view('partials.articles_home', compact('articles1', 'articles2'));
-    }
+        return view('partials.articles_home', compact('bigArticle', 'articles1', 'articles2'));
+    }*/
 
 
     public function editArticle($id)
