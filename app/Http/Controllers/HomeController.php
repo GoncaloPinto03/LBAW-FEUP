@@ -60,10 +60,12 @@ class HomeController extends Controller
         $query->where('category', $category);
     }
 
-    $column1Articles = $query->take(5)->get();
-    $column2Articles = $query->skip(5)->take(5)->get();
+    $bigArticle = $query->take(1)->first();
+    $column1Articles = $query->skip(1)->take(5)->get();
+    $column2Articles = $query->skip(6)->take(5)->get();
 
     return [
+        'bigArticle' => $bigArticle,
         'column1' => $column1Articles,
         'column2' => $column2Articles
     ];

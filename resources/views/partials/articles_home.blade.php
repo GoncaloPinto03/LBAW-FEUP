@@ -17,9 +17,9 @@
                         <img src="{{ asset('images/teste2.jpg') }}" alt="Article Image">
                     </div>
                     <div class="article-content">
-                        <h1>Messi O MELHOR DO MUNDO, GOAT D10Sx</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
-                        <a href="#" class="button">Read More</a>
+                        <h1>{{ $columns['bigArticle']->name }}</h1>
+                        <p>{{ $columns['bigArticle']->description }}</p>
+                        <a href="{{ url('articles/'.$columns['bigArticle']->article_id) }}" class="button">Read More</a>
                     </div>
                 </div>
             </div>  
