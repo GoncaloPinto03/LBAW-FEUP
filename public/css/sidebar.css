@@ -121,3 +121,22 @@ body {
     margin-bottom: 0.5em;
 }
 
+#topics{
+    background-color: transparent;
+    border: none;
+    color: #00003e;
+    font-size: 1.3em;
+    transition: color 0.3s, transform 0.3s;
+
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#topics:hover{
+    color: #00003e;
+    transform: scale(1.1);
+
+}
