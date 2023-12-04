@@ -29,7 +29,7 @@ use App\Http\Controllers\AboutController;
 // HOME
 Route::redirect('/', '/home');
 //Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('home/{topic_id?}', [HomeController::class, 'index'])->name('home');
 
 // PROFILE
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile')->middleware('auth');
@@ -78,6 +78,8 @@ Route::delete('/article/delete/', [ArticleController::class, 'deleteArticle']);
 Route::get('/article/create', [ArticleController::class, 'createArticlePage']);
 Route::post('/article/create-confirm', [ArticleController::class, 'newArticle']);
 Route::get('/search-user-post', [ArticleController::class, 'search_user_articles']);
+
+
 // web.php
 
 // web.php
@@ -87,6 +89,9 @@ Route::get('/articles/show/{category?}', 'ArticleController@showArticles')->name
 
 
 
+
 //ABOUT
 Route::get('/about', [AboutController::class, 'about'])->name('about');
+
+
 

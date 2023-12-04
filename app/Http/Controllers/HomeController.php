@@ -39,34 +39,30 @@ class HomeController extends Controller
         return $sidebarController->showSidebar()->getData()['topics'];
     }
 
-    /*
-    public function getArticleData()
+ 
+    public function getArticleData($topic = null)
     {
-        $column1Articles = Article::take(5)->get();
-
-        $column2Articles = Article::skip(5)->take(5)->get();
-
+        $query = Article::query();
+    
+        if ($topic) {
+            $query->where('topic_id', $topic);
+        }
+    
+        $bigArticle = $query->take(1)->first();
+        $column1Articles = $query->skip(1)->take(5)->get();
+        $column2Articles = $query->skip(6)->take(5)->get();
+    
         return [
+            'bigArticle' => $bigArticle,
             'column1' => $column1Articles,
             'column2' => $column2Articles
         ];
     }
-    */
-    public function getArticleData($category = null)
-{
-    $query = Article::query();
-
-    if ($category) {
-        $query->where('category', $category);
-    }
-
-    $column1Articles = $query->take(5)->get();
-    $column2Articles = $query->skip(5)->take(5)->get();
-
-    return [
-        'column1' => $column1Articles,
-        'column2' => $column2Articles
-    ];
-}
+    
 
 }
+
+
+    
+    
+

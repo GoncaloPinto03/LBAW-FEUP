@@ -130,4 +130,5 @@ class ArticleController extends Controller
         return view('user-articles', compact('articles'));
     }
 
+
 }
