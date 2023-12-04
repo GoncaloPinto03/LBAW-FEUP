@@ -43,7 +43,8 @@
 /* Topics list */
 
 .topic-list li a{
-    color: black;
+    color: #00003e;
+    font-weight: bold;
 }
 
 .topic-list {
@@ -72,11 +73,24 @@
 
 
 .author-name{
-    color: #555;
+    color: #00003e;
     text-decoration: underline;
 }
 
 .author-name2{
-    color: #5a86ba;
+    color: #00003e;
     text-decoration: underline;
+    list-style-type: none;
+}
+
+.popular-news-section {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    color: #00003e;
+    border-radius: 1em;
+    padding: 1em;
+}
+
+.popular-news-image {
+    border-radius: 1em;
 }

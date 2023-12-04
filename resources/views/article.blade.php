@@ -85,7 +85,7 @@
                             <li class="topic-item">
                                 <a href="#">
                                     <div class="topic-image">
-                                        <img src="{{ asset('images/teste.jpg') }}" alt="Article Image">
+                                        <img src="{{ asset('images/teste-jpg') }}" alt="Article Image" class="popular-news-image">
                                         <div class="image-text">Lorem ipsum dolor</div>
                                     </div>
                                 </a>
