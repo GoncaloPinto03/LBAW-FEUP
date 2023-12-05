@@ -28,12 +28,18 @@
                                 </button>
                             </form>
                         @else
-                            <form action="{{ url('/articles/'.$article->article_id.'/like') }}" method="POST">
+                            <!--<form action="{{ url('/articles/'.$article->article_id.'/like') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="fw-light nav-link fs-6"> 
                                     <span class="far fa-thumbs-up"> </span>
                                 </button>
-                        </form>
+                            </form>-->
+                            <form action="/post/like" method="POST"> <!-- notification test -->
+                                @csrf
+                                <button type="submit" class="fw-light nav-link fs-6"> 
+                                    <span class="far fa-thumbs-up"> </span>
+                                </button>
+                            </form>
                         @endif
                         <p> {{ $likes }} </p>
                     </div>

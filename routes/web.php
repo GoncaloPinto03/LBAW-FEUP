@@ -12,7 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleVoteController;
 use App\Http\Controllers\AboutController;
-
+use App\Http\Controllers\PostController;
 
 
 /*
@@ -77,7 +77,9 @@ Route::get('/article/create', [ArticleController::class, 'createArticlePage']);
 Route::post('/article/create-confirm', [ArticleController::class, 'newArticle']);
 Route::get('/search-user-post', [ArticleController::class, 'search_user_articles']);
 
-Route::post('/articles/{articleId}/like', [ArticleVoteController::class, 'like'])->middleware('auth');
+Route::post('/post/like', [PostController::class, 'like']); //notification test
+
+//Route::post('/articles/{articleId}/like', [ArticleVoteController::class, 'like'])->middleware('auth');
 Route::post('/articles/{articleId}/unlike', [ArticleVoteController::class, 'unlike'])->middleware('auth');
 Route::post('/articles/{articleId}/dislike', [ArticleVoteController::class, 'dislike'])->middleware('auth');
 Route::post('/articles/{articleId}/undislike', [ArticleVoteController::class, 'undislike'])->middleware('auth');

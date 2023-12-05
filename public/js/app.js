@@ -64,5 +64,15 @@ deleteButtons.forEach(function(button) {
         sendAjaxRequest('delete', '/article/delete/', { article_id: articleId }, articleDeletedHandler);
     });
 });
-  
+
+
+const pusher = new Pusher(pusherAppKey, {
+  cluster: pusherCluster,
+  encrypted: true
+});
+
+const channel = pusher.subscribe('tutorial02');
+channel.bind('notification-postlike', function(data) {
+  console.log(`New notification: ${data.message}`);
+});
   
