@@ -25,7 +25,7 @@ class Article extends Model
 
     public function article_vote()
     {
-        return $this->hasMany(Article_vote::class);
+        return $this->hasMany(Article_vote::class, 'article_id');
     }
 
     public static function getPopularArticles() {
