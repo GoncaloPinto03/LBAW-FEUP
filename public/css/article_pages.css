@@ -31,6 +31,15 @@
 .article-image {
     position: relative;
     overflow: hidden;
+    
+    
+}
+
+.article-image img {
+    width: 100%;
+    max-height: 500px;
+    height: auto; 
+    display: block; 
 }
 
 .popular-news-section {
@@ -58,6 +67,12 @@
 .topic-image {
     position: relative;
     overflow: hidden;
+}
+
+.topic-image img {
+    width: 100%;
+    height: auto; 
+    display: block; 
 }
 
 .image-text {

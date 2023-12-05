@@ -24,7 +24,7 @@
                     <button id="dislike"><i class="fa-regular fa-thumbs-down" style="font-size:20px;"></i></button>
                 </div>
                 <div class="article-image">
-                    <img src="{{ asset('images/papai.jpg') }}" alt="Article Image">
+                    <img src="{{ $article->photo() }}" alt="Article Image">
                 </div>
 
                 <div class="comments-section">
@@ -52,8 +52,8 @@
                             <li class="topic-item">
                                 <a href="#">
                                     <div class="topic-image">
-                                        <img src="{{ asset('images/teste.jpg') }}" alt="Article Image">
-                                        <div class="image-text">Lorem ipsum dolor</div>
+                                        <img src="{{ $article->photo() }}" alt="Article Image">
+                                        <!--<div class="image-text">Lorem ipsum dolor</div> -->
                                     </div>
                                 </a>
                             </li>

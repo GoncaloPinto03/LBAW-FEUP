@@ -9,6 +9,8 @@ use App\Models\Article;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Topic;
+use App\Models\Photo;
+
 
 use App\Models\Comment; 
 
@@ -30,6 +32,8 @@ class ArticleController extends Controller
             $authorRep= $article->user->reputation;*/
             $comments= Comment::where('article_id', $articleId)->get();
             $topicName = Topic::find($article->topic_id)->name;
+
+            
             
         return view('article', compact('article', 'comments', 'popular' , 'topicName'));        
     }        

@@ -14,7 +14,11 @@
                 </select>
                 <div>
                     <div class="article-image">
-                        <img src="{{ asset('images/teste2.jpg') }}" alt="Article Image">
+                        <!--<img src="{{ asset('images/teste2.jpg') }}" alt="Article Image"> -->
+                        <img src="{{ $columns['bigArticle']->photo() }}" alt="Article Image">
+
+
+
                     </div>
                     <div class="article-content">
                         <h1>{{ $columns['bigArticle']->name }}</h1>
