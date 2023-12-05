@@ -214,3 +214,21 @@
     text-align: center;
     color: #00003e;
 }
+
+#category-filter{
+    width: 98%;
+    margin: 0.5em;
+    margin-right: 0.5em;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    border: 1px solid #5a86ba;
+}
+
+#category-filter option{
+    padding: 0.5em;
+    border-radius: 1em;
+    background-color: transparent;
+    font-size: 20px;
+    border: 1px solid #00003e;
+
+}
