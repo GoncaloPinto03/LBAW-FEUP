@@ -23,13 +23,15 @@
                         @if($article_vote && $article_vote->is_like === TRUE)
                             <form action="{{ url('/articles/'.$article->article_id.'/unlike') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="fw-light nav-link fs-6"> <span class="fas fa-thumbs-up"> </span>
+                                <button type="submit" class="fw-light nav-link fs-6"> 
+                                    <span class="fas fa-thumbs-up"> </span>
                                 </button>
                             </form>
                         @else
                             <form action="{{ url('/articles/'.$article->article_id.'/like') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="fw-light nav-link fs-6"> <span class="far fa-thumbs-up"> </span>
+                                <button type="submit" class="fw-light nav-link fs-6"> 
+                                    <span class="far fa-thumbs-up"> </span>
                                 </button>
                         </form>
                         @endif
@@ -41,13 +43,15 @@
                         @if($article_vote && $article_vote->is_like === FALSE)
                             <form action="{{ url('/articles/'.$article->article_id.'/undislike') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="fw-light nav-link fs-6"> <span class="fas fa-thumbs-down"> </span>
+                                <button type="submit" class="fw-light nav-link fs-6"> 
+                                    <span class="fas fa-thumbs-down"> </span>
                                 </button>
                             </form>
                         @else
                             <form action="{{ url('/articles/'.$article->article_id.'/dislike') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="fw-light nav-link fs-6"> <span class="far fa-thumbs-down"> </span>
+                                <button type="submit" class="fw-light nav-link fs-6"> 
+                                    <span class="far fa-thumbs-down"> </span>
                                 </button>
                             </form>
                         @endif
