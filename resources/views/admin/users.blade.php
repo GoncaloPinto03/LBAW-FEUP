@@ -38,14 +38,24 @@
                 </div>
                 <div class="admin-dashboard" id="admin-content">
                     @foreach($users as $user)
-                        <div class="admin-dashboard-user">
-                            <div class="admin-dashboard-user-info">
-                                <img src="{{ $user->photo() }}" class="admin-dashboard-user-photo">
-                                <p class="admin-dashboard-user-name">{{ $user->name }}</p>
+                        @if($user->user_blocked == 0)
+                            <div class="admin-dashboard-user">
+                                <div class="admin-dashboard-user-info">
+                                    <img src="{{ $user->photo() }}" class="admin-dashboard-user-photo">
+                                    <p class="admin-dashboard-user-name">{{ $user->name }}</p>
+                                </div>
+                                <a href="{{ url('/profile/'.$user->user_id) }}" class="button">Profile</a>
                             </div>
-                            <a href="{{ url('/profile/'.$user->user_id) }}" class="button">Profile</a>
-                        </div>
-                    @endforeach    
+                        @elseif($user->user_blocked == 1)
+                            <div class="admin-dashboard-user-blocked">
+                                <div class="admin-dashboard-user-info">
+                                    <img src="{{ $user->photo() }}" class="admin-dashboard-user-photo">
+                                    <p class="admin-dashboard-user-name">{{ $user->name }}</p>
+                                </div>
+                                <a href="{{ url('/profile/'.$user->user_id) }}" class="button">Profile</a>
+                            </div>
+                        @endif
+                    @endforeach   
                 </div>
             </div>
         </div>

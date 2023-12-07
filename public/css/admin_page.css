@@ -60,6 +60,19 @@
     color: #00003e;
 }
 
+.admin-dashboard-user-blocked {
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 1em;
+    display: flex;
+    padding: 1em;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(196, 69, 69, 0.712);
+    color: #00003e;
+}
+
 .admin-dashboard-user-info {
     display: flex;
     justify-content: space-between;
