@@ -49,6 +49,10 @@ Route::get('/profile_admin/{id}', [AdminController::class, 'show_profile'])->whe
 Route::get('/admin-profile/edit', [AdminController::class, 'edit_profile']);
 Route::post('/admin-profile/edit', [AdminController::class, 'update_profile']);
 Route::get('/search-user', [AdminController::class, 'search_user']);
+Route::post('/admin/block-user/{id}', [AdminController::class, 'blockUser'])->name('admin.blockUser')->where('id', '[0-9]+');
+Route::get('/admin/unblock/{id}', [AdminController::class, 'unblockUser'])->name('admin.users.unblock')->where('id', '[0-9]+');
+
+
 
 // AUTHENTICATION
 Route::controller(LoginController::class)->group(function () {

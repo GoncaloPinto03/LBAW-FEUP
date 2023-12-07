@@ -36,6 +36,7 @@
         <h2> {{ $article->name }} </h2>
         <p> {{ $article->description }} </p>
         <a href="{{ url('/articles/'.$article->article_id) }}" class="small-button">Read More </a>
+        @if(Auth::user()->user_blocked == 0)
         <a href="{{ url('/article/edit/'.$article->article_id) }}" class="small-button">Edit Article </a>
         <form action="{{ url('/article/delete') }}" method="post">
             @csrf
@@ -43,10 +44,11 @@
             <input type="hidden" name="article_id" value="{{ $article->article_id }}">
             <button type="submit" id="deleteArticleBtn" class="user-article-button">Delete Article</button>
         </form>
+        @endif
         
     </div>
     @endforeach
-    @if (!Auth::guard('admin')->check())
+    @if (!Auth::guard('admin')->check() && Auth::user()->user_blocked==0)
         <a href="{{ '/article/create' }}" class="button">Create Article</a>
     @endif
     @include('partials.footer')

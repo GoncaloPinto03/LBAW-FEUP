@@ -88,4 +88,47 @@ class AdminController extends Controller
         return view('pages.admin', compact('users'));
     }
 
+    public function blockUser(int $id)
+    {
+        if (!Auth::guard('admin')->check()) {
+            return redirect()->route('home');
+        }
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->route('admin.users')->with('error', 'User not found.');
+        }
+
+        $user->user_blocked = true;
+
+        $user->save();
+
+        return redirect('/admin/users')->with('success', 'User blocked successfully.');
+    }
+
+
+    public function unblockUser(int $id)
+    {
+        if (!Auth::guard('admin')->check()) {
+            return redirect()->route('home');
+        }
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->route('admin.users')->withSuccess('User not found.');
+        }
+
+        $user->user_blocked = false;
+
+        $user->save();
+
+        return redirect('/admin/users')->withSuccess('User unlocked successfully.');
+    }
+
+
+
+
+
 }

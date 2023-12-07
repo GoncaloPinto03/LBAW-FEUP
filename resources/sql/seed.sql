@@ -60,7 +60,8 @@ CREATE TABLE users(
     email TEXT NOT NULL CONSTRAINT user_email_uk UNIQUE,
     name TEXT NOT NULL,
     password TEXT NOT NULL,
-    reputation INTEGER
+    reputation INTEGER,
+    user_blocked BOOLEAN DEFAULT FALSE
 );
 
 -------- BAN --------
