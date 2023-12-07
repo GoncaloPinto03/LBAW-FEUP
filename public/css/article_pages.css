@@ -94,3 +94,8 @@
 .popular-news-image {
     border-radius: 1em;
 }
+
+.comment-delete-button {
+    cursor: pointer;
+    margin-right: 10px;
+}

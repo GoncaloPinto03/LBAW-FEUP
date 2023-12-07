@@ -295,7 +295,8 @@ BEGIN
     VALUES (NOW(), FALSE, (SELECT user_id FROM article WHERE article_id = NEW.article_id), NEW.user_id);
 
     UPDATE users SET reputation = CASE WHEN NEW.is_like THEN reputation + 1 ELSE reputation - 1 END
-    WHERE user_id = NEW.user_id;
+    WHERE user_id = (SELECT user_id FROM article WHERE article_id = NEW.article_id);
+
 
     RETURN NEW;
 END;
@@ -318,7 +319,8 @@ BEGIN
         UPDATE article SET dislikes = dislikes - 1 WHERE article_id = OLD.article_id;
     END IF;
 
-    UPDATE users SET reputation = reputation - 1 WHERE user_id = OLD.user_id;
+    UPDATE users SET reputation = CASE WHEN OLD.is_like THEN reputation - 1 ELSE reputation + 1 END
+    WHERE user_id = (SELECT user_id FROM article WHERE article_id = OLD.article_id);
 
     RETURN OLD;
 END;

@@ -91,3 +91,7 @@ input[type=password]:focus {
 #content #homepage {
   margin-left: 300px;
 }
+
+li {
+  list-style-type: none;
+}

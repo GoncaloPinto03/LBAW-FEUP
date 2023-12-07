@@ -40,6 +40,14 @@ class ArticleVoteController extends Controller
             'is_like' => TRUE,
         ]);
         return redirect('articles/'.$articleId)->with('success', 'Article liked successfully');
+        /*$likeCount = Article_vote::where('article_id', $articleId)->where('is_like', TRUE)->count();
+        $isLiked = Article_vote::where('article_id', $articleId)->where('is_like', TRUE)->exists();
+        $responseData = [
+            'likeCount' => $likeCount,
+            'isLike' => $isLiked
+        ];
+
+        return response()->json($responseData);*/
     }
 
     public function unlike($articleId)

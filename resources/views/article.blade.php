@@ -23,17 +23,18 @@
                         @if($article_vote && $article_vote->is_like === TRUE)
                             <form action="{{ url('/articles/'.$article->article_id.'/unlike') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="fw-light nav-link fs-6"> <span class="fas fa-thumbs-up"> </span>
+                                <button type="submit" id="unlike-button"  class="fw-light nav-link fs-6"> <span class="fas fa-thumbs-up"> </span>
                                 </button>
                             </form>
                         @else
                             <form action="{{ url('/articles/'.$article->article_id.'/like') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="fw-light nav-link fs-6"> <span class="far fa-thumbs-up"> </span>
+                                <input type="hidden" name="article_id" value="{{ $article->article_id }}">
+                                <button type="submit" id="like-button" class="fw-light nav-link fs-6"> <span class="far fa-thumbs-up"> </span>
                                 </button>
                         </form>
                         @endif
-                        <p> {{ $likes }} </p>
+                        <p id="like-count"> {{ $likes }} </p>
                     </div>
 
                     <!-------------------------------------------DISLIKE--------------------------------------------------------------->
@@ -41,13 +42,13 @@
                         @if($article_vote && $article_vote->is_like === FALSE)
                             <form action="{{ url('/articles/'.$article->article_id.'/undislike') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="fw-light nav-link fs-6"> <span class="fas fa-thumbs-down"> </span>
+                                <button type="submit" id="undislike-button" class="fw-light nav-link fs-6"> <span class="fas fa-thumbs-down"> </span>
                                 </button>
                             </form>
                         @else
                             <form action="{{ url('/articles/'.$article->article_id.'/dislike') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="fw-light nav-link fs-6"> <span class="far fa-thumbs-down"> </span>
+                                <button type="submit" id="dislike-button" class="fw-light nav-link fs-6"> <span class="far fa-thumbs-down"> </span>
                                 </button>
                             </form>
                         @endif
@@ -63,10 +64,11 @@
                 <div class="comments-section">
                     <h2>Comments</h2>
                     <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
-                    <form action="{}" method="post">
+                    <form action="{{ '/comment/create' }}" method="post">
                         @csrf
-                        <label for="comment">Leave a comment:</label>
-                        <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+                        <input type="hidden" name="article_id" value="{{ $article->article_id }}">
+                        <label for="text">Leave a comment:</label>
+                        <textarea name="text" id="text" cols="30" rows="5"></textarea>
                         <button type="submit">Submit Comment</button>
                     </form>
 

@@ -37,7 +37,14 @@ class ArticleController extends Controller
                 dump($query->time);
             });*/
 
-            $article_vote = Article_vote::where('user_id', $user->user_id)->where('article_id', $articleId)->first();
+            if (Auth::user())
+            {
+                $article_vote = Article_vote::where('user_id', $user->user_id)->where('article_id', $articleId)->first();
+            }
+            else
+            {
+                $article_vote = null;
+            }
 
             $likes = Article_vote::where('article_id', $articleId)->where('is_like', TRUE)->count();
             $dislikes = Article_vote::where('article_id', $articleId)->where('is_like', FALSE)->count();
@@ -112,9 +119,11 @@ class ArticleController extends Controller
         if($comments)
         {
             foreach($comments as $comment) $comment->delete();
-        }    
+        }  
+
+            $article->article_vote()->delete();  
+
             $article->delete();
-    
     }
 
 

@@ -26,6 +26,7 @@
     display: flex;
     color: #F0F3F5;
     transition: color 0.3s, transform 0.3s;
+    cursor: pointer;
 }
 
 .admin-sidebar a:hover {

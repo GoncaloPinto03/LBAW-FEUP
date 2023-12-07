@@ -32,7 +32,7 @@
 
 @section('content')
     @foreach($articles as $article)
-    <div class="small-box">
+    <div class="small-box" id="article{{ $article->article_id }}">
         <h2> {{ $article->name }} </h2>
         <p> {{ $article->description }} </p>
         <a href="{{ url('/articles/'.$article->article_id) }}" class="small-button">Read More </a>

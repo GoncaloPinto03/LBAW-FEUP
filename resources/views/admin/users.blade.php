@@ -31,15 +31,25 @@
                 <div class="admin-sidebar">
                     <ul>
                         <li><a href="{{ url('/admin/users/') }}">Users</a></li>
-                        <li><a href="{{ route('admin.topics') }}">Topics</a></li>
+                        <li><a href="{{ url('/admin/topics/') }}">Topics</a></li>
                         <li class="admin-sidebar-option"><a>Topic Proposals</a></li>
                         <li class="admin-sidebar-option"><a>User Reports</a></li>
                     </ul>
                 </div>
                 <div class="admin-dashboard" id="admin-content">
-                    <h1>Admin Dashboard</h1>     
+                    @foreach($users as $user)
+                        <div class="admin-dashboard-user">
+                            <div class="admin-dashboard-user-info">
+                                <img src="{{ $user->photo() }}" class="admin-dashboard-user-photo">
+                                <p class="admin-dashboard-user-name">{{ $user->name }}</p>
+                            </div>
+                            <a href="{{ url('/profile/'.$user->user_id) }}" class="button">Profile</a>
+                        </div>
+                    @endforeach    
                 </div>
             </div>
         </div>
     </section>
 @endsection
+
+

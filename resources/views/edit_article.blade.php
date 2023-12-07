@@ -33,19 +33,17 @@
 
                 <div class="comments-section">
                     <h2>Comments</h2>
-                    <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
-                    <form action="{}" method="post">
-                        @csrf
-                        <label for="comment">Leave a comment:</label>
-                        <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
-                        <button type="submit">Submit Comment</button>
-                    </form>
-
-                    <ul class="comment-list">
-                        @foreach($comments as $comment)
-                        <li><strong>{{$comment->user->name}}: </strong>{{$comment->text}}</li>
-                        @endforeach
-                    </ul>
+                        @foreach($comments as $comment)  
+                        <div id="comment{{ $comment->comment_id }}">
+                                <a href="{{ url('profile/'.$comment->user_id) }}" class="author-name2"><strong>{{$comment->user->name}}</strong></a>: {{$comment->text}}
+                                <form action="{{ url('/comment/delete') }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="hidden" name="comment_id" value="{{ $comment->comment_id }}">
+                                    <button type="submit" id="deleteCommentBtn" class="comment-delete-button"><i class="bi bi-trash"></i></button>
+                                </form>   
+                            </div> 
+                        @endforeach   
                 </div>
             </div>
 
