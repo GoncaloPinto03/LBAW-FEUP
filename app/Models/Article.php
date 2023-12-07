@@ -37,5 +37,13 @@ class Article extends Model
     {
         return $this->belongsTo(Topic::class, 'topic_id');
     }*/
+    public function photo()
+    {
+        $files = glob("images/article/" . $this->article_id . ".jpg", GLOB_BRACE);
+        $default = "/images/article/default_article_pic.jpg";
+        if (sizeof($files) < 1) return $default;
+        return "/" . $files[0];
+    }
+
 
 }

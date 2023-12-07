@@ -85,3 +85,20 @@ deleteCommentButtons.forEach(function(button) {
         });
     });
 });
+
+
+
+let unblockButtons = document.querySelectorAll('#unblockBtn');
+console.log('Unblock Buttons:', unblockButtons);
+
+unblockButtons.forEach(function(button) {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        let userId = e.target.getAttribute('data-user-id');
+        console.log('Unblock User Button clicked! User ID:', userId);
+        sendAjaxRequest('post', '/admin/unblock/' + userId, {}, function() {
+            console.log('Sent request');
+            // Adicione aqui lógica para exibir uma mensagem de sucesso na página, se desejar
+        });
+    });
+});

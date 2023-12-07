@@ -28,6 +28,7 @@ use App\Http\Controllers\CommentController;
 */
 
 
+
 // HOME
 Route::redirect('/', '/home');
 //Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');

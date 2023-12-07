@@ -10,6 +10,8 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
+
+
 .article-content {
     position: relative;
     overflow: hidden;
@@ -89,6 +91,7 @@
     color: #00003e;
     border-radius: 1em;
     padding: 1em;
+    flex-direction: row;
 }
 
 .popular-news-image {
@@ -99,3 +102,4 @@
     cursor: pointer;
     margin-right: 10px;
 }
+

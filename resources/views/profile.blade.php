@@ -22,12 +22,12 @@
             @if($user->user_blocked == 0 && Auth::guard('admin')->check())
                 <form action="{{ url('admin/block-user/'.$user->user_id)}}" method="POST">
                     @csrf
-                    <button type="submit">Block User</button>
+                    <button type="submit" id="#blockBtn">Block User</button>
                 </form>
             @elseif($user->user_blocked == 1 && Auth::guard('admin')->check())
                 <form action="{{ url('admin/unblock/'.$user->user_id)}}" method="GET">
                     @csrf
-                    <button type="submit">Unblock User</button>
+                    <button type="submit" id="#unblockBtn">Unblock User</button>
                 </form>
             @endif
 

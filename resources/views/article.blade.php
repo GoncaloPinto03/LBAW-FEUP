@@ -59,11 +59,10 @@
                         <p> {{ $dislikes }} </p>
                     </div>
 
-                    <button class="share-button">Share</button>
                 </div>
                 @endif
                 <div class="article-image">
-                    <img src="{{ asset('images/papai.jpg') }}" alt="Article Image">
+                    <img src="{{ $article->photo() }}" alt="Article Image">
                 </div>
 
 
@@ -101,7 +100,7 @@
                             <li class="topic-item">
                                 <a href="#">
                                     <div class="topic-image">
-                                        <img src="{{ asset('images/teste-jpg') }}" alt="Article Image" class="popular-news-image">
+                                        <img src="{{ $article->photo() }}" alt="Article Image">
                                         <div class="image-text">Lorem ipsum dolor</div>
                                     </div>
                                 </a>
