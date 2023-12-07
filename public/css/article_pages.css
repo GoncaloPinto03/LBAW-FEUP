@@ -1,7 +1,4 @@
-.boxes-container {
-    display: flex;
-    margin-left: 130px; 
-}
+
 
 .article-box {
     width: 60%; 
@@ -42,12 +39,7 @@
     display: block; 
 }
 
-.popular-news-section {
-    float: right; 
-    width: 25%;
-    margin-left: 120px; 
-    margin-top: 50px;
-}
+
 
 /* Topics list */
 
@@ -130,3 +122,17 @@
 #dislike.disliked {
     color: #5a86ba; /* Change this to the color you want when disliked */
 }
+
+.boxes-container2 {
+    display: flex;
+    flex-direction: row;
+}
+
+.popular-news-section{
+    float: right; 
+    width: 25%;
+    margin-left: 120px; 
+    margin-top: 50px;
+    
+}
+

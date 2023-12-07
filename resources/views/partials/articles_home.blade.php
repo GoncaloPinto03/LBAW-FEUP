@@ -3,10 +3,11 @@
         <script src="https://kit.fontawesome.com/dbd6c8e80d.js" crossorigin="anonymous"></script>
 
     </head>
+    
     <section id="articlebox">
         <!-- Main Article Box -->
         <div class="boxes-container">
-            <div class="article-box">
+            <div class="article-box-big">
                 <select id="category-filter" onChange="filterArticles()">
                     <option value="all">All</option>
                     <option value="recent">Recent</option>
@@ -14,7 +15,6 @@
                 </select>
                 <div>
                     <div class="article-image">
-                        <!--<img src="{{ asset('images/teste2.jpg') }}" alt="Article Image"> -->
                         <img src="{{ $columns['bigArticle']->photo() }}" alt="Article Image">
 
 

@@ -9,7 +9,6 @@
 }
 
 .article-box {
-    
     display: fixed;
     flex-direction: column;
     border-radius: 1em;
@@ -22,6 +21,19 @@
     backdrop-filter: blur(5px);
 }
 
+
+.article-box-big{
+    display: fixed;
+    flex-direction: column;
+    border-radius: 1em;
+    border: 0.1em solid #00003e;
+    margin: 2em;
+    width: 80%;  
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    background-color: rgba(255,255,255,.7);
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+}
 
 .article-image img {
     width: 100%;
@@ -97,6 +109,7 @@
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     height: 300px;
+    width: 83.5%;
 }
 
 .small-box h2 {
@@ -120,23 +133,35 @@
     display: inline-block;
     font-size: 1em;
     text-align: center;
-    text-decoration: underline;
-    color: #00003e;
-    border-radius: 1em;
+    text-decoration: none;
+    background-color: #00003e;
+    color: #fff;
+    border-radius: 0.5em;
+    width: 10em;
+    height: 40px;
     transition: background-color 0.3s ease;
 }
 
+
+
 .small-box > .small-button {
     margin: 1em;
-    padding: 1em;
+    padding: 0.5em;
 }
+
+
+
 
 .boxes-container {
     display: flex;
+    flex-direction: column;
+    
 }
 
 .additional-box-container {
     display: flex;
+    flex-direction: column;
+    margin-left: 2em;
 }
 
 .column {
@@ -146,20 +171,20 @@
 }
 
 .user-article-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #5a86ba;
-    color: #f0f3f5;
-    border: none;
+    display: inline-block;
     text-align: center;
-    cursor: pointer;
+    text-decoration: none;
+    background-color: #00003e;
+    color: #fff;
     border-radius: 0.5em;
-    transition: background-color 0.3s ease;
-    width: 10em;
+    width: 14.5em;
     height: 40px;
-    margin-left: 1em;
+    transition: background-color 0.3s ease;
+    margin: 1.5em;
 }
+
+
+
 
 .user-article-button a {
     text-decoration: none;
@@ -167,7 +192,7 @@
 }
 
 .user-article-button:hover {
-    background-color: #5a86ba;
+    background-color: #00003e;
     color: white;
 }
 

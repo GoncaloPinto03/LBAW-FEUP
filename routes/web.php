@@ -37,8 +37,6 @@ Route::get('/profile/{id}', [UserController::class, 'index'])->where('id', '[0-9
 Route::get('/profile/edit/{id}', [UserController::class, 'edit']);
 Route::post('/profile/edit/{id}', [UserController::class, 'update']);
 Route::get('/profile/articles/{id}', [UserController::class, 'showArticles'])->where('id', '[0-9]+');
-Route::delete('/profile/delete/{id}', [UserController::class, 'deleteUser']);
-
 
 
 
@@ -49,7 +47,6 @@ Route::get('/profile_admin/{id}', [AdminController::class, 'show_profile'])->whe
 Route::get('/admin-profile/edit', [AdminController::class, 'edit_profile']);
 Route::post('/admin-profile/edit', [AdminController::class, 'update_profile']);
 Route::get('/search-user', [AdminController::class, 'search_user']);
-
 
 // AUTHENTICATION
 Route::controller(LoginController::class)->group(function () {
@@ -67,6 +64,8 @@ Route::controller(RegisterController::class)->group(function () {
 Route::get('sidebar',[SidebarController::class,'showSidebar']);
 
 
+
+
 // Article page
 
 
@@ -79,7 +78,10 @@ Route::get('/article/create', [ArticleController::class, 'createArticlePage']);
 Route::post('/article/create-confirm', [ArticleController::class, 'newArticle']);
 Route::get('/search-user-post', [ArticleController::class, 'search_user_articles']);
 
-
+Route::post('/articles/{articleId}/like', [ArticleVoteController::class, 'like'])->middleware('auth');
+Route::post('/articles/{articleId}/unlike', [ArticleVoteController::class, 'unlike'])->middleware('auth');
+Route::post('/articles/{articleId}/dislike', [ArticleVoteController::class, 'dislike'])->middleware('auth');
+Route::post('/articles/{articleId}/undislike', [ArticleVoteController::class, 'undislike'])->middleware('auth');
 // web.php
 
 // web.php
@@ -89,9 +91,7 @@ Route::get('/articles/show/{category?}', 'ArticleController@showArticles')->name
 
 
 
-
 //ABOUT
 Route::get('/about', [AboutController::class, 'about'])->name('about');
-
 
 

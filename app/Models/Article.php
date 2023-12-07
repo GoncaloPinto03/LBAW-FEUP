@@ -23,10 +23,20 @@ class Article extends Model
 
     }
 
+    public function article_vote()
+    {
+        return $this->hasMany(Article_vote::class, 'article_id');
+    }
+
     public static function getPopularArticles() {
         $articles = Article::orderBy('likes', 'desc')->take(5)->get();
         return $articles;
     }
+
+    /*public function topic()
+    {
+        return $this->belongsTo(Topic::class, 'topic_id');
+    }*/
 
     public function photo()
     {
@@ -35,4 +45,5 @@ class Article extends Model
         if (sizeof($files) < 1) return $default;
         return "/" . $files[0];
     }
+
 }
