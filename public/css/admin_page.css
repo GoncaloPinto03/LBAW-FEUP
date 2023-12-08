@@ -96,7 +96,7 @@
 }
 
 .search-box-admin input { 
-    border: 1px solid #5a86ba; 
+    border: 1px solid #00003e; 
     border-radius: 1em;
     padding: 0.5em;
     margin-top: 1em;
@@ -119,7 +119,7 @@
 
 .search-button-admin:hover {
     color: white;
-    background-color: #5a86ba
+    background-color: #00003e
 }
 
 .form-admin {

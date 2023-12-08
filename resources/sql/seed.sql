@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS follow CASCADE;
 DROP TABLE IF EXISTS comment_vote CASCADE;
 DROP TABLE IF EXISTS comment CASCADE;
 DROP TABLE IF EXISTS article CASCADE;
+DROP TABLE IF EXISTS topicproposal CASCADE;
 DROP TABLE IF EXISTS topic CASCADE;
 DROP TABLE IF EXISTS ban CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
@@ -74,6 +75,15 @@ CREATE TABLE ban (
 CREATE TABLE topic (
     topic_id SERIAL PRIMARY KEY,
     name VARCHAR NOT NULL CONSTRAINT topic_name_uk UNIQUE
+);
+
+-- TOPIC PROPOSAL
+CREATE TABLE topicproposal (
+    topicproposal_id SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    date TIMESTAMP NOT NULL,
+    accepted BOOLEAN DEFAULT NULL
 );
 
 ------------ ARTICLE ------------
@@ -538,7 +548,6 @@ VALUES
 
 
 
-
 INSERT INTO follow (user_id, topic_id) 
 VALUES
     (1, 1), 
@@ -630,4 +639,11 @@ INSERT INTO article_report (article_id, report_id) VALUES
     (5, 5),
     (6, 6);
 
+
+INSERT INTO topicproposal (name, user_id, date) VALUES
+('Government', 1, CURRENT_TIMESTAMP),
+('Health', 2, CURRENT_TIMESTAMP),
+('Business', 3, CURRENT_TIMESTAMP),
+('Education', 4, CURRENT_TIMESTAMP),
+('Entertainment', 5, CURRENT_TIMESTAMP);
 

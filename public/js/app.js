@@ -125,4 +125,30 @@ deleteCommentButtons.forEach(function(button) {
         });
     });
 });
+/*
+let acceptTopicButtons = document.querySelectorAll('#acceptTopicProposalBtn');
 
+acceptTopicButtons.forEach(function (button) {
+  button.addEventListener('click', function (e) {
+      e.preventDefault();
+      let topicProposalId = e.target.closest('form').querySelector('input[name="topicproposal_id"]').value;
+      sendAjaxRequest('delete', `/admin/topicproposals/${topicProposalId}/accept`, {topicproposal_id: topicProposalId}, function () {
+        console.log('Sent request');
+        document.querySelector('#topicproposal'+topicProposalId).remove();
+        console.log('Topic Proposal Removed');
+      });
+  });
+});
+
+let denyTopicButtons = document.querySelectorAll('#denyTopicProposalBtn');
+denyTopicButtons.forEach(function (button) {
+  button.addEventListener('click', function (e) {
+      e.preventDefault();
+      let topicProposalId = e.target.closest('form').querySelector('input[name="topicproposal_id"]').value;
+      sendTopicProposalRequest(`/admin/topicproposals/${topicProposalId}/deny`, {}, function (response) {
+          console.log(response);
+          // Handle success, e.g., update UI or show a notification
+      });
+  });
+});
+*/

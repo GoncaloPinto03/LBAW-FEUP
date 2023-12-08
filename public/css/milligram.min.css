@@ -29,8 +29,8 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-    background-color: #5a86ba;
-    border: 0.1rem solid #5a86ba;
+    background-color: #00003e;
+    border: 0.1rem solid #00003e;
     border-radius: 0.4rem;
     color: #fff;
     cursor: pointer;
@@ -79,8 +79,8 @@ input[type="reset"][disabled]:focus,
 input[type="reset"][disabled]:hover,
 input[type="submit"][disabled]:focus,
 input[type="submit"][disabled]:hover {
-    background-color: #5a86ba;
-    border-color: #5a86ba;
+    background-color: #00003e;
+    border-color: #00003e;
 }
 .button.button-outline,
 button.button-outline,
@@ -88,7 +88,7 @@ input[type="button"].button-outline,
 input[type="reset"].button-outline,
 input[type="submit"].button-outline {
     background-color: transparent;
-    color: #5a86ba;
+    color: #00003e;
 }
 .button.button-outline:focus,
 .button.button-outline:hover,
@@ -115,7 +115,7 @@ input[type="reset"].button-outline[disabled]:hover,
 input[type="submit"].button-outline[disabled]:focus,
 input[type="submit"].button-outline[disabled]:hover {
     border-color: inherit;
-    color: #5a86ba;
+    color: #00003e;
 }
 .button.button-clear,
 button.button-clear,
@@ -124,7 +124,7 @@ input[type="reset"].button-clear,
 input[type="submit"].button-clear {
     background-color: transparent;
     border-color: transparent;
-    color: #5a86ba;
+    color: #00003e;
 }
 .button.button-clear:focus,
 .button.button-clear:hover,
@@ -150,7 +150,7 @@ input[type="reset"].button-clear[disabled]:focus,
 input[type="reset"].button-clear[disabled]:hover,
 input[type="submit"].button-clear[disabled]:focus,
 input[type="submit"].button-clear[disabled]:hover {
-    color: #5a86ba;
+    color: #00003e;
 }
 code {
     background: #f4f5f6;
@@ -162,7 +162,7 @@ code {
 }
 pre {
     background: #f4f5f6;
-    border-left: 0.3rem solid #5a86ba;
+    border-left: 0.3rem solid #00003e;
     overflow-y: hidden;
 }
 pre > code {
@@ -218,7 +218,7 @@ input[type="week"]:focus,
 input:not([type]):focus,
 textarea:focus,
 select:focus {
-    border-color: #5a86ba;
+    border-color: #00003e;
     outline: 0;
 }
 select {
@@ -402,7 +402,7 @@ input[type="radio"] {
     }
 }
 a {
-    color: #5a86ba;
+    color: #00003e;
     text-decoration: none;
 }
 

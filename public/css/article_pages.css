@@ -15,7 +15,7 @@
 }
 
 .share-button {
-    background-color: #5a86ba;
+    background-color: #00003e;
     color: white;
     border: none;
     padding: 10px;
@@ -110,3 +110,13 @@
     margin-right: 10px;
 }
 
+#propose-topic {
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    background-color: #00003e;
+    cursor: pointer;
+}
+
+#propose-topic:hover {
+    background-color: rgb(98, 98, 98);
+}

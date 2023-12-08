@@ -27,7 +27,7 @@
 .text{
     margin-bottom: 50px;
     text-align: center;
-    color: #5a86ba;
+    color: #00003e;
 
 
 }
@@ -43,6 +43,5 @@
     margin: 50px;
     padding: 30px;
     border-radius: 1em;
-    background-color: #5a86ba;
-    border: solid 2px #00003e;
+    background-color: #00003e;
 }
