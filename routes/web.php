@@ -13,6 +13,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleVoteController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FavouriteController;
+
 
 
 
@@ -53,6 +55,9 @@ Route::get('/search-user', [AdminController::class, 'search_user']);
 Route::post('/admin/block-user/{id}', [AdminController::class, 'blockUser'])->name('admin.blockUser')->where('id', '[0-9]+');
 Route::get('/admin/unblock/{id}', [AdminController::class, 'unblockUser'])->name('admin.users.unblock')->where('id', '[0-9]+');
 
+Route::delete('/admin/users/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
+
+
 
 
 // AUTHENTICATION
@@ -88,6 +93,7 @@ Route::post('/articles/{articleId}/unlike', [ArticleVoteController::class, 'unli
 Route::post('/articles/{articleId}/dislike', [ArticleVoteController::class, 'dislike'])->middleware('auth');
 Route::post('/articles/{articleId}/undislike', [ArticleVoteController::class, 'undislike'])->middleware('auth');
 
+
 // web.php
 
 // web.php
@@ -103,4 +109,9 @@ Route::delete('/comment/delete', [CommentController::class, 'deleteComment'])->n
 
 //ABOUT
 Route::get('/about', [AboutController::class, 'about'])->name('about');
+
+//FAVOuRITE
+Route::post('/articles/{articleId}/mark-favourite', [FavouriteController::class, 'markFavourite'])
+    ->middleware('auth')
+    ->name('articles.mark-favourite');
 

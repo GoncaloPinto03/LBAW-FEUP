@@ -30,6 +30,12 @@
                     <button type="submit" id="#unblockBtn">Unblock User</button>
                 </form>
             @endif
+            <form action="{{ route('users.destroy', ['id' => $user->user_id]) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Delete User</button>
+            </form>
+
 
         @endif
     </div>

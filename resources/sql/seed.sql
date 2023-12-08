@@ -469,6 +469,27 @@ FOR EACH ROW
 EXECUTE FUNCTION prevent_duplicate_topic_follow();
 
 
+------TRIGGER 10------
+CREATE OR REPLACE FUNCTION update_articles_on_user_delete()
+  RETURNS TRIGGER AS
+$$
+BEGIN
+  UPDATE article
+  SET author_name = 'unknown',
+      reputation = 'unknown'
+  WHERE user_id = OLD.user_id;
+
+  RETURN OLD;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_articles_trigger
+AFTER DELETE ON users
+FOR EACH ROW
+EXECUTE FUNCTION update_articles_on_user_delete();
+
+
 ------------------------------------------------------------------------------------
 ------------------------------------- TRANSACTIONS ---------------------------------
 ------------------------------------------------------------------------------------
@@ -566,9 +587,7 @@ VALUES
 
 INSERT INTO favourite (article_id, user_id)
 VALUES
-    (1, 1),
-    (2, 1),
-    (3, 2),
+    
     (4, 3);
 
 INSERT INTO notification (date, viewed, notified_user, emitter_user)
