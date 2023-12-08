@@ -63,4 +63,9 @@ class User extends Authenticatable
         return $this->hasMany(Article::class, 'user_id');
     }
 
+    public function article_vote()
+    {
+        return $this->hasMany(Article_vote::class);
+    }
+
 }

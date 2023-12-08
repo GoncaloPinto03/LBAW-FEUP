@@ -27,9 +27,9 @@
   function encodeForAjax(data) {
     if (data == null) return null;
     return Object.keys(data).map(function(k){
-        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+      return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&');
-}
+  }
   
 function sendAjaxRequest(method, url, data, handler) {
   let request = new XMLHttpRequest();
@@ -46,9 +46,10 @@ function sendAjaxRequest(method, url, data, handler) {
   
 function articleDeletedHandler() {
     //if (this.status != 200) window.location = '/';
-    let item = JSON.parse(this.responseText);
-    let element = document.querySelector('li.item[data-id="' + item.id + '"]');
-    element.remove();
+    //let item = JSON.parse(this.responseText);
+    //console.log(item);
+    //et element = document.querySelector('li.item[data-id="' + item.id + '"]');
+    //element.remove();
 }
 
   
@@ -59,10 +60,53 @@ console.log('Delete Buttons:', deleteButtons);
 
 deleteButtons.forEach(function(button) {
     button.addEventListener('click', function(e) {
+        e.preventDefault();
         let articleId = e.target.closest('form').querySelector('input[name="article_id"]').value;
         console.log('Button clicked! Article ID:', articleId);
-        sendAjaxRequest('delete', '/article/delete/', { article_id: articleId }, articleDeletedHandler);
+        sendAjaxRequest('delete', '/article/delete/', { article_id: articleId }, function() {
+          console.log('Sent request');
+          document.querySelector('#article'+articleId).remove();
+          console.log('Article Removed');
+        });
     });
 });
-  
-  
+  /*
+let likeButton = document.querySelector('#like-button');
+let unlikeButton = document.querySelector('#unlike-button');
+let dislikeButton = document.querySelector('#dislike-button');
+let undislikeButton = document.querySelector('#undislike-button');
+console.log('Like Button:', likeButton);
+console.log('Unlike Button:', unlikeButton);
+
+
+likeButton.addEventListener('click', function(e) {
+  e.preventDefault();
+  let form = e.target.closest('form');
+  let articleId = form.querySelector('input[name="article_id"]').value;
+  console.log('Like Button clicked!');
+  console.log(articleId);
+
+  sendAjaxRequest('POST', '/articles/' + articleId + '/like', null, function(response) {
+        let responseData = JSON.parse(this.response);
+        console.log(responseData);
+
+        let likeCountElement = document.querySelector('#like-count');
+        let reputationElement = document.querySelector('#reputation');
+        let isLikeElement = document.querySelector('#like-button');
+
+        console.log(likeCountElement);
+        console.log(reputationElement);
+        console.log(isLikeElement);
+
+        if (likeCountElement) {
+            likeCountElement.innerText = responseData.likeCount;
+        }
+        if (reputationElement) {
+          reputationElement.innerHTML = '<strong>Author Reputation:</strong>' + responseData.userRep;
+        }
+        if (isLikeElement && responseData.isLike)
+        {
+          form.action = '/articles/' + articleId + '/unlike';
+        }
+  });
+});*/

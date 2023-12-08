@@ -10,6 +10,7 @@ use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleVoteController;
 use App\Http\Controllers\AboutController;
 
 

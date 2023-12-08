@@ -17,7 +17,7 @@
                     <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
     
                     <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{ $article->user->name }}</strong></a>
-                    <p><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
+                    <p id="reputation"><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
                     <!--------------------------------LIKE----------------------------------------------------------------------->
                     <div>
                         @if($article_vote && $article_vote->is_like === TRUE)
