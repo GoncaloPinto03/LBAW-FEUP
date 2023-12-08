@@ -46,12 +46,4 @@ class Article extends Model
     }
 
 
-    public function photo()
-    {
-        $files = glob("images/news/" . $this->article_id . ".jpg", GLOB_BRACE);
-        $default = "/images/news/default_article_pic.jpg";
-        if (sizeof($files) < 1) return $default;
-        return "/" . $files[0];
-    }
-
 }
