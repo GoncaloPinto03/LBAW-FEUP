@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Topic;
+use App\Models\TopicProposal;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 
@@ -24,7 +25,10 @@ class AdminController extends Controller
         $topics = $this->listTopics();
         return view('admin.topics', compact('topics'));
     }
-    
+    public function topicProposalsPage() {
+        $topicproposals = $this->listTopicProposals();
+        return view('admin.topicproposals', compact('topicproposals'));
+    }
     public function showUsers() {
         $users = User::all();
         return view('admin.users',['users' => $users]); 
@@ -34,6 +38,12 @@ class AdminController extends Controller
         $topics = Topic::all();
         return view('admin.topics', ['topics' => $topics]); 
     }
+
+    public function showTopicProposals() {
+        $topicproposals = TopicProposal::all();
+        return view('admin.topicproposals', ['topicproposals' => $topicproposals]); 
+    }
+
     public function listUsers()
     {
         $adminController = new AdminController();
@@ -46,6 +56,11 @@ class AdminController extends Controller
         return $adminController->showTopics()->getData()['topics'];
     }
 
+    public function listTopicProposals()
+    {
+        $adminController = new AdminController();
+        return $adminController->showTopicProposals()->getData()['topicproposals'];
+    }
     public function show_profile(int $id)
     {
         if(!Auth::guard('admin')->check())
@@ -88,4 +103,35 @@ class AdminController extends Controller
         return view('pages.admin', compact('users'));
     }
 
+    public function acceptTopicProposal($id)
+    {
+    $topicproposal = TopicProposal::find($id);
+    
+
+    // Create a new topic
+    $newTopic = new Topic();
+    $newTopic->name = $topicproposal->name;
+    $newTopic->save();
+
+    // Update the topicproposal record
+    $topicproposal->update(['accepted' => true]);
+
+    return redirect('/admin/topicproposals')->with('success', 'Topic proposal accepted successfully.');
+    //return response()->json(['success' => 'Topic proposal accepted successfully.']);
+    }
+
+
+    public function denyTopicProposal($id)
+    {
+    $topicproposal = TopicProposal::find($id);
+
+    // Set the topicproposal record to false
+    $topicproposal->update(['accepted' => false]);
+
+    return redirect('/admin/topicproposals')->with('success', 'Topic proposal denied successfully.');
+    //return response()->json(['success' => 'Topic proposal denied successfully.']);
+    }
+
+
 }
+

@@ -96,7 +96,6 @@
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     height: 300px;
-    margin: 3em;
 }
 
 .small-box h2 {
@@ -149,7 +148,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #5a86ba;
+    background-color: #00003e;
     color: #f0f3f5;
     border: none;
     text-align: center;
@@ -167,7 +166,7 @@
 }
 
 .user-article-button:hover {
-    background-color: #5a86ba;
+    background-color: #00003e;
     color: white;
 }
 
@@ -181,7 +180,7 @@
 }
 
 .search-box-user input { 
-    border: 1px solid #5a86ba; 
+    border: 1px solid #00003e; 
     border-radius: 1em;
     padding: 0.5em;
     margin-top: 1em;
@@ -203,7 +202,7 @@
 
 .search-button-user:hover {
     color: white;
-    background-color: #5a86ba
+    background-color: #00003e
 }
 
 .form-user {

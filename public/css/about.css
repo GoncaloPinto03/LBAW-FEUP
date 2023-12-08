@@ -1,7 +1,7 @@
 #about-us{
     background-color: #f5f5f5;
     border-radius: 1em;
-    border: solid 1px #5a86ba;
+    border: solid 1px #00003e;
     padding: 30px;
     margin: 0 20px;
 }
@@ -26,7 +26,7 @@
 .text{
     margin-bottom: 50px;
     text-align: center;
-    color: #5a86ba;
+    color: #00003e;
 
 
 }
@@ -42,5 +42,5 @@
     margin: 50px;
     padding: 30px;
     border-radius: 1em;
-    background-color: #5a86ba;
+    background-color: #00003e;
 }

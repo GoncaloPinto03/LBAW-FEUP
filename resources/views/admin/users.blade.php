@@ -32,8 +32,8 @@
                     <ul>
                         <li><a href="{{ url('/admin/users/') }}">Users</a></li>
                         <li><a href="{{ url('/admin/topics/') }}">Topics</a></li>
-                        <li class="admin-sidebar-option"><a>Topic Proposals</a></li>
-                        <li class="admin-sidebar-option"><a>User Reports</a></li>
+                        <li><a href="{{ url('/admin/topicproposals/') }}">Topic Proposals</a></li>
+                        <li<a>User Reports</a></li>
                     </ul>
                 </div>
                 <div class="admin-dashboard" id="admin-content">

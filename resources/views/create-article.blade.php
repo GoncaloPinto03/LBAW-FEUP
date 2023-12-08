@@ -22,6 +22,9 @@
                                <option value="{{ $topic->name }}">{{ $topic->name }}</option>
                             @endforeach
                         </select>
+                        <a id="propose-topic" href="{{ route('topic.propose') }}"><i class="bi bi-plus-lg"></i></a>
+                        <br>
+                        <br>
                         <button type="submit">Save Changes</button>
                     </form>
                 </div>

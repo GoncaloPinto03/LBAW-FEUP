@@ -13,6 +13,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleVoteController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\TopicController;
 
 
 
@@ -44,6 +45,10 @@ Route::get('/profile/articles/{id}', [UserController::class, 'showArticles'])->w
 Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('auth:admin');
 Route::get('/admin/users', [AdminController::class, 'usersPage'])->name('admin.users')->middleware('auth:admin');
 Route::get('/admin/topics', [AdminController::class, 'topicsPage'])->name('admin.topics')->middleware('auth:admin');
+Route::get('/admin/topicproposals', [AdminController::class, 'topicProposalsPage'])->name('admin.topicproposals')->middleware('auth:admin');
+Route::post('/admin/topicproposals/{id}/accept', [AdminController::class , 'acceptTopicProposal'])->name('admin.topicproposals.accept')->middleware('auth:admin');
+Route::post('/admin/topicproposals/{id}/deny', [AdminController::class, 'denyTopicProposal'])->name('admin.topicproposals.deny')->middleware('auth:admin');
+
 
 Route::get('/profile_admin/{id}', [AdminController::class, 'show_profile'])->where('id', '[0-9]+');
 Route::get('/admin-profile/edit', [AdminController::class, 'edit_profile']);
@@ -93,6 +98,10 @@ Route::get('/articles/show/{category?}', 'ArticleController@showArticles')->name
 // COMMENTS
 Route::post('/comment/create', [CommentController::class, 'createComment'])->name('comment.create');
 Route::delete('/comment/delete', [CommentController::class, 'deleteComment'])->name('comment.delete');
+
+// TOPICS
+Route::get('/topic/proposal', [TopicController::class, 'showProposalForm'])->name('topic.propose');
+Route::post('/topic/proposal', [TopicController::class, 'submitProposal']);
 
 
 
