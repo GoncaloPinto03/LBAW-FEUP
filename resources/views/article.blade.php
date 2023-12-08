@@ -1,4 +1,4 @@
-
+@extends('layouts.app')
 @include('partials.topbar')
 
 @section('content')
@@ -6,6 +6,7 @@
 
     <section id="articlebox">
         <!-- Main Article Box -->
+        <div>
         <div class="boxes-container">
             <div class="article-box">
                 <div class="article-content">
@@ -20,13 +21,14 @@
                     <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
     
                     <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{ $article->user->name }}</strong></a>
-                    <p id="reputation"><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
+                    <p><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
                     <!--------------------------------LIKE----------------------------------------------------------------------->
+                @if(Auth::user()->user_blocked == 0)
                     <div>
                         @if($article_vote && $article_vote->is_like === TRUE)
                             <form action="{{ url('/articles/'.$article->article_id.'/unlike') }}" method="POST">
                                 @csrf
-                                <button type="submit" id="unlike-button" class="fw-light nav-link fs-6"> <span class="fas fa-thumbs-up"> </span>
+                                <button type="submit" id="unlike-button"  class="fw-light nav-link fs-6"> <span class="fas fa-thumbs-up"> </span>
                                 </button>
                             </form>
                         @else
@@ -39,8 +41,10 @@
                         @endif
                         <p id="like-count"> {{ $likes }} </p>
                     </div>
+                @endif
 
                     <!-------------------------------------------DISLIKE--------------------------------------------------------------->
+                @if(Auth::user()->user_blocked == 0)    
                     <div>
                         @if($article_vote && $article_vote->is_like === FALSE)
                             <form action="{{ url('/articles/'.$article->article_id.'/undislike') }}" method="POST">
@@ -59,22 +63,26 @@
                     </div>
 
                 </div>
+                @endif
                 <div class="article-image">
                     <img src="{{ $article->photo() }}" alt="Article Image">
                 </div>
 
+
+                
+
                 <div class="comments-section">
-                    <h2>Comments</h2>@extends('layouts.app')
-                    @if(Auth::user()->user_blocked == 0)
-                        <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
-                        <form action="{{ '/comment/create' }}" method="post">
-                            @csrf
-                            <input type="hidden" name="article_id" value="{{ $article->article_id }}">
-                            <label for="text">Leave a comment:</label>
-                            <textarea name="text" id="text" cols="30" rows="5"></textarea>
-                            <button type="submit">Submit Comment</button>
-                        </form>
-                    @endif
+                    <h2>Comments</h2>
+                @if(Auth::user()->user_blocked == 0)
+                    <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
+                    <form action="{{ '/comment/create' }}" method="post">
+                        @csrf
+                        <input type="hidden" name="article_id" value="{{ $article->article_id }}">
+                        <label for="text">Leave a comment:</label>
+                        <textarea name="text" id="text" cols="30" rows="5"></textarea>
+                        <button type="submit">Submit Comment</button>
+                    </form>
+                @endif
 
                     <ul class="comment-list">
                         @foreach($comments as $comment)
@@ -83,24 +91,27 @@
                         @endforeach
                     </ul>
                 </div>
+                
             </div>
 
-        <div class="popular-news-section">
-            <h2>Most Popular News </h2>
-            <ul class="topic-list">
-                    <li class="topic-item">
-                        <a href="#">
-                            <div class="topic-image">
-                                    <img src="{{ $article->photo() }}" alt="Article Image">
-                                <div class="image-text">Lorem ipsum dolor</div>
-                            </div>
-                        </a>
-                    </li>
-                    @foreach ($popular as $topArticle)
-                    <li><a href="{{  url('articles/'.$topArticle->article_id) }}">{{ $topArticle->name }}</a></li>
-                    @endforeach
-            </ul>
-        </div>
+
+    
+    </div>
+    <div class="popular-news-section">
+                <h2>Most Popular News </h2>
+                    <ul class="topic-list">
+                            <li class="topic-item">
+                                <a href="#">
+                                    <div class="topic-image">
+                                        <img src="{{ $article->photo() }}" alt="Article Image">
+                                    </div>
+                                </a>
+                            </li>
+                            @foreach ($popular as $topArticle)
+                            <li><a href="{{  url('articles/'.$topArticle->article_id) }}">{{ $topArticle->name }}</a></li>
+                            @endforeach
+                    </ul>
+            </div>
     </section>
     
 @include('partials.footer')
