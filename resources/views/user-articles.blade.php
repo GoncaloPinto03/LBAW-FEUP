@@ -36,7 +36,7 @@
         <h2> {{ $article->name }} </h2>
         <p> {{ $article->description }} </p>
         <a href="{{ url('/articles/'.$article->article_id) }}" class="small-button">Read More </a>
-        @if(Auth::user()->user_blocked == 0)
+        @if(Auth::guard('admin')->check() || (Auth::user()->user_id == $article->user_id))
         <a href="{{ url('/article/edit/'.$article->article_id) }}" class="small-button">Edit Article </a>
         <form action="{{ url('/article/delete') }}" method="post">
             @csrf

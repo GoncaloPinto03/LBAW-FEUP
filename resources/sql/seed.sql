@@ -469,26 +469,6 @@ FOR EACH ROW
 EXECUTE FUNCTION prevent_duplicate_topic_follow();
 
 
-------TRIGGER 10------
-CREATE OR REPLACE FUNCTION update_articles_on_user_delete()
-  RETURNS TRIGGER AS
-$$
-BEGIN
-  UPDATE article
-  SET author_name = 'unknown',
-      reputation = 'unknown'
-  WHERE user_id = OLD.user_id;
-
-  RETURN OLD;
-END;
-$$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER update_articles_trigger
-AFTER DELETE ON users
-FOR EACH ROW
-EXECUTE FUNCTION update_articles_on_user_delete();
-
 
 ------------------------------------------------------------------------------------
 ------------------------------------- TRANSACTIONS ---------------------------------
