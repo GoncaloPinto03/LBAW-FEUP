@@ -155,7 +155,11 @@ class ArticleController extends Controller
         $ts_query = implode(' & ', $search_words);
         $user_id = Auth::user()->user_id;
 
-        $articles = Article::where('user_id', $user_id)->whereRaw("to_tsvector('english', name) @@ to_tsquery(?)", ['"'.$ts_query.'"'])->orWhereRaw("to_tsvector('english', description) @@ to_tsquery(?)", ['"'.$ts_query.'"'])->get();
+        $articles = Article::where('user_id', $user_id)->where(function ($query) use ($ts_query) {
+            $query->whereRaw("to_tsvector('english', name) @@ to_tsquery(?)", ['"'.$ts_query.'"'])
+                  ->orWhereRaw("to_tsvector('english', description) @@ to_tsquery(?)", ['"'.$ts_query.'"']);
+        })
+    ->get();
 
         return view('user-articles', compact('articles'));
     }

@@ -64,9 +64,9 @@ deleteButtons.forEach(function(button) {
         let articleId = e.target.closest('form').querySelector('input[name="article_id"]').value;
         console.log('Button clicked! Article ID:', articleId);
         sendAjaxRequest('delete', '/article/delete/', { article_id: articleId }, function() {
-        console.log('Sent request');
-        document.querySelector('#article'+articleId).remove();
-        console.log('Article Removed');
+          console.log('Sent request');
+          document.querySelector('#article'+articleId).remove();
+          console.log('Article Removed');
         });
     });
 });
@@ -81,22 +81,32 @@ console.log('Unlike Button:', unlikeButton);
 
 likeButton.addEventListener('click', function(e) {
   e.preventDefault();
-  let articleId = e.target.closest('form').querySelector('input[name="article_id"]').value;
+  let form = e.target.closest('form');
+  let articleId = form.querySelector('input[name="article_id"]').value;
   console.log('Like Button clicked!');
   console.log(articleId);
 
-  sendAjaxRequest('POST', '/articles/' + articleId + '/like', null, function() {
-    try {
-        let responseData = JSON.parse(this.responseText);
+  sendAjaxRequest('POST', '/articles/' + articleId + '/like', null, function(response) {
+        let responseData = JSON.parse(this.response);
         console.log(responseData);
 
         let likeCountElement = document.querySelector('#like-count');
+        let reputationElement = document.querySelector('#reputation');
+        let isLikeElement = document.querySelector('#like-button');
+
+        console.log(likeCountElement);
+        console.log(reputationElement);
+        console.log(isLikeElement);
+
         if (likeCountElement) {
             likeCountElement.innerText = responseData.likeCount;
         }
-
-    } catch (error) {
-        console.error('Error parsing server response:', error);
-    }
+        if (reputationElement) {
+          reputationElement.innerHTML = '<strong>Author Reputation:</strong>' + responseData.userRep;
+        }
+        if (isLikeElement && responseData.isLike)
+        {
+          form.action = '/articles/' + articleId + '/unlike';
+        }
   });
 });*/

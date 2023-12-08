@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article_vote;
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -32,7 +33,6 @@ class ArticleVoteController extends Controller
             'is_like' => TRUE
         ])->exists()) return redirect('articles/'.$articleId)->with('error', 'User already liked this article');
 
-        //TRIGGER 1 ATUALIZA MAL A REPUTAÇÃO
 
         Article_vote::insert([
             'user_id' => Auth::user()->user_id,
@@ -42,9 +42,12 @@ class ArticleVoteController extends Controller
         return redirect('articles/'.$articleId)->with('success', 'Article liked successfully');
         /*$likeCount = Article_vote::where('article_id', $articleId)->where('is_like', TRUE)->count();
         $isLiked = Article_vote::where('article_id', $articleId)->where('is_like', TRUE)->exists();
+        $author_id = Article::find($articleId)->user_id;
+        $userReputation = User::find($author_id)->reputation;
         $responseData = [
             'likeCount' => $likeCount,
-            'isLike' => $isLiked
+            'isLike' => $isLiked,
+            'userRep' => $userReputation
         ];
 
         return response()->json($responseData);*/
@@ -82,7 +85,6 @@ class ArticleVoteController extends Controller
             'is_like' => FALSE
         ])->exists()) return redirect('articles/'.$articleId)->with('error', 'User already disliked this article');
 
-        //TRIGGER 1 ATUALIZA MAL A REPUTAÇÃO
 
         Article_vote::insert([
             'user_id' => Auth::user()->user_id,
