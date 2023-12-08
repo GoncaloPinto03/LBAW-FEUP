@@ -45,7 +45,6 @@ class ArticleController extends Controller
                 $article_vote = null;
             }
 
-
             $likes = Article_vote::where('article_id', $articleId)->where('is_like', TRUE)->count();
             $dislikes = Article_vote::where('article_id', $articleId)->where('is_like', FALSE)->count();
 
@@ -100,6 +99,16 @@ class ArticleController extends Controller
         $article->name = $request->input('name');
         $article->description = $request->input('description');
         $article->topic_id = Topic::where('name', '=', $request->input('topic'))->first()->topic_id;
+
+        if($request->file('image')){
+            if( !in_array(pathinfo($_FILES["image"]["name"],PATHINFO_EXTENSION),['jpg','jpeg','png'])) {
+                return redirect('article/edit');
+            }
+            $request->validate([
+                'image' =>  'mimes:png,jpeg,jpg',
+            ]);
+            PhotoController::update($article->article_id, 'article', $request);
+        }
         
         $article->save();
 

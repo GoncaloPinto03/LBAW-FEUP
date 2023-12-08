@@ -17,8 +17,6 @@
                     <div class="article-image">
                         <img src="{{ $columns['bigArticle']->photo() }}" alt="Article Image">
 
-
-
                     </div>
                     <div class="article-content">
                         <h1>{{ $columns['bigArticle']->name }}</h1>

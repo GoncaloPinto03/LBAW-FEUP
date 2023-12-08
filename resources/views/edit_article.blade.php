@@ -20,7 +20,9 @@
                             @foreach ($topics as $topic)
                                <option value="{{ $topic->name }}">{{ $topic->name }}</option>
                             @endforeach
-                        </select>
+                        </select>     
+                        <label for="image">Update Photo:</label>
+                        <input type="file" id="image" name="image">                 
                         <button type="submit">Save Changes</button>
                     </form>
                     <p>{{ $article->date }}</p>
@@ -28,24 +30,22 @@
                     <p><strong>Author:</strong> {{ $article->user->name }}</p>
                 </div>
                 <div class="article-image">
-                    <img src="{{ asset('images/papai.jpg') }}" alt="Article Image">
+                    <img src="{{ $article->photo() }}" alt="Article Image">
                 </div>
 
                 <div class="comments-section">
                     <h2>Comments</h2>
-                    <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
-                    <form action="{}" method="post">
-                        @csrf
-                        <label for="comment">Leave a comment:</label>
-                        <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
-                        <button type="submit">Submit Comment</button>
-                    </form>
-
-                    <ul class="comment-list">
-                        @foreach($comments as $comment)
-                        <li><strong>{{$comment->user->name}}: </strong>{{$comment->text}}</li>
-                        @endforeach
-                    </ul>
+                        @foreach($comments as $comment)  
+                        <div id="comment{{ $comment->comment_id }}">
+                                <a href="{{ url('profile/'.$comment->user_id) }}" class="author-name2"><strong>{{$comment->user->name}}</strong></a>: {{$comment->text}}
+                                <form action="{{ url('/comment/delete') }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="hidden" name="comment_id" value="{{ $comment->comment_id }}">
+                                    <button type="submit" id="deleteCommentBtn" class="comment-delete-button"><i class="bi bi-trash"></i></button>
+                                </form>   
+                            </div> 
+                        @endforeach   
                 </div>
             </div>
 
@@ -55,7 +55,7 @@
                             <li class="topic-item">
                                 <a href="#">
                                     <div class="topic-image">
-                                        <img src="{{ asset('images/teste.jpg') }}" alt="Article Image">
+                                        <img src="{{ $article->photo() }}" alt="Article Image">
                                         <div class="image-text">Lorem ipsum dolor</div>
                                     </div>
                                 </a>

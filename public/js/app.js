@@ -47,18 +47,17 @@ function sendAjaxRequest(method, url, data, handler) {
 function articleDeletedHandler() {
     //if (this.status != 200) window.location = '/';
     //let item = JSON.parse(this.responseText);
-    //console.log(item);
-    //et element = document.querySelector('li.item[data-id="' + item.id + '"]');
+    //let element = document.querySelector('li.item[data-id="' + item.id + '"]');
     //element.remove();
 }
 
   
   
 console.log('ojhnkj.');
-let deleteButtons = document.querySelectorAll('#deleteArticleBtn');
-console.log('Delete Buttons:', deleteButtons);
+let deleteArticleButtons = document.querySelectorAll('#deleteArticleBtn');
+console.log('Delete Buttons:', deleteArticleButtons);
 
-deleteButtons.forEach(function(button) {
+deleteArticleButtons.forEach(function(button) {
     button.addEventListener('click', function(e) {
         e.preventDefault();
         let articleId = e.target.closest('form').querySelector('input[name="article_id"]').value;
@@ -110,3 +109,20 @@ likeButton.addEventListener('click', function(e) {
         }
   });
 });*/
+
+let deleteCommentButtons = document.querySelectorAll('#deleteCommentBtn');
+console.log('Delete Comment Buttons:', deleteCommentButtons);
+
+deleteCommentButtons.forEach(function(button) {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        let commentId = e.target.closest('form').querySelector('input[name="comment_id"]').value;
+        console.log('Delete Comment Button clicked! Comment ID:', commentId);
+        sendAjaxRequest('delete', '/comment/delete/', { comment_id: commentId }, function() {
+          console.log('Sent request');
+          document.querySelector('#comment'+commentId).remove();
+          console.log('Comment Removed');
+        });
+    });
+});
+

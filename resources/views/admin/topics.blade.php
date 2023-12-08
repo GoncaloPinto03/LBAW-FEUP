@@ -31,15 +31,31 @@
                 <div class="admin-sidebar">
                     <ul>
                         <li><a href="{{ url('/admin/users/') }}">Users</a></li>
-                        <li><a href="{{ route('admin.topics') }}">Topics</a></li>
+                        <li><a href="{{ url('/admin/topics/') }}">Topics</a></li>
                         <li class="admin-sidebar-option"><a>Topic Proposals</a></li>
                         <li class="admin-sidebar-option"><a>User Reports</a></li>
                     </ul>
                 </div>
                 <div class="admin-dashboard" id="admin-content">
-                    <h1>Admin Dashboard</h1>     
+                    @foreach($topics as $topic)
+                        <div class="admin-dashboard-user">
+                            <p>{{ $topic->name }}</p>
+                        </div>
+                    @endforeach   
                 </div>
             </div>
         </div>
     </section>
+@endsection
+
+
+
+
+@section('admin-content')
+    <!-- users.blade.php -->
+    @foreach($topics as $topic)
+        <div class="admin-dashboard-user">
+            <p>{{ $topic->topic_name }}</p>
+        </div>
+    @endforeach
 @endsection

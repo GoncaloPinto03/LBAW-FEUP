@@ -7,6 +7,8 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
+
+
 .article-content {
     position: relative;
     overflow: hidden;
@@ -44,7 +46,8 @@
 /* Topics list */
 
 .topic-list li a{
-    color: black;
+    color: #00003e;
+    font-weight: bold;
 }
 
 .topic-list {
@@ -79,60 +82,31 @@
 
 
 .author-name{
-    color: #555;
+    color: #00003e;
     text-decoration: underline;
 }
 
 .author-name2{
-    color: #5a86ba;
+    color: #00003e;
     text-decoration: underline;
+    list-style-type: none;
 }
 
-
-#share{
-    background-color: #00003e;
-}
-
-#share:hover{
-    background-color: #00003e;
-}
-
-
-
-#like{
-    background-color: #00003e;
-}
-
-#like:hover{
-    background-color: #00003e;
-}
-
-#dislike{
-    background-color: #00003e;
-}
-
-#dislike:hover{
-    background-color: #00003e;
-}
-
-#like.liked {
-    color: #5a86ba; /* Change this to the color you want when liked */
-}
-
-#dislike.disliked {
-    color: #5a86ba; /* Change this to the color you want when disliked */
-}
-
-.boxes-container2 {
-    display: flex;
+.popular-news-section {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    color: #00003e;
+    border-radius: 1em;
+    padding: 1em;
     flex-direction: row;
 }
 
-.popular-news-section{
-    float: right; 
-    width: 25%;
-    margin-left: 120px; 
-    margin-top: 50px;
-    
+.popular-news-image {
+    border-radius: 1em;
+}
+
+.comment-delete-button {
+    cursor: pointer;
+    margin-right: 10px;
 }
 

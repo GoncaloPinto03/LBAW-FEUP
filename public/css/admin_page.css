@@ -26,6 +26,7 @@
     display: flex;
     color: #F0F3F5;
     transition: color 0.3s, transform 0.3s;
+    cursor: pointer;
 }
 
 .admin-sidebar a:hover {
@@ -43,6 +44,7 @@
     flex-direction: column;
     justify-content: space-around;
     padding: 1em;
+    color:#00003e;
 }
 
 .admin-dashboard-user {
@@ -55,6 +57,19 @@
     justify-content: space-between;
     align-items: center;
     background-color: #F0F3F5;
+    color: #00003e;
+}
+
+.admin-dashboard-user-blocked {
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 1em;
+    display: flex;
+    padding: 1em;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(196, 69, 69, 0.712);
     color: #00003e;
 }
 

@@ -12,6 +12,13 @@
     align-items: center;
     text-align: center;
     min-height: 86vh;
+    margin: 20px;
+    border-radius: 1em;
+    padding: 50px;
+    width: 30%;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    color: #00003e;
 }
 
 #edit-profile .edit-profile-pic-options {
@@ -36,7 +43,6 @@
 #edit-profile .edit-profile-options input[type="text"]{
     font-size: 1.4em;
     margin-bottom: 10%;
-    width: 130%;
     background-color: white;
     color: #00003e;
 }

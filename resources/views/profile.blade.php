@@ -24,6 +24,19 @@
             <input type="hidden" name="user_id" value="{{ $user->user_id }}">
             <button type="submit" id="deleteAccountBtn" class="button-delete">Delete Acount</button>
         </form>
+            
+            @if($user->user_blocked == 0 && Auth::guard('admin')->check())
+                <form action="{{ url('admin/block-user/'.$user->user_id)}}" method="POST">
+                    @csrf
+                    <button type="submit" id="#blockBtn">Block User</button>
+                </form>
+            @elseif($user->user_blocked == 1 && Auth::guard('admin')->check())
+                <form action="{{ url('admin/unblock/'.$user->user_id)}}" method="GET">
+                    @csrf
+                    <button type="submit" id="#unblockBtn">Unblock User</button>
+                </form>
+            @endif
+
         @endif
     </div>
     @include('partials.footer')
