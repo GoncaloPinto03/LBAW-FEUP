@@ -63,10 +63,12 @@
                 @endif
 
                 @if(Auth::user()->user_blocked == 0)
-                <form action="{{ route('articles.mark-favourite', ['articleId' => $article->article_id]) }}" method="POST">
-                    @csrf
-                    <button type="submit" id="favorite-icon"><span><i class="bi bi-star"></i></span></button>
-                </form>
+                    <div>
+                        <form action="{{ route('articles.mark-favourite', ['articleId' => $article->article_id]) }}" method="POST">
+                            @csrf
+                            <button type="submit" id="favouriteButton"><span><i class="bi bi-star"></i></span></button>
+                        </form>
+                    </div>
                 @endif
 
 
