@@ -109,6 +109,7 @@ Route::delete('/comment/delete', [CommentController::class, 'deleteComment'])->n
 // TOPICS
 Route::get('/topic/proposal', [TopicController::class, 'showProposalForm'])->name('topic.propose');
 Route::post('/topic/proposal', [TopicController::class, 'submitProposal']);
+Route::post('/topic/{id}/follow', [TopicController::class, 'followTopic'])->middleware('auth');
 
 
 

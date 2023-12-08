@@ -55,9 +55,9 @@ class ArticleController extends Controller
 
 
             $comments= Comment::where('article_id', $articleId)->get();
-            $topicName = Topic::find($article->topic_id)->name;
+            $topic = Topic::find($article->topic_id);
             
-        return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topicName'));        
+        return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topic'));        
     }        
 }        
 

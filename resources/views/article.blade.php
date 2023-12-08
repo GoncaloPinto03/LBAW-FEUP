@@ -1,4 +1,4 @@
-@extends('layouts.app')
+
 @include('partials.topbar')
 
 @section('content')
@@ -12,7 +12,10 @@
                     <h1>{{ $article->name }}</h1>
                     <p>{{ $article->description }}</p>
                     <p>{{ $article->date }}</p>
-                    <p><strong>Topic: </strong>{{ $topicName }}</p>
+                    <p><strong>Topic: </strong>{{ $topic->name }}</p>
+                    <form action="{{ url('/topic/'.$topic->topic_id.'/follow') }}" method="POST">
+                        @csrf
+                        <button type="submit">Follow topic</button>
                     <p><strong>Likes: </strong> {{ $article->likes }}</p>
                     <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
     
