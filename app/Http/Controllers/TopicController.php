@@ -28,4 +28,10 @@ class TopicController extends Controller
 
         return redirect('/home')->with('success', 'Topic proposed successfully.');
     }
+
+
+    public function followTopic($id)
+    {
+
+    }
 }
