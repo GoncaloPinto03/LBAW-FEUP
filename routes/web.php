@@ -13,6 +13,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleVoteController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentVoteController;
 use App\Http\Controllers\TopicController;
 
 
@@ -98,6 +99,13 @@ Route::get('/articles/show/{category?}', 'ArticleController@showArticles')->name
 // COMMENTS
 Route::post('/comment/create', [CommentController::class, 'createComment'])->name('comment.create');
 Route::delete('/comment/delete', [CommentController::class, 'deleteComment'])->name('comment.delete');
+Route::get('/comment/edit/{commentId}', [CommentController::class, 'editComment'])->name('comment.edit');
+Route::post('/comment/edit/{commentId}', [CommentController::class, 'updateComment'])->name('comment.update');
+
+Route::post('/comments/{commentId}/like', [CommentVoteController::class, 'like'])->middleware('auth');
+Route::post('/comments/{commentId}/unlike', [CommentVoteController::class, 'unlike'])->middleware('auth');
+Route::post('/comments/{commentId}/dislike', [CommentVoteController::class, 'dislike'])->middleware('auth');
+Route::post('/comments/{commentId}/undislike', [CommentVoteController::class, 'undislike'])->middleware('auth');
 
 // TOPICS
 Route::get('/topic/proposal', [TopicController::class, 'showProposalForm'])->name('topic.propose');

@@ -639,11 +639,9 @@ INSERT INTO article_report (article_id, report_id) VALUES
     (5, 5),
     (6, 6);
 
-
 INSERT INTO topicproposal (name, user_id, date) VALUES
 ('Government', 1, CURRENT_TIMESTAMP),
 ('Health', 2, CURRENT_TIMESTAMP),
 ('Business', 3, CURRENT_TIMESTAMP),
 ('Education', 4, CURRENT_TIMESTAMP),
 ('Entertainment', 5, CURRENT_TIMESTAMP);
-
