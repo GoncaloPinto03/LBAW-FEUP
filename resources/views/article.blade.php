@@ -66,7 +66,16 @@
                     <div>
                         <form action="{{ route('articles.mark-favourite', ['articleId' => $article->article_id]) }}" method="POST">
                             @csrf
-                            <button type="submit" id="favouriteButton"><span><i class="bi bi-star"></i></span></button>
+                            <input type="hidden" name="article_id" value="{{ $article->article_id }}">
+                            <button type="submit" id="favouriteButton">
+                                <span id="iconSpan" data-is-favourite="{{ $isFavourite ? 'true' : 'false' }}">
+                                    @if ($isFavourite)
+                                        <i class="bi bi-star-fill"></i>
+                                    @else
+                                        <i class="bi bi-star"></i>
+                                    @endif
+                                </span>
+                            </button>
                         </form>
                     </div>
                 @endif

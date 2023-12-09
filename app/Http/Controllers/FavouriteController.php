@@ -33,6 +33,6 @@ class FavouriteController extends Controller
             ]);
         }
 
-        return redirect('articles/'.$article->article_id);
+        //return redirect('articles/'.$article->article_id);
     }
 }
