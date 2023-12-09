@@ -62,7 +62,7 @@
                 </div>
                 @endif
 
-                @if(Auth::user()->user_blocked == 0)
+                @if(Auth::user()->user_blocked == 0 && (Auth::user()->user_id != $article->user_id))
                     <div>
                         <form action="{{ route('articles.mark-favourite', ['articleId' => $article->article_id]) }}" method="POST">
                             @csrf
@@ -79,10 +79,10 @@
                         </form>
                     </div>
                 @endif
-                @if ($isFavourite)
-                    <p>Favourited </p>
-                @else
-                    <p>Not Favourited</p>
+                @if ($isFavourite && (Auth::user()->user_id != $article->user_id))
+                    <p style="color: #00003e; margin-left:30px;">Favourited </p>
+                @elseif(Auth::user()->user_id != $article->user_id)
+                    <p style="color: #00003e; margin-left:30px;">Not Favourited</p>
                 @endif
 
                 <div class="article-image">

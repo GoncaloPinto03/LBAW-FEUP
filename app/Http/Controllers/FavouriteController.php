@@ -35,4 +35,16 @@ class FavouriteController extends Controller
 
         //return redirect('articles/'.$article->article_id);
     }
+
+
+    public function getUserFavourites(Request $request)
+    {
+        $user = auth()->user();
+
+        $userFavourites = Favourite::where('user_id', $user->user_id)
+            ->with('article') 
+            ->get();
+
+            return view('user-favourites', ['favourites' => $userFavourites]);
+        }
 }

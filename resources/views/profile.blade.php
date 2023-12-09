@@ -14,7 +14,7 @@
         <div class='profile-info'>
             <p>Email: {{ $user->email }}<p>
             <p>Reputation: {{ $user->reputation }}<p>
-        </div>
+        </div>       
         @if (Auth::guard('admin')->check() || Auth::user()->user_id == $user->user_id)
             <a href="{{ url('/profile/edit/' . $user->user_id) }}" class="button">Edit Profile</a>
             <a href= "{{ url('/profile/articles/'.$user->user_id) }}" class="button">Manage Articles</a>
@@ -30,14 +30,19 @@
                     <button type="submit" id="#unblockBtn">Unblock User</button>
                 </form>
             @endif
-            <form action="{{ route('users.destroy', ['id' => $user->user_id]) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit">Delete User</button>
-            </form>
-
-
+            @if(Auth::guard('admin')->check())
+                <form action="{{ route('users.destroy', ['id' => $user->user_id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete User</button>
+                </form>
+            @endif
         @endif
+        @if(Auth::user() && Auth::user()->user_id == $user->user_id && $user->user_blocked == 0)
+                    <a href="{{ url('/user-favourites') }}" class="button">My Favorites</a>
+        @endif
+
+        
     </div>
     @include('partials.footer')
 </section>

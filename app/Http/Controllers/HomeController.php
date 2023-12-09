@@ -64,6 +64,16 @@ class HomeController extends Controller
     $column1Articles = $query->skip(1)->take(5)->get();
     $column2Articles = $query->skip(6)->take(5)->get();
 
+    $bigArticle->description = strlen($bigArticle->description) > 100 ? substr($bigArticle->description, 0, 100) . '...' : $bigArticle->description;
+    foreach ($column1Articles as $article) {
+        $article->description = strlen($article->description) > 100 ? substr($article->description, 0, 100) . '...' : $article->description;
+    }
+    
+    foreach ($column2Articles as $article) {
+        $article->description = strlen($article->description) > 100 ? substr($article->description, 0, 100) . '...' : $article->description;
+    }
+
+
     return [
         'bigArticle' => $bigArticle,
         'column1' => $column1Articles,

@@ -114,4 +114,7 @@ Route::get('/about', [AboutController::class, 'about'])->name('about');
 Route::post('/articles/{articleId}/mark-favourite', [FavouriteController::class, 'markFavourite'])
     ->middleware('auth')
     ->name('articles.mark-favourite');
+Route::get('/user-favourites', [FavouriteController::class, 'getUserFavourites'])
+    ->middleware('auth') 
+    ->name('user.favourites');
 
