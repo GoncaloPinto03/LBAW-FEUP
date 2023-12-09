@@ -14,6 +14,14 @@
                     <p>{{ $article->description }}</p>
                     <p>{{ $article->date }}</p>
                     <p><strong>Topic: </strong>{{ $topic->name }}</p>
+                    @if (!$tags)
+                        <p><strong>No tags</strong></p>
+                    @else
+                        <p><strong>Tags:</strong></p>
+                    @endif
+                    @foreach($tags as $tag)
+                        <a href="{{ url('tag/'.$tag->tag_id) }}"> {{ $tag->tag->name }} </a>
+                    @endforeach
                     <form action="{{ url('/topic/'.$topic->topic_id.'/follow') }}" method="POST">
                         @csrf
                         <button type="submit">Follow topic</button>

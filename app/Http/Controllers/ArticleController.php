@@ -12,6 +12,8 @@ use App\Models\Topic;
 
 use App\Models\Comment; 
 use App\Models\Article_vote; 
+use App\Models\Tag; 
+use App\Models\ArticleTag; 
 
 
 
@@ -56,8 +58,12 @@ class ArticleController extends Controller
 
             $comments= Comment::where('article_id', $articleId)->get();
             $topic = Topic::find($article->topic_id);
+
+            $tagInstance = new Tag();
+
+            $tags = ArticleTag::where('article_id', $articleId)->get();
             
-        return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topic'));        
+        return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topic', 'tags'));        
     }        
 }        
 

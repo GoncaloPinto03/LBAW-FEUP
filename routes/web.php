@@ -14,6 +14,7 @@ use App\Http\Controllers\ArticleVoteController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\TagController;
 
 
 
@@ -111,6 +112,8 @@ Route::get('/topic/proposal', [TopicController::class, 'showProposalForm'])->nam
 Route::post('/topic/proposal', [TopicController::class, 'submitProposal']);
 Route::post('/topic/{id}/follow', [TopicController::class, 'followTopic'])->middleware('auth');
 
+// TAGS
+Route::get('/tag/{tag_id}', [TagController::class, 'tagArticles']);
 
 
 //ABOUT
