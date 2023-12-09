@@ -12,7 +12,7 @@ use App\Models\Topic;
 
 use App\Models\Comment; 
 use App\Models\Article_vote; 
-
+use App\Models\Favourite; 
 
 
 //use Illuminate\Support\Facades\DB;
@@ -57,8 +57,9 @@ class ArticleController extends Controller
 
             $comments= Comment::where('article_id', $articleId)->get();
             $topicName = Topic::find($article->topic_id)->name;
+            $isFavourite = Favourite::where('user_id', $user->user_id)->where('article_id', $articleId)->exists();
             
-        return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topicName'));        
+        return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topicName', 'isFavourite'));
     }        
 }        
 

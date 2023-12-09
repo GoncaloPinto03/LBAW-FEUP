@@ -70,7 +70,11 @@
                         </form>
                     </div>
                 @endif
-
+                @if ($isFavourite)
+                    <p>Favourited </p>
+                @else
+                    <p>Not Favourited</p>
+                @endif
 
                 <div class="article-image">
                     <img src="{{ $article->photo() }}" alt="Article Image">
