@@ -152,8 +152,16 @@ class ArticleController extends Controller
 
         $article->save();
 
+        PhotoController::update($article->article_id, 'article', $request);
+        
+
+
         return redirect('profile/articles/'.$article->user_id);
     }
+
+
+    
+
 
     public function search_user_articles(Request $request)
     {
