@@ -40,5 +40,5 @@
       </button>
       <a class="button button-outline" href="{{ route('login') }}">Login</a>
   </form>
-
+  @include('partials.recover_password')
 @endsection

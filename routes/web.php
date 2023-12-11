@@ -15,6 +15,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentVoteController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\MailController;
 
 
 
@@ -116,3 +117,5 @@ Route::post('/topic/proposal', [TopicController::class, 'submitProposal']);
 //ABOUT
 Route::get('/about', [AboutController::class, 'about'])->name('about');
 
+// MAIL
+Route::post('/send', [MailController::class, 'send']);
