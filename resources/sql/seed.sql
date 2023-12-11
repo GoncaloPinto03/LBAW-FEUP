@@ -51,7 +51,10 @@ CREATE TABLE admin (
     admin_id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    user_blocked BOOLEAN DEFAULT FALSE
+
+
 );
 
 ------- USER -------

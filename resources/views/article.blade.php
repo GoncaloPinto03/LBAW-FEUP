@@ -16,11 +16,17 @@
                     <p><strong>Topic: </strong>{{ $topicName }}</p>
                     <p><strong>Likes: </strong> {{ $article->likes }}</p>
                     <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
-    
-                    <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{ $article->user->name }}</strong></a>
+
+                    @if ($article->user->name !== "Anonymous")
+                        <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{ $article->user->name }}</strong></a>
+                    @else
+                        <strong class="author-name" style="text-decoration:none;">{{ $article->user->name }}</strong>
+                    @endif
+                
                     <p><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
                     <!--------------------------------LIKE----------------------------------------------------------------------->
-                @if(Auth::user()->user_blocked == 0)
+                @if(Auth::user())
+                    @if(Auth::user()->user_blocked == 0 )
                     <div>
                         @if($article_vote && $article_vote->is_like === TRUE)
                             <form action="{{ url('/articles/'.$article->article_id.'/unlike') }}" method="POST">
@@ -38,10 +44,11 @@
                         @endif
                         <p id="like-count"> {{ $likes }} </p>
                     </div>
-                @endif
+                    @endif
+                
 
                     <!-------------------------------------------DISLIKE--------------------------------------------------------------->
-                @if(Auth::user()->user_blocked == 0)    
+                @if(Auth::user()->user_blocked == 0 )
                     <div>
                         @if($article_vote && $article_vote->is_like === FALSE)
                             <form action="{{ url('/articles/'.$article->article_id.'/undislike') }}" method="POST">
@@ -79,11 +86,17 @@
                         </form>
                     </div>
                 @endif
+                @endif
+
+
+
+            @if(Auth::user())
                 @if ($isFavourite && (Auth::user()->user_id != $article->user_id))
                     <p style="color: #00003e; margin-left:30px;">Favourited </p>
                 @elseif(Auth::user()->user_id != $article->user_id)
                     <p style="color: #00003e; margin-left:30px;">Not Favourited</p>
                 @endif
+            @endif
 
                 <div class="article-image">
                     <img src="{{ $article->photo() }}" alt="Article Image">
@@ -94,6 +107,8 @@
 
                 <div class="comments-section">
                     <h2>Comments</h2>
+
+                @if(Auth::user() )
                 @if(Auth::user()->user_blocked == 0)
                     <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
                     <form action="{{ '/comment/create' }}" method="post">
@@ -103,6 +118,7 @@
                         <textarea name="text" id="text" cols="30" rows="5"></textarea>
                         <button type="submit">Submit Comment</button>
                     </form>
+                @endif
                 @endif
 
                     <ul class="comment-list">

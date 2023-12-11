@@ -34,8 +34,20 @@
                 <form action="{{ route('users.destroy', ['id' => $user->user_id]) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit">Delete User</button>
+                        <button type="submit">Delete User</button>
                 </form>
+            @endif
+
+
+            @if(Auth::user())
+                @if(Auth::user()->user_id == $user->user_id)
+                    <form action="{{ route('users.destroy_user', ['id' => $user->user_id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action is irreversible.');">
+                        @csrf
+                        @method('delete')
+                        <input type="hidden" name="user_id" value="{{ $user->user_id }}">
+                        <button type="submit" id="deleteUserBtn">Delete Account</button>
+                    </form>
+                @endif
             @endif
         @endif
         @if(Auth::user() && Auth::user()->user_id == $user->user_id && $user->user_blocked == 0)

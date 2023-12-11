@@ -42,6 +42,8 @@ Route::get('/profile/{id}', [UserController::class, 'index'])->where('id', '[0-9
 Route::get('/profile/edit/{id}', [UserController::class, 'edit']);
 Route::post('/profile/edit/{id}', [UserController::class, 'update']);
 Route::get('/profile/articles/{id}', [UserController::class, 'showArticles'])->where('id', '[0-9]+');
+Route::delete('/profile/delete/{id}', [UserController::class, 'destroy_user'])->name('users.destroy_user');
+
 
 // ADMIN
 Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('auth:admin');

@@ -31,11 +31,7 @@ class ArticleController extends Controller
             $user = Auth::user();
 
 
-            /*DB::listen(function ($query) {
-                dump($query->sql);
-                dump($query->bindings);
-                dump($query->time);
-            });*/
+            
 
             if (Auth::user())
             {
@@ -57,18 +53,18 @@ class ArticleController extends Controller
 
             $comments= Comment::where('article_id', $articleId)->get();
             $topicName = Topic::find($article->topic_id)->name;
-            $isFavourite = Favourite::where('user_id', $user->user_id)->where('article_id', $articleId)->exists();
+            if(Auth::user()){
+                $isFavourite = Favourite::where('user_id', $user->user_id)->where('article_id', $articleId)->exists();
+                return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topicName', 'isFavourite'));
+
+            }
+            else{
+                return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topicName'));
+            }
             
-        return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topicName', 'isFavourite'));
     }        
 }        
 
-    /*public function showArticles() {
-        $bigArticle = Article::take(1)->first();
-        $articles1 = Article::take(5)->get();
-        $articles2 = Article::take(5)->get();
-        return view('partials.articles_home', compact('bigArticle', 'articles1', 'articles2'));
-    }*/
 
 
     public function editArticle($id)

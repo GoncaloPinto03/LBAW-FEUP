@@ -10,7 +10,7 @@
             </a>
         @endif
         <div class="search-box">
-            <input type="text" class="search-input" placeholder="Search..." style="background-color:white;">
+            <input type="text" class="search-input" placeholder="Search..." style="background-color:white; margin-bottom:0;">
             <button type="submit" class="search-button">Search</button>
         </div>
         @if (Auth::guard('admin')->check())

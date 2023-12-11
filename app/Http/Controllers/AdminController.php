@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
+
 
 use App\Models\User;
 use App\Models\Topic;
@@ -126,5 +130,15 @@ class AdminController extends Controller
 
         return redirect('/admin/users')->withSuccess('User unlocked successfully.');
     }
+
+    public function destroy($id){
+        $user = User::findOrFail($id);
+        $user->name = "Anonymous";
+        $user->email = "anonymous" . $user->user_id . "@example.com";
+        $user->password = Hash::make(Str::random(40)); 
+        $user->save();
+        return redirect('/admin/users')->withSuccess('User anonymized successfully');
+    }
+    
 
 }
