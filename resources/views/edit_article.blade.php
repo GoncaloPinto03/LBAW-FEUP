@@ -49,23 +49,7 @@
                 </div>
             </div>
 
-            <div class="popular-news-section">
-                <h2>Most Popular News </h2>
-                    <ul class="topic-list">
-                            <li class="topic-item">
-                                <a href="#">
-                                    <div class="topic-image">
-                                        <img src="{{ $article->photo() }}" alt="Article Image">
-                                        <div class="image-text">Lorem ipsum dolor</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="#">Lorem ipsum dolor</a></li>
-                            <li><a href="#">Lorem ipsum dolor</a></li>
-                            <li><a href="#">Lorem ipsum dolor</a></li>
-                            <li><a href="#">Lorem ipsum dolor</a></li>
-                    </ul>
-            </div>
+            
 
     </section>
     

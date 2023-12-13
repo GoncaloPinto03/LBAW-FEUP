@@ -8,11 +8,18 @@
         <!-- Main Article Box -->
         <div class="boxes-container">
             <div class="article-box-big">
-                <select id="category-filter" onChange="filterArticles()">
-                    <option value="all">All</option>
-                    <option value="recent">Recent</option>
-                    <option value="popular">Popular</option>
-                </select>
+                <form action="{{ route('home')}}" method="GET">
+                    <div>
+                    <label for="sort">Filter by:</label>
+                    <select id="category-filter" onChange="filterArticles()" name="selectedOption">
+                        <option value="all" id="all">All</option>
+                        <option value="recent" id="recent">Recent</option>
+                        <option value="popular" id="popular">Popular</option>
+                    </select>
+                    </label>
+                    </div>
+                </form>
+
                 <div>
                     <div class="article-image">
                         <img src="{{ $columns['bigArticle']->photo() }}" alt="Article Image">
@@ -33,7 +40,7 @@
                         <div class="small-box" data-category="{{ $article->category }}">
                             <h2> {{ $article->name }} </h2>
                             <p> {{ $article->description }} </p>
-                            <a href="{{ url('articles/'.$article->article_id) }}" class="small-button">Read More</a>
+                            <a href="{{ url('articles/'.$article->article_id) }}" class="small-button" style="margin-left: 30px;">Read More</a>
                         </div>
                     @endforeach
                 </div>
@@ -45,7 +52,7 @@
                         <div class="small-box" data-category="{{ $article->category }}">
                             <h2> {{ $article->name }} </h2>
                             <p> {{ $article->description }} </p>
-                            <a href="{{ url('articles/'.$article->article_id) }}" class="small-button">Read More</a>
+                            <a href="{{ url('articles/'.$article->article_id) }}" class="small-button" style="margin-left: 30px;">Read More</a>
                         </div>
                     @endforeach
 

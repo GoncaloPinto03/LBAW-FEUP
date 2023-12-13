@@ -14,71 +14,63 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    /*
-    public function index()
-    {
-        $topics = $this->getSidebarData();
-
-        $columns = $this->getArticleData();
-
-        return view('home', compact('topics', 'columns'));
-    }
-    */
-    public function index($category = null)
-    {
-        $topics = $this->getSidebarData();
     
-        // Pass the selected category to the getArticleData method
+     public function index($category = null)
+     {
+        $topics = $this->getSidebarData();
         $columns = $this->getArticleData($category);
-    
-        return view('home', compact('topics', 'columns', 'category'));
-    }
-    private function getSidebarData()
+          
+         return view('home', compact('topics', 'columns', 'category'));
+     }
+     
+    private function getSidebarData() 
     {
         $sidebarController = new SidebarController();
         return $sidebarController->showSidebar()->getData()['topics'];
     }
 
-    /*
-    public function getArticleData()
+    
+    public function getArticleData($topic = null, Request $request)
     {
-        $column1Articles = Article::take(5)->get();
+        $query = Article::query();
 
-        $column2Articles = Article::skip(5)->take(5)->get();
+        if ($topic) {
+            $query->where('topic_id', $topic);
+        }
+
+        if($request->has('sort')){
+            $sort= $request->input('sort');
+            if($sort==='recent'){
+                $query->orderBy('date', 'desc');
+            }
+            else{
+                $query->orderBy('likes', 'desc');
+            }
+        }
+        else{
+            $query->orderBy('date', 'desc');
+        }
+        
+
+        $bigArticle = $query->take(1)->first();
+        $column1Articles = $query->skip(1)->take(5)->get();
+        $column2Articles = $query->skip(6)->take(5)->get();
+
+        $bigArticle->description = strlen($bigArticle->description) > 100 ? substr($bigArticle->description, 0, 100) . '...' : $bigArticle->description;
+        foreach ($column1Articles as $article) {
+            $article->description = strlen($article->description) > 100 ? substr($article->description, 0, 100) . '...' : $article->description;
+        }
+        
+        foreach ($column2Articles as $article) {
+            $article->description = strlen($article->description) > 100 ? substr($article->description, 0, 100) . '...' : $article->description;
+        }
+
 
         return [
+            'bigArticle' => $bigArticle,
             'column1' => $column1Articles,
             'column2' => $column2Articles
         ];
     }
-    */
-    public function getArticleData($category = null)
-{
-    $query = Article::query();
-
-    if ($category) {
-        $query->where('category', $category);
-    }
-
-    $bigArticle = $query->take(1)->first();
-    $column1Articles = $query->skip(1)->take(5)->get();
-    $column2Articles = $query->skip(6)->take(5)->get();
-
-    $bigArticle->description = strlen($bigArticle->description) > 100 ? substr($bigArticle->description, 0, 100) . '...' : $bigArticle->description;
-    foreach ($column1Articles as $article) {
-        $article->description = strlen($article->description) > 100 ? substr($article->description, 0, 100) . '...' : $article->description;
-    }
-    
-    foreach ($column2Articles as $article) {
-        $article->description = strlen($article->description) > 100 ? substr($article->description, 0, 100) . '...' : $article->description;
-    }
-
-
-    return [
-        'bigArticle' => $bigArticle,
-        'column1' => $column1Articles,
-        'column2' => $column2Articles
-    ];
-}
 
 }

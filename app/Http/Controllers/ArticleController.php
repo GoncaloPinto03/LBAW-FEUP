@@ -175,4 +175,16 @@ class ArticleController extends Controller
         return view('user-articles', compact('articles'));
     }
 
+    public function getPopularArticles(Request $request) {
+        $selectedOption= $request->input('selectedOption');
+        $articles = Article::orderBy('likes', 'desc')->get();
+        return repsonse->json($articles);
+    }
+
+    public function getRecentArticles(Request $request) {
+        $selectedOption= $request->input('selectedOption');
+        $articles = Article::orderBy('date', 'desc')->get();
+        return repsonse->json($articles);
+    }
+
 }

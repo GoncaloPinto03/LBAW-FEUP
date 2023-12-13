@@ -34,7 +34,7 @@ use App\Http\Controllers\FavouriteController;
 // HOME
 Route::redirect('/', '/home');
 //Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('home/{topic_id?}', [HomeController::class, 'index'])->name('home');
 
 // PROFILE
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile')->middleware('auth');
@@ -82,13 +82,13 @@ Route::get('sidebar',[SidebarController::class,'showSidebar']);
 
 
 Route::get('/articles/{articleId}', [ArticleController::class, 'getArticleInformation']);
-Route::get('article', [ArticleController::class, 'showArticles']);
 Route::get('/article/edit/{articleId}', [ArticleController::class, 'editArticle']);
 Route::post('/article/edit/{articleId}', [ArticleController::class, 'updateArticle']);
 Route::delete('/article/delete/', [ArticleController::class, 'deleteArticle']);
 Route::get('/article/create', [ArticleController::class, 'createArticlePage']);
 Route::post('/article/create-confirm', [ArticleController::class, 'newArticle']);
 Route::get('/search-user-post', [ArticleController::class, 'search_user_articles']);
+Route::get('/articles/popular', [ArticleController::class, 'getPopularArticles']);
 
 Route::post('/articles/{articleId}/like', [ArticleVoteController::class, 'like'])->middleware('auth');
 Route::post('/articles/{articleId}/unlike', [ArticleVoteController::class, 'unlike'])->middleware('auth');

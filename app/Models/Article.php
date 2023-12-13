@@ -28,10 +28,6 @@ class Article extends Model
         return $this->hasMany(Article_vote::class, 'article_id');
     }
 
-    public static function getPopularArticles() {
-        $articles = Article::orderBy('likes', 'desc')->take(5)->get();
-        return $articles;
-    }
 
     /*public function topic()
     {
