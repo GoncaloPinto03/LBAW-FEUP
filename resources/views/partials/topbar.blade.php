@@ -13,6 +13,7 @@
             <input type="text" class="search-input" placeholder="Search..." style="background-color:white;">
             <button type="submit">Search</button>
         </div>
+        <a href="{{ url('home/advanced-search') }}"  class="button-signin"> <span class="fa fa-filter" aria-hidden="true"> </span> </a>
         @if (Auth::guard('admin')->check())
             <a href="{{ url('/profile_admin/'.Auth::guard('admin')->user()->admin_id) }}" class="button-signin">Profile</a>
             <a class="button-signin" href="{{ url('/logout') }}"> Logout </a>

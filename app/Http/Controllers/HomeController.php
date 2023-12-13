@@ -58,6 +58,41 @@ class HomeController extends Controller
             'column2' => $column2Articles
         ];
     }
+
+    public function filter_idx(Request $request)
+    {
+        //dd($request->all());
+        $topics = $this->getSidebarData();
+    
+        // Pass the selected category to the getArticleData method
+        $articles = Article::all();
+
+        $query = Article::query();
+
+        if(isset($request->search_text) && !is_null($request->search_text))
+        {
+            $search_text = $request->search_text;
+            $search_words = explode(' ', $search_text);
+            $ts_query = implode(' & ', $search_words);
+
+            $query->where(function ($query) use ($ts_query) {
+                $query->whereRaw("to_tsvector('english', name) @@ to_tsquery(?)", ['"'.$ts_query.'"'])
+                      ->orWhereRaw("to_tsvector('english', description) @@ to_tsquery(?)", ['"'.$ts_query.'"']);
+            });
+            
+        }
+
+        if(isset($request->topic) && ($request->topic != null))
+        {
+            $query->where(function($subQuery) use ($request) {
+                $subQuery->whereIn('topic_id', $request->topic);
+            });
+        }
+
+        $articles = $query->get();
+    
+        return view('filter-search', compact('topics', 'articles'));
+    }
     
 }
 
