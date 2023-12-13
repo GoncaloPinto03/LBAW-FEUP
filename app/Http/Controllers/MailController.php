@@ -41,9 +41,6 @@ class MailController extends Controller
                 Mail::to($request->email)->send(new MailModel($mailData));
                 $status = 'Success!';
                 $message = $request->name . ', an email has been sent to ' . $request->email;
-            } catch (TransportException $e) {
-                $status = 'Error!';
-                $message = 'SMTP connection error occurred during the email sending process to ' . $request->email;
             } catch (Exception $e) {
                 $status = 'Error!';
                 $message = 'An unhandled exception occurred during the email sending process to ' . $request->email;

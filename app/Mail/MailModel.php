@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Address;
 
 class MailModel extends Mailable
 {
@@ -20,7 +21,7 @@ class MailModel extends Mailable
      */
     public function __construct($mailData)
     {
-        $this->malilData = $mailData;
+        $this->mailData = $mailData;
     }
 
     /**
@@ -40,7 +41,7 @@ class MailModel extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.recover_password',
+            view: 'emails.email_text',
         );
     }
 
