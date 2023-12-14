@@ -10,11 +10,11 @@
     <a href="{{ url('/home') }} " id="form-logo">
         <img src="{{ asset('images/logo_big.png') }}" alt="CollabNews Logo" id="header-logo" style="width:100px;"> 
     </a>
-    <div class="search-box-user">
+    <div class="search-box">
         <form method="get" action="{{ url('/search-user-post') }}" class="form-user">
-            <input type="search" name="query" class="search-input-user" placeholder="Search...">
+            <input type="search" name="query" class="search-input-user" placeholder="Search..." style="background-color:white; margin-top: 16px;">
         </form>
-        <button type="submit" class="search-button-user">Search</button>
+        <button type="submit" class="search-button-user" style="margin-top: 16px;">Search</button>
 
     </div>
     @if (Auth::guard('admin')->check())
@@ -31,13 +31,15 @@
 @endsection
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/article_pages.css') }}">
+
     @foreach($articles as $article)
-    <div class="small-box" id="article{{ $article->article_id }}">
+    <div class="custom-box" id="user-article">
         <h2> {{ $article->name }} </h2>
-        <p> {{ $article->description }} </p>
-        <a href="{{ url('/articles/'.$article->article_id) }}" class="small-button">Read More </a>
-        @if(Auth::user()->user_blocked == 0)
-        <a href="{{ url('/article/edit/'.$article->article_id) }}" class="small-button">Edit Article </a>
+        <p style="color:"> {{ $article->description }} </p>
+        <a href="{{ url('/articles/'.$article->article_id) }}" class="article-button">Read More </a>
+        @if(Auth::guard('admin')->check() || (Auth::user()->user_id == $article->user_id))
+        <a href="{{ url('/article/edit/'.$article->article_id) }}" class="article-button">Edit Article </a>
         <form action="{{ url('/article/delete') }}" method="post">
             @csrf
             @method('delete')
@@ -49,7 +51,7 @@
     </div>
     @endforeach
     @if (!Auth::guard('admin')->check() && Auth::user()->user_blocked==0)
-        <a href="{{ '/article/create' }}" class="button">Create Article</a>
+        <a href="{{ '/article/create' }}" class="article-button" >Create Article</a>
     @endif
     @include('partials.footer')
 @endsection

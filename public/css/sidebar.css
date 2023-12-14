@@ -58,15 +58,15 @@ body {
 }
 
 .search-button {
-    background-color: #f0f3f5;
-    color: #00003e;
+    background-color: #00003e;
+    color: white;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .search-button:hover {
-    background-color: transparent;
+    background-color: #00003e;
     color: white;
 }
 

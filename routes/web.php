@@ -14,6 +14,8 @@ use App\Http\Controllers\ArticleVoteController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\FavouriteController;
+
 
 
 
@@ -41,6 +43,8 @@ Route::get('/profile/{id}', [UserController::class, 'index'])->where('id', '[0-9
 Route::get('/profile/edit/{id}', [UserController::class, 'edit']);
 Route::post('/profile/edit/{id}', [UserController::class, 'update']);
 Route::get('/profile/articles/{id}', [UserController::class, 'showArticles'])->where('id', '[0-9]+');
+Route::delete('/profile/delete/{id}', [UserController::class, 'destroy_user'])->name('users.destroy_user');
+
 
 // ADMIN
 Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('auth:admin');
@@ -57,6 +61,9 @@ Route::post('/admin-profile/edit', [AdminController::class, 'update_profile']);
 Route::get('/search-user', [AdminController::class, 'search_user']);
 Route::post('/admin/block-user/{id}', [AdminController::class, 'blockUser'])->name('admin.blockUser')->where('id', '[0-9]+');
 Route::get('/admin/unblock/{id}', [AdminController::class, 'unblockUser'])->name('admin.users.unblock')->where('id', '[0-9]+');
+
+Route::delete('/admin/users/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
+
 
 
 
@@ -82,18 +89,19 @@ Route::get('sidebar',[SidebarController::class,'showSidebar']);
 
 
 Route::get('/articles/{articleId}', [ArticleController::class, 'getArticleInformation']);
-Route::get('article', [ArticleController::class, 'showArticles']);
 Route::get('/article/edit/{articleId}', [ArticleController::class, 'editArticle']);
 Route::post('/article/edit/{articleId}', [ArticleController::class, 'updateArticle']);
 Route::delete('/article/delete/', [ArticleController::class, 'deleteArticle']);
 Route::get('/article/create', [ArticleController::class, 'createArticlePage']);
 Route::post('/article/create-confirm', [ArticleController::class, 'newArticle']);
 Route::get('/search-user-post', [ArticleController::class, 'search_user_articles']);
+Route::get('/articles/popular', [ArticleController::class, 'getPopularArticles']);
 
 Route::post('/articles/{articleId}/like', [ArticleVoteController::class, 'like'])->middleware('auth');
 Route::post('/articles/{articleId}/unlike', [ArticleVoteController::class, 'unlike'])->middleware('auth');
 Route::post('/articles/{articleId}/dislike', [ArticleVoteController::class, 'dislike'])->middleware('auth');
 Route::post('/articles/{articleId}/undislike', [ArticleVoteController::class, 'undislike'])->middleware('auth');
+
 
 // web.php
 
@@ -115,4 +123,11 @@ Route::post('/topic/proposal', [TopicController::class, 'submitProposal']);
 //ABOUT
 Route::get('/about', [AboutController::class, 'about'])->name('about');
 
+//FAVOuRITE
+Route::post('/articles/{articleId}/mark-favourite', [FavouriteController::class, 'markFavourite'])
+    ->middleware('auth')
+    ->name('articles.mark-favourite');
+Route::get('/user-favourites', [FavouriteController::class, 'getUserFavourites'])
+    ->middleware('auth') 
+    ->name('user.favourites');
 

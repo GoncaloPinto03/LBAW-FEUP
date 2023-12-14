@@ -25,12 +25,15 @@
                         <a id="propose-topic" href="{{ route('topic.propose') }}"><i class="bi bi-plus-lg"></i></a>
                         <br>
                         <br>
+
+                        <label for="image">Insert Photo:</label>
+                        <input type="file" id="image" name="image">                 
+                        
+
                         <button type="submit">Save Changes</button>
                     </form>
                 </div>
-                <div class="article-image">
-                    <img src="{{ asset('images/papai.jpg') }}" alt="Article Image">
-                </div>
+                
 
             </div>
 

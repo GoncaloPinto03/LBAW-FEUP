@@ -14,7 +14,7 @@
         <div class='profile-info'>
             <p>Email: {{ $user->email }}<p>
             <p>Reputation: {{ $user->reputation }}<p>
-        </div>
+        </div>       
         @if (Auth::guard('admin')->check() || Auth::user()->user_id == $user->user_id)
             <a href="{{ url('/profile/edit/' . $user->user_id) }}" class="button">Edit Profile</a>
             <a href= "{{ url('/profile/articles/'.$user->user_id) }}" class="button">Manage Articles</a>
@@ -36,8 +36,31 @@
                     <button type="submit" id="#unblockBtn">Unblock User</button>
                 </form>
             @endif
+            @if(Auth::guard('admin')->check())
+                <form action="{{ route('users.destroy', ['id' => $user->user_id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                        <button type="submit">Delete User</button>
+                </form>
+            @endif
 
+
+            @if(Auth::user())
+                @if(Auth::user()->user_id == $user->user_id)
+                    <form action="{{ route('users.destroy_user', ['id' => $user->user_id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action is irreversible.');">
+                        @csrf
+                        @method('delete')
+                        <input type="hidden" name="user_id" value="{{ $user->user_id }}">
+                        <button type="submit" id="deleteUserBtn">Delete Account</button>
+                    </form>
+                @endif
+            @endif
         @endif
+        @if(Auth::user() && Auth::user()->user_id == $user->user_id && $user->user_blocked == 0)
+                    <a href="{{ url('/user-favourites') }}" class="button">My Favorites</a>
+        @endif
+
+        
     </div>
     @include('partials.footer')
 </section>

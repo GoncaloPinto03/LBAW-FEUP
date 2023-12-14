@@ -10,8 +10,8 @@
             </a>
         @endif
         <div class="search-box">
-            <input type="text" class="search-input" placeholder="Search..." style="background-color:white;">
-            <button type="submit">Search</button>
+            <input type="text" class="search-input" placeholder="Search..." style="background-color:white; margin-bottom:0;">
+            <button type="submit" class="search-button">Search</button>
         </div>
         @if (Auth::guard('admin')->check())
             <a href="{{ url('/profile_admin/'.Auth::guard('admin')->user()->admin_id) }}" class="button-signin">Profile</a>

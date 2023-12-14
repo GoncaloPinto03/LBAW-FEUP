@@ -91,17 +91,19 @@
     display: flex;
     border-radius: 1em;
     width: 50%;
-    background-color: #F0F3F5;
     align-items: center; /* Add this line to vertically align items */
 }
 
 .search-box-admin input { 
     border: 1px solid #00003e; 
     border-radius: 1em;
+/*    border: 1px solid #5a86ba; */
     padding: 0.5em;
     margin-top: 1em;
     margin-bottom: 0px;
     width: 100%;
+    background-color: white;
+
 }
 
 .search-input-admin{

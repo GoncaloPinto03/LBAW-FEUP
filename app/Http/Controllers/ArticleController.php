@@ -12,7 +12,7 @@ use App\Models\Topic;
 
 use App\Models\Comment; 
 use App\Models\Article_vote; 
-
+use App\Models\Favourite; 
 
 
 //use Illuminate\Support\Facades\DB;
@@ -23,7 +23,6 @@ class ArticleController extends Controller
     public function getArticleInformation($articleId)
     {
         $article = Article::find($articleId);
-        $popular = Article::getPopularArticles();
         
         if (!$article) {
             return response()->json(['message' => 'Article not found'], 404);
@@ -36,6 +35,8 @@ class ArticleController extends Controller
                 dump($query->bindings);
                 dump($query->time);
             });*/
+            
+
             if (Auth::user())
             {
                 $article_vote = Article_vote::where('user_id', $user->user_id)->where('article_id', $articleId)->first();
@@ -56,23 +57,23 @@ class ArticleController extends Controller
 
             $comments= Comment::where('article_id', $articleId)->get();
             $topicName = Topic::find($article->topic_id)->name;
+            if(Auth::user()){
+                $isFavourite = Favourite::where('user_id', $user->user_id)->where('article_id', $articleId)->exists();
+                return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topicName', 'isFavourite'));
+
+            }
+            else{
+                return view('article', compact('article', 'comments', 'article_vote', 'likes', 'dislikes', 'topicName'));
+            }
             
-        return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topicName'));        
     }        
 }        
 
-    /*public function showArticles() {
-        $bigArticle = Article::take(1)->first();
-        $articles1 = Article::take(5)->get();
-        $articles2 = Article::take(5)->get();
-        return view('partials.articles_home', compact('bigArticle', 'articles1', 'articles2'));
-    }*/
 
 
     public function editArticle($id)
     {
         $article = Article::find($id);
-        $popular = Article::getPopularArticles();
         $topics = Topic::all();
 
         if (!$article) {
@@ -154,8 +155,16 @@ class ArticleController extends Controller
 
         $article->save();
 
+        PhotoController::update($article->article_id, 'article', $request);
+        
+
+
         return redirect('profile/articles/'.$article->user_id);
     }
+
+
+    
+
 
     public function search_user_articles(Request $request)
     {
@@ -171,6 +180,18 @@ class ArticleController extends Controller
     ->get();
 
         return view('user-articles', compact('articles'));
+    }
+
+    public function getPopularArticles(Request $request) {
+        $selectedOption= $request->input('selectedOption');
+        $articles = Article::orderBy('likes', 'desc')->get();
+        return repsonse->json($articles);
+    }
+
+    public function getRecentArticles(Request $request) {
+        $selectedOption= $request->input('selectedOption');
+        $articles = Article::orderBy('date', 'desc')->get();
+        return repsonse->json($articles);
     }
 
 }

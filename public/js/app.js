@@ -126,6 +126,48 @@ deleteCommentButtons.forEach(function(button) {
     });
 });
 /*
+let acceptTopicButtons = document.querySelectorAll('#acceptTopicProposalBtn');*/
+
+
+let favouriteButton = document.querySelector('#favouriteButton');
+let iconSpan = document.getElementById('iconSpan');
+let initialFavouriteState = iconSpan.getAttribute('data-is-favourite') === 'true';
+
+console.log('Favourite Button:', favouriteButton);
+
+
+favouriteButton.addEventListener('click', function(e) {
+  e.preventDefault();
+  console.log(initialFavouriteState);
+
+    console.log('Favourite button clicked!');
+    let form = e.target.closest('form');
+    let articleId = form.querySelector('input[name="article_id"]').value;
+    console.log('ArticleID:', articleId);
+
+    sendAjaxRequest('POST', '/articles/' + articleId + '/mark-favourite', null, function() {
+      console.log('Sent request');      
+
+      initialFavouriteState = !initialFavouriteState;
+
+      if (iconSpan && !initialFavouriteState) {
+        iconSpan.innerHTML = '<i class="bi bi-star"></i>';
+        console.log('Favourite removed');
+      } 
+      else {
+        iconSpan.innerHTML = '<i class="bi bi-star-fill"></i>';
+        console.log('Favourite added');
+      }
+
+    });
+
+});
+
+
+
+
+
+/*
 let acceptTopicButtons = document.querySelectorAll('#acceptTopicProposalBtn');
 
 acceptTopicButtons.forEach(function (button) {

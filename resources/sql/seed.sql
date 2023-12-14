@@ -52,7 +52,10 @@ CREATE TABLE admin (
     admin_id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    user_blocked BOOLEAN DEFAULT FALSE
+
+
 );
 
 ------- USER -------
@@ -478,6 +481,7 @@ FOR EACH ROW
 EXECUTE FUNCTION prevent_duplicate_topic_follow();
 
 
+
 ------------------------------------------------------------------------------------
 ------------------------------------- TRANSACTIONS ---------------------------------
 ------------------------------------------------------------------------------------
@@ -574,9 +578,7 @@ VALUES
 
 INSERT INTO favourite (article_id, user_id)
 VALUES
-    (1, 1),
-    (2, 1),
-    (3, 2),
+    
     (4, 3);
 
 INSERT INTO notification (date, viewed, notified_user, emitter_user)

@@ -38,7 +38,7 @@
                 </div>
                 <div class="admin-dashboard" id="admin-content">
                     @foreach($users as $user)
-                        @if($user->user_blocked == 0)
+                        @if($user->user_blocked == 0  && $user->name != 'Anonymous')
                             <div class="admin-dashboard-user">
                                 <div class="admin-dashboard-user-info">
                                     <img src="{{ $user->photo() }}" class="admin-dashboard-user-photo">
@@ -46,7 +46,7 @@
                                 </div>
                                 <a href="{{ url('/profile/'.$user->user_id) }}" class="button">Profile</a>
                             </div>
-                        @elseif($user->user_blocked == 1)
+                        @elseif($user->user_blocked == 1  && $user->name != 'Anonymous')
                             <div class="admin-dashboard-user-blocked">
                                 <div class="admin-dashboard-user-info">
                                     <img src="{{ $user->photo() }}" class="admin-dashboard-user-photo">

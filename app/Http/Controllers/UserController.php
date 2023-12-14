@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 use App\Models\User;
 use App\Models\Admin;
@@ -99,6 +101,16 @@ class UserController extends Controller
 
 
   
+
+    public function destroy_user($id){
+        $user = Auth::user();
+        $user->name = "Anonymous";
+        $user->email = "anonymous" . $user->user_id . "@example.com";
+        $user->password = Hash::make(Str::random(40)); 
+        $user->save();
+        Auth::logout();
+        return redirect()->route('home');
+    }
 
 }
 
