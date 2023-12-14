@@ -8,17 +8,38 @@
         <!-- Main Article Box -->
         <div class="boxes-container">
             <div class="article-box-big">
-                <form action="{{ route('home')}}" method="GET">
+                <form id = 'filterForm' action="{{ route('home')}}" method="GET">
                     <div>
                     <label for="sort">Filter by:</label>
                     <select id="category-filter" onChange="filterArticles()" name="selectedOption">
-                        <option value="all" id="all">All</option>
-                        <option value="recent" id="recent">Recent</option>
-                        <option value="popular" id="popular">Popular</option>
+                        @if ( $columns['sort'] === 'all' )
+                            <option value="all" id="all">All</option>
+                            <option value="recent" id="recent">Recent</option>
+                            <option value="popular" id="popular">Popular</option>
+                        @elseif ( $columns['sort'] === 'recent' )
+                            <option value="recent" id="recent">All</option>
+                            <option value="popular" id="popular">Popular</option>
+                            <option value="all" id="all">Recent</option>
+                        @else
+                            <option value="popular" id="popular">Popular</option>
+                            <option value="recent" id="recent">Recent</option>
+                            <option value="all" id="all">All</option>
+                        @endif
                     </select>
                     </label>
                     </div>
                 </form>
+                <script>
+                    function filterArticles() {
+                        // Get the form element
+                        var form = document.getElementById('filterForm');
+                        var selectedOption = document.getElementById('category-filter').value;
+
+                        console.log(form);
+
+                        form.submit();
+                    }
+                </script>
 
                 <div>
                     <div class="article-image">

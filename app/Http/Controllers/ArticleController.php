@@ -23,7 +23,6 @@ class ArticleController extends Controller
     public function getArticleInformation($articleId)
     {
         $article = Article::find($articleId);
-        $popular = Article::getPopularArticles();
         
         if (!$article) {
             return response()->json(['message' => 'Article not found'], 404);
@@ -59,7 +58,7 @@ class ArticleController extends Controller
 
             }
             else{
-                return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topicName'));
+                return view('article', compact('article', 'comments', 'article_vote', 'likes', 'dislikes', 'topicName'));
             }
             
     }        
@@ -70,7 +69,6 @@ class ArticleController extends Controller
     public function editArticle($id)
     {
         $article = Article::find($id);
-        $popular = Article::getPopularArticles();
         $topics = Topic::all();
 
         if (!$article) {

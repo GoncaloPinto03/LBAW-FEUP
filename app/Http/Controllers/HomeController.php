@@ -15,10 +15,11 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     
-     public function index($category = null)
+     public function index(Request $request, $category = null)
      {
         $topics = $this->getSidebarData();
-        $columns = $this->getArticleData($category);
+
+        $columns = $this->getArticleData($category, $request);
           
          return view('home', compact('topics', 'columns', 'category'));
      }
@@ -38,18 +39,22 @@ class HomeController extends Controller
             $query->where('topic_id', $topic);
         }
 
-        if($request->has('sort')){
-            $sort= $request->input('sort');
+        if($request->has('selectedOption')){
+            $sort= $request->input('selectedOption');
             if($sort==='recent'){
                 $query->orderBy('date', 'desc');
             }
-            else{
+            else if ($sort === 'popular'){
                 $query->orderBy('likes', 'desc');
             }
         }
-        else{
-            $query->orderBy('date', 'desc');
+        else {
+            $sort = 'all';
         }
+
+
+
+
         
 
         $bigArticle = $query->take(1)->first();
@@ -69,8 +74,22 @@ class HomeController extends Controller
         return [
             'bigArticle' => $bigArticle,
             'column1' => $column1Articles,
-            'column2' => $column2Articles
+            'column2' => $column2Articles,
+            'sort' => $sort
         ];
+    }
+
+    public function select_filter($selectedOption)
+    {
+
+        $topics = $this->getSidebarData();
+
+        $columns = $this->getArticleData(null, $selectedOption);
+          
+        return view('home', compact('topics', 'columns', 'category'));
+
+
+
     }
 
 }
