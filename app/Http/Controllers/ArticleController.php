@@ -59,7 +59,7 @@ class ArticleController extends Controller
             $topicName = Topic::find($article->topic_id)->name;
             if(Auth::user()){
                 $isFavourite = Favourite::where('user_id', $user->user_id)->where('article_id', $articleId)->exists();
-                return view('article', compact('article', 'comments', 'popular', 'article_vote', 'likes', 'dislikes', 'topicName', 'isFavourite'));
+                return view('article', compact('article', 'comments', 'article_vote', 'likes', 'dislikes', 'topicName', 'isFavourite'));
 
             }
             else{

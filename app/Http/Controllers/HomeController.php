@@ -52,10 +52,11 @@ class HomeController extends Controller
             $sort = 'all';
         }
 
+        if ($query->count() == 0)
+        {
+            return ['sort' => 'all'];
+        }
 
-
-
-        
 
         $bigArticle = $query->take(1)->first();
         $column1Articles = $query->skip(1)->take(5)->get();

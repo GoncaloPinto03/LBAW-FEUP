@@ -41,42 +41,47 @@
                     }
                 </script>
 
-                <div>
-                    <div class="article-image">
-                        <img src="{{ $columns['bigArticle']->photo() }}" alt="Article Image">
+                @if (isset($columns['bigArticle']))
+                    <div>
+                        <div class="article-image">
+                            <img src="{{ $columns['bigArticle']->photo() }}" alt="Article Image">
+
+                        </div>
+                        <div class="article-content">
+                            <h1>{{ $columns['bigArticle']->name }}</h1>
+                            <p>{{ $columns['bigArticle']->description }}</p>
+                            <a href="{{ url('articles/'.$columns['bigArticle']->article_id) }}" class="button">Read More</a>
+                        </div>
 
                     </div>
-                    <div class="article-content">
-                        <h1>{{ $columns['bigArticle']->name }}</h1>
-                        <p>{{ $columns['bigArticle']->description }}</p>
-                        <a href="{{ url('articles/'.$columns['bigArticle']->article_id) }}" class="button">Read More</a>
-                    </div>
-
-                </div>
+                @endif
             </div>  
 
             <div class="additional-box-container">
                 <!-- First Column -->
                 <div class="column">
-                    @foreach($columns['column1'] as $article)
-                        <div class="small-box" data-category="{{ $article->category }}">
-                            <h2> {{ $article->name }} </h2>
-                            <p> {{ $article->description }} </p>
-                            <a href="{{ url('articles/'.$article->article_id) }}" class="small-button" style="margin-left: 30px;">Read More</a>
-                        </div>
-                    @endforeach
+                    @if (isset($columns['column1']))
+                        @foreach($columns['column1'] as $article)
+                            <div class="small-box" data-category="{{ $article->category }}">
+                                <h2> {{ $article->name }} </h2>
+                                <p> {{ $article->description }} </p>
+                                <a href="{{ url('articles/'.$article->article_id) }}" class="small-button" style="margin-left: 30px;">Read More</a>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
 
                 <!-- Second Column -->
                 <div class="column">
-                    
-                    @foreach($columns['column2'] as $article)
-                        <div class="small-box" data-category="{{ $article->category }}">
-                            <h2> {{ $article->name }} </h2>
-                            <p> {{ $article->description }} </p>
-                            <a href="{{ url('articles/'.$article->article_id) }}" class="small-button" style="margin-left: 30px;">Read More</a>
-                        </div>
-                    @endforeach
+                    @if (isset($columns['column2']))
+                        @foreach($columns['column2'] as $article)
+                            <div class="small-box" data-category="{{ $article->category }}">
+                                <h2> {{ $article->name }} </h2>
+                                <p> {{ $article->description }} </p>
+                                <a href="{{ url('articles/'.$article->article_id) }}" class="small-button" style="margin-left: 30px;">Read More</a>
+                            </div>
+                        @endforeach
+                    @endif
 
                 </div>
             </div>
