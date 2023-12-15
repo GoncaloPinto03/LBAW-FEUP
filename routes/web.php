@@ -35,6 +35,7 @@ use App\Http\Controllers\FavouriteController;
 // HOME
 Route::redirect('/', '/home');
 //Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
+Route::get('home/advanced-search', [HomeController::class, 'filter_idx']);
 Route::get('home/{topic_id?}', [HomeController::class, 'index'])->name('home');
 
 // PROFILE
