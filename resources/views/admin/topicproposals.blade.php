@@ -33,13 +33,13 @@
                     <li><a href="{{ url('/admin/users/') }}">Users</a></li>
                     <li><a href="{{ url('/admin/topics/') }}">Topics</a></li>
                     <li><a href="{{ url('/admin/topicproposals/') }}">Topic Proposals</a></li>
-                    <li<a>User Reports</a></li>
+                    <li><a>User Reports</a></li>
                 </ul>
             </div>
             <div class="admin-dashboard" id="admin-content">
                 @foreach($topicproposals as $topicproposal)
                 @if ($topicproposal->accepted === null)
-                <div class="admin-dashboard-user">
+                <div class="admin-dashboard-user" id="topicproposal{{$topicproposal->topicproposal_id}}">
                     <div>
                         <p>{{ $topicproposal->name }}</p>
                         <form action="{{ url('/admin/topicproposals/'.$topicproposal->topicproposal_id.'/accept') }}"

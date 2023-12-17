@@ -1,28 +1,4 @@
-/*function addEventListeners() {
-    let itemCheckers = document.querySelectorAll('article.card li.item input[type=checkbox]');
-    [].forEach.call(itemCheckers, function(checker) {
-      checker.addEventListener('change', sendItemUpdateRequest);
-    });
-  
-    let itemCreators = document.querySelectorAll('article.card form.new_item');
-    [].forEach.call(itemCreators, function(creator) {
-      creator.addEventListener('submit', sendCreateItemRequest);
-    });
-  
-    let itemDeleters = document.querySelectorAll('article.card li a.delete');
-    [].forEach.call(itemDeleters, function(deleter) {
-      deleter.addEventListener('click', sendDeleteItemRequest);
-    });
-  
-    let cardDeleters = document.querySelectorAll('article.card header a.delete');
-    [].forEach.call(cardDeleters, function(deleter) {
-      deleter.addEventListener('click', sendDeleteCardRequest);
-    });
-  
-    let cardCreator = document.querySelector('article.card form.new_card');
-    if (cardCreator != null)
-      cardCreator.addEventListener('submit', sendCreateCardRequest);
-  }*/
+
   
   function encodeForAjax(data) {
     if (data == null) return null;
@@ -53,7 +29,6 @@ function articleDeletedHandler() {
 
   
   
-console.log('ojhnkj.');
 let deleteArticleButtons = document.querySelectorAll('#deleteArticleBtn');
 console.log('Delete Buttons:', deleteArticleButtons);
 
@@ -128,6 +103,36 @@ deleteCommentButtons.forEach(function(button) {
 /*
 let acceptTopicButtons = document.querySelectorAll('#acceptTopicProposalBtn');*/
 
+let acceptTopicButtons = document.querySelectorAll('#acceptTopicProposalBtn');
+
+acceptTopicButtons.forEach(function (button) {
+  button.addEventListener('click', function (e) {
+      e.preventDefault();
+      let topicProposalId = e.target.closest('form').querySelector('input[name="topicproposal_id"]').value;
+      console.log(topicProposalId);
+      sendAjaxRequest('delete', `/admin/topicproposals/${topicProposalId}/accept`, {topicproposal_id: topicProposalId}, function () {
+        console.log('Sent request');
+        document.querySelector('#topicproposal'+topicProposalId).remove();
+        console.log('Topic Proposal Removed');
+      });
+  });
+});
+
+let denyTopicButtons = document.querySelectorAll('#denyTopicProposalBtn');
+console.log("denyButtons: ", denyTopicButtons);
+denyTopicButtons.forEach(function (button) {
+  button.addEventListener('click', function (e) {
+      e.preventDefault();
+      let topicProposalId = e.target.closest('form').querySelector('input[name="topicproposal_id"]').value;
+      console.log(topicProposalId);
+      sendAjaxRequest('delete', `/admin/topicproposals/${topicProposalId}/deny`, {}, function (response) {
+        console.log('Sent request');
+        document.querySelector('#topicproposal'+topicProposalId).remove();
+        console.log('Topic Proposal Removed');
+      });
+  });
+});
+
 
 let favouriteButton = document.querySelector('#favouriteButton');
 let iconSpan = document.getElementById('iconSpan');
@@ -167,30 +172,6 @@ favouriteButton.addEventListener('click', function(e) {
 
 
 
-/*
-let acceptTopicButtons = document.querySelectorAll('#acceptTopicProposalBtn');
 
-acceptTopicButtons.forEach(function (button) {
-  button.addEventListener('click', function (e) {
-      e.preventDefault();
-      let topicProposalId = e.target.closest('form').querySelector('input[name="topicproposal_id"]').value;
-      sendAjaxRequest('delete', `/admin/topicproposals/${topicProposalId}/accept`, {topicproposal_id: topicProposalId}, function () {
-        console.log('Sent request');
-        document.querySelector('#topicproposal'+topicProposalId).remove();
-        console.log('Topic Proposal Removed');
-      });
-  });
-});
 
-let denyTopicButtons = document.querySelectorAll('#denyTopicProposalBtn');
-denyTopicButtons.forEach(function (button) {
-  button.addEventListener('click', function (e) {
-      e.preventDefault();
-      let topicProposalId = e.target.closest('form').querySelector('input[name="topicproposal_id"]').value;
-      sendTopicProposalRequest(`/admin/topicproposals/${topicProposalId}/deny`, {}, function (response) {
-          console.log(response);
-          // Handle success, e.g., update UI or show a notification
-      });
-  });
-});
-*/
+

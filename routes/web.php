@@ -52,8 +52,8 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middlewa
 Route::get('/admin/users', [AdminController::class, 'usersPage'])->name('admin.users')->middleware('auth:admin');
 Route::get('/admin/topics', [AdminController::class, 'topicsPage'])->name('admin.topics')->middleware('auth:admin');
 Route::get('/admin/topicproposals', [AdminController::class, 'topicProposalsPage'])->name('admin.topicproposals')->middleware('auth:admin');
-Route::post('/admin/topicproposals/{id}/accept', [AdminController::class , 'acceptTopicProposal'])->name('admin.topicproposals.accept')->middleware('auth:admin');
-Route::post('/admin/topicproposals/{id}/deny', [AdminController::class, 'denyTopicProposal'])->name('admin.topicproposals.deny')->middleware('auth:admin');
+Route::delete('/admin/topicproposals/{id}/accept', [AdminController::class , 'acceptTopicProposal'])->name('admin.topicproposals.accept')->middleware('auth:admin');
+Route::delete('/admin/topicproposals/{id}/deny', [AdminController::class, 'denyTopicProposal'])->name('admin.topicproposals.deny')->middleware('auth:admin');
 
 
 Route::get('/profile_admin/{id}', [AdminController::class, 'show_profile'])->where('id', '[0-9]+');

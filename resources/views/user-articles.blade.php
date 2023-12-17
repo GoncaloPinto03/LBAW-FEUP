@@ -47,7 +47,6 @@
             <button type="submit" id="deleteArticleBtn" class="user-article-button">Delete Article</button>
         </form>
         @endif
-        
     </div>
     @endforeach
     @if (!Auth::guard('admin')->check() && Auth::user()->user_blocked==0)

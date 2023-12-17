@@ -169,8 +169,8 @@ class AdminController extends Controller
     // Update the topicproposal record
     $topicproposal->update(['accepted' => true]);
 
-    return redirect('/admin/topicproposals')->with('success', 'Topic proposal accepted successfully.');
-    //return response()->json(['success' => 'Topic proposal accepted successfully.']);
+    //return redirect('/admin/topicproposals')->with('success', 'Topic proposal accepted successfully.');
+    return response()->json(['success' => 'Topic proposal accepted successfully.']);
     }
 
 
@@ -181,8 +181,8 @@ class AdminController extends Controller
     // Set the topicproposal record to false
     $topicproposal->update(['accepted' => false]);
 
-    return redirect('/admin/topicproposals')->with('success', 'Topic proposal denied successfully.');
-    //return response()->json(['success' => 'Topic proposal denied successfully.']);
+    //return redirect('/admin/topicproposals')->with('success', 'Topic proposal denied successfully.');
+    return response()->json(['success' => 'Topic proposal denied successfully.']);
     }
 
 
