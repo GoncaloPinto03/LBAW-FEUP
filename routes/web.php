@@ -15,6 +15,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\FavouriteController;
+use App\Http\Controllers\NotificationController;
 
 
 
@@ -45,6 +46,7 @@ Route::get('/profile/edit/{id}', [UserController::class, 'edit']);
 Route::post('/profile/edit/{id}', [UserController::class, 'update']);
 Route::get('/profile/articles/{id}', [UserController::class, 'showArticles'])->where('id', '[0-9]+');
 Route::delete('/profile/delete/{id}', [UserController::class, 'destroy_user'])->name('users.destroy_user');
+Route::get('/profile/notifications/{id}', [NotificationController::class, 'show_notifs']);
 
 
 // ADMIN

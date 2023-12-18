@@ -298,15 +298,12 @@ CREATE INDEX search_user ON users USING GIN (tsvectors);
 
 CREATE OR REPLACE FUNCTION adjust_likes_dislikes_and_notification() RETURNS TRIGGER AS $$
 BEGIN
-
+    
     IF NEW.is_like THEN
         UPDATE article SET likes = likes + 1 WHERE article_id = NEW.article_id;
     ELSE
         UPDATE article SET dislikes = dislikes + 1 WHERE article_id = NEW.article_id;
     END IF;
-
-    INSERT INTO notification (date, viewed, notified_user, emitter_user)
-    VALUES (NOW(), FALSE, (SELECT user_id FROM article WHERE article_id = NEW.article_id), NEW.user_id);
 
     UPDATE users SET reputation = CASE WHEN NEW.is_like THEN reputation + 1 ELSE reputation - 1 END
     WHERE user_id = (SELECT user_id FROM article WHERE article_id = NEW.article_id);
@@ -411,10 +408,11 @@ EXECUTE FUNCTION prevent_self_like_dislike();
 
 ------TRIGGER 06------
 
-CREATE OR REPLACE FUNCTION create_comment_notification() RETURNS TRIGGER AS $$
+/*CREATE OR REPLACE FUNCTION create_comment_notification() RETURNS TRIGGER AS $$
 BEGIN
     INSERT INTO notification (date, viewed, notified_user, emitter_user)
     VALUES (NOW(), FALSE, (SELECT user_id FROM article WHERE article_id = NEW.article_id), NEW.user_id);
+
 
     RETURN NEW;
 END;
@@ -423,7 +421,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER create_comment_notification
 AFTER INSERT ON comment
 FOR EACH ROW
-EXECUTE FUNCTION create_comment_notification();
+EXECUTE FUNCTION create_comment_notification();*/
 
 
 ------TRIGGER 07------

@@ -66,8 +66,8 @@ class ArticleController extends Controller
                 return view('article', compact('article', 'comments', 'article_vote', 'likes', 'dislikes', 'topicName'));
             }
             
+        }        
     }        
-}        
 
 
 
