@@ -14,11 +14,21 @@ use App\Models\CommentNotif;
 
 class NotificationController extends Controller
 {
+
+    public function mark_viewed($notifs)
+    {
+        foreach ($notifs as $notif)
+        {
+            Notification::where('notification_id', $notif->notification_id)->update(['viewed' => true]);
+        }
+    }
+
+
     public function show_notifs($id)
     {
         $user = User::find($id);
 
-        $notifications = Notification::where('notified_user', $id)->orderByDesc('date')->get();
+        $notifications = Notification::where('notified_user', $id)->where('viewed', false)->orderByDesc('date')->get();
 
         
         foreach ($notifications as $notification)
@@ -52,6 +62,8 @@ class NotificationController extends Controller
                 $notification->article = $article_name;
             }
         }
+
+        $this->mark_viewed($notifications);
 
         return view('notifications', compact('notifications'));
     }
