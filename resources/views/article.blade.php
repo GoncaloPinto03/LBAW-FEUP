@@ -97,10 +97,14 @@
                     <p style="color: #00003e; margin-left:30px;">Not Favourited</p>
                 @endif
             @endif
+                
 
+            
+            @if ($article->photo())
                 <div class="article-image">
                     <img src="{{ $article->photo() }}" alt="Article Image">
                 </div>
+            @endif
 
 
                 
