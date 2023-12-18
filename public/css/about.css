@@ -46,3 +46,14 @@
     background-color: #5a86ba;
     border: solid 2px #00003e;
 }
+
+.email{
+    margin-top: 50px;
+    margin-left: 1em;
+    margin-bottom: 50px;
+    font-weight: bold;
+    font-size: 1em;
+    color: #00003e;
+    text-decoration: underline;
+    text-align: center;
+}

@@ -28,7 +28,10 @@
             <p class="text-box">Thank you for being a part of our journey. Together, we are redefining the way news is delivered, one collaboration at a time.</p>
 
         </div>
-           
+        
+        <p style="color:#00003e">If you have any questions or doubts, please contact:<a href="mailto:johndoe@example.com" class="email">johndoe@example.com</a>
+</p>
+
 
             
            
