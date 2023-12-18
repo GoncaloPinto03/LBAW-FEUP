@@ -28,7 +28,7 @@ class NotificationController extends Controller
     {
         $user = User::find($id);
 
-        $notifications = Notification::where('notified_user', $id)->where('viewed', false)->orderByDesc('date')->get();
+        $notifications = Notification::where('notified_user', $id)->orderByDesc('date')->get();
 
         
         foreach ($notifications as $notification)
