@@ -18,6 +18,8 @@
 
         <label for="password" >Password</label>
         <input id="password" type="password" name="password" required>
+        <a href="{{ route('send-mail') }}">Forgot your password?</a>
+        <br>
         @if ($errors->has('password'))
             <span class="error">
                 {{ $errors->first('password') }}

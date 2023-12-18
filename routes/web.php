@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
@@ -42,6 +44,14 @@ Route::get('/profile/{id}', [UserController::class, 'index'])->where('id', '[0-9
 Route::get('/profile/edit/{id}', [UserController::class, 'edit']);
 Route::post('/profile/edit/{id}', [UserController::class, 'update']);
 Route::get('/profile/articles/{id}', [UserController::class, 'showArticles'])->where('id', '[0-9]+');
+// recover password
+Route::get('/send-mail', [UserController::class, 'showLinkRequestForm'])->name('send-mail');
+// Route::post('/recover-password', [UserController::class, 'showUpdatePassForm'])->name('recover-password');
+
+Route::get('/password/reset', [UserController::class, 'showUpdatePassForm'])->name('password.reset');
+Route::post('/password/reset', [UserController::class, 'updatePassword'])->name('password.update');
+
+
 
 // ADMIN
 Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('auth:admin');

@@ -1,5 +1,5 @@
 <h3>Hi {{ $mailData['name'] }},</h3>
 <h4>Recover Password</h4>
-<h4>You should personalize your email according to your needs</h4>
-<h5>-------</h5>
-<h5>LBAW Staff</h5>
+<h4>To recover your password please click the following link!</h4>
+<h5><a href="{{ route('password.reset') }}">Here</a></h5>
+<h5>Collab News Staff</h5>
