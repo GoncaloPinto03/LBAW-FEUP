@@ -34,7 +34,7 @@
 <link rel="stylesheet" href="{{ asset('css/article_pages.css') }}">
 
     @foreach($articles as $article)
-    <div class="custom-box" id="user-article">
+    <div class="custom-box" id="article{{ $article->article_id }}">
         <h2> {{ $article->name }} </h2>
         <p style="color:"> {{ $article->description }} </p>
         <a href="{{ url('/articles/'.$article->article_id) }}" class="article-button">Read More </a>

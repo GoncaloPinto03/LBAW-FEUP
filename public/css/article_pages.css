@@ -85,18 +85,6 @@
     list-style-type: none;
 }
 
-.popular-news-section {
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(5px);
-    color: #00003e;
-    border-radius: 1em;
-    padding: 1em;
-    flex-direction: row;
-}
-
-.popular-news-image {
-    border-radius: 1em;
-}
 
 .comment-delete-button {
     cursor: pointer;
@@ -119,7 +107,7 @@
     background-color: #00003e;
 }
 
-#user-article{
+.custom-box{
     border: 0.1em solid #ccc;
     border-radius: 1em;
     background-color: rgba(255,255,255,.7);
@@ -132,13 +120,13 @@
 }
 
 
-#user-article h2 {
+.custom-box h2 {
     font-size: 2em;
     color: #00003e;
     margin: 1em;
 }
 
-#user-article p {
+.custom-box p {
     font-size: 1em;
     color: #00003e;
     margin: 1em;
