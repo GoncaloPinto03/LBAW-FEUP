@@ -10,11 +10,26 @@
                 <img src="{{ $user->photo() }}">
             </div>
             <h2><strong>{{ $user->name }}</strong><h2>
+            @if(Auth::user() && Auth::user()->user_id != $user->user_id)
+                @if(Auth::user()->isFollowing($user->user_id))
+                    <form action="{{ url('/unfollow') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ $user->user_id }}">
+                        <button type="submit" class="button">Unfollow</button>
+                    </form>
+                @else
+                    <form action="{{ url('/follow') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ $user->user_id }}">
+                        <button type="submit" class="button">Follow</button>
+                    </form>
+                @endif
+            @endif
         </div>
         <div class='profile-info'>
             <p>Email: {{ $user->email }}<p>
             <p>Reputation: {{ $user->reputation }}<p>
-        </div>       
+        </div>      
         @if (Auth::guard('admin')->check() || Auth::user()->user_id == $user->user_id)
             <a href="{{ url('/profile/edit/' . $user->user_id) }}" class="button">Edit Profile</a>
             <a href= "{{ url('/profile/articles/'.$user->user_id) }}" class="button">Manage Articles</a>
