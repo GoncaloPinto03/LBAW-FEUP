@@ -15,7 +15,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\FavouriteController;
-
+use App\Http\Controllers\FaqsController;
 
 
 
@@ -124,11 +124,15 @@ Route::post('/topic/proposal', [TopicController::class, 'submitProposal']);
 //ABOUT
 Route::get('/about', [AboutController::class, 'about'])->name('about');
 
-//FAVOuRITE
+//FAVOURITE
 Route::post('/articles/{articleId}/mark-favourite', [FavouriteController::class, 'markFavourite'])
     ->middleware('auth')
     ->name('articles.mark-favourite');
 Route::get('/user-favourites', [FavouriteController::class, 'getUserFavourites'])
     ->middleware('auth') 
     ->name('user.favourites');
+
+//FAQs
+Route::get('/faqs', [FaqsController::class, 'faqs'])->name('faqs');
+
 
