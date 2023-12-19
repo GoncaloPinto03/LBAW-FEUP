@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Tag; 
+use App\Models\ArticleTag; 
 
 class TagController extends Controller
 {
@@ -35,10 +37,10 @@ class TagController extends Controller
         }
 
         $articles = ArticleTag::where('tag_id', $tag_id)
-            ->join('articles', 'article_tags.article_id', '=', 'articles.article_id')
+            ->join('article', 'article_tag.article_id', '=', 'article.article_id')
             ->get();
 
-        return view('tag_articles', compact('tag', 'articles'));
+        return view('tag_articles', compact('tag', 'article'));
     }
 
 }
