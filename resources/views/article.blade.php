@@ -14,18 +14,18 @@
                     <p>{{ $article->description }}</p>
                     <p>{{ $article->date }}</p>
                     <p><strong>Topic: </strong>{{ $topic->name }}</p>
-                    @if (!$tags)
-                        <p><strong>No tags</strong></p>
-                    @else
+                    @if ($tags->isNotEmpty())
                         <p><strong>Tags:</strong></p>
+                        @foreach($tags as $tag)
+                            <a href="{{ url('tag/'.$tag->tag_id) }}" class="tag-link"> #{{ $tag->tag->name }} </a>
+                        @endforeach
+                        <form action="{{ route('tag.articles', ['tag_id' => $tags->first()->tag_id]) }}" method="GET">
+                            @csrf
+                            <button type="submit">Follow Tag</button>
+                        </form>
+                    @else
+                        <p><strong>No tags</strong></p>
                     @endif
-                    @foreach($tags as $tag)
-                        <a href="{{ url('tag/'.$tag->tag_id) }}" class="tag-link"> #{{ $tag->tag->name }} </a>
-                    @endforeach
-                    <form action="{{ route('tag.articles', ['tag_id' => $tag->tag_id]) }}" method="GET">
-                        @csrf
-                        <button type="submit">Follow Tag</button>
-                    </form>
                     <p><strong>Likes: </strong> {{ $article->likes }}</p>
                     <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
     
