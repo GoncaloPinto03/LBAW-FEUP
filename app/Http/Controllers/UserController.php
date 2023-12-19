@@ -115,17 +115,51 @@ class UserController extends Controller
     public function follow(Request $request)
     {
         $userToFollowId = $request->input('user_id');
-        Auth::user()->follow($userToFollowId);
+        $userToFollow = User::find($userToFollowId);
 
-        return redirect()->back();
+        if (!$userToFollow) {
+            // Usuário a ser seguido não encontrado
+            return redirect()->back()->with('error', 'User not found');
+        }
+
+        // Verifique se o usuário já não está seguindo o outro usuário
+        if (!Auth::user()->isFollowing($userToFollowId)) {
+            // Adicione o relacionamento de seguidor
+            Auth::user()->following()->attach($userToFollowId);
+
+            // Incrementa o contador de seguidores do usuário seguido
+            $userToFollow->increment('number_followers');
+
+            return redirect()->back()->with('success', 'You are now following ' . $userToFollow->name);
+        }
+
+        return redirect()->back()->with('error', 'You are already following ' . $userToFollow->name);
     }
 
     public function unfollow(Request $request)
     {
         $userToUnfollowId = $request->input('user_id');
-        Auth::user()->unfollow($userToUnfollowId);
+        $userToUnfollow = User::find($userToUnfollowId);
 
-        return redirect()->back();
+        if (!$userToUnfollow) {
+            // Usuário a ser deixado de seguir não encontrado
+            return redirect()->back()->with('error', 'User not found');
+        }
+
+        // Verifique se o usuário está seguindo o outro usuário
+        if (Auth::user()->isFollowing($userToUnfollowId)) {
+            // Remova o relacionamento de seguidor
+            Auth::user()->following()->detach($userToUnfollowId);
+
+            // Decrementa o contador de seguidores do usuário deixado de seguir
+            $userToUnfollow->decrement('number_followers');
+
+            return redirect()->back()->with('success', 'You have unfollowed ' . $userToUnfollow->name);
+        }
+
+        return redirect()->back()->with('error', 'You are not following ' . $userToUnfollow->name);
     }
+
+    
 }
 

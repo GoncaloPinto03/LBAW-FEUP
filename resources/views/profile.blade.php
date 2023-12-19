@@ -14,21 +14,25 @@
                 @if(Auth::user()->isFollowing($user->user_id))
                     <form action="{{ url('/unfollow') }}" method="post">
                         @csrf
-                        <input type="hidden" name="user_id" value="{{ $user->user_id }}">
-                        <button type="submit" class="button-follow">Unfollow</button>
+                        <input type="hidden" name="user_id" value="{{ $user->user_id }}" class="user">
+                        <button type="submit" class="button-follow" id="unfollowBtn">Unfollow</button>
                     </form>
                 @else
-                    <form action="{{ url('/follow') }}" method="post">
-                        @csrf
-                        <input type="hidden" name="user_id" value="{{ $user->user_id }}">
-                        <button type="submit" class="button-follow">Follow</button>
-                    </form>
+                    <div id="followBtn">
+                        <form action="{{ url('/follow') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $user->user_id }}" class="user">
+                            <button type="submit" class="button-follow"><span>Follow</span></button>
+                        </form>
+                    </div>
                 @endif
             @endif
         </div>
         <div class='profile-info'>
             <p>Email: {{ $user->email }}<p>
             <p>Reputation: {{ $user->reputation }}<p>
+            <p>Followers: {{ $user->number_followers }}<p>
+
         </div>      
         @if (Auth::guard('admin')->check() || Auth::user()->user_id == $user->user_id)
             <a href="{{ url('/profile/edit/' . $user->user_id) }}" class="button">Edit Profile</a>

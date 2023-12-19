@@ -65,7 +65,8 @@ CREATE TABLE users(
     name TEXT NOT NULL,
     password TEXT NOT NULL,
     reputation INTEGER,
-    user_blocked BOOLEAN DEFAULT FALSE
+    user_blocked BOOLEAN DEFAULT FALSE,
+    number_followers INTEGER DEFAULT 0
 );
 
 -------- BAN --------

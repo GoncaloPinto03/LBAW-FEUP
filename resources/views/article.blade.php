@@ -23,7 +23,8 @@
                         <strong class="author-name" style="text-decoration:none;">{{ $article->user->name }}</strong>
                     @endif
                 
-                    <p><strong>Author Reputation:</strong>{{$article->user->reputation}}</p>
+                    <p><strong>Author Reputation: </strong>{{$article->user->reputation}}</p>
+                    <p><strong>Author Followers: </strong>{{$article->user->number_followers}}</p>
                     <!--------------------------------LIKE----------------------------------------------------------------------->
                 @if(Auth::user())
                     @if(Auth::user()->user_blocked == 0 )
