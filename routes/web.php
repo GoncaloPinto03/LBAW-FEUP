@@ -114,7 +114,7 @@ Route::post('/topic/{id}/follow', [TopicController::class, 'followTopic'])->midd
 
 // TAGS
 Route::get('/tag/{tag_id}', [TagController::class, 'tagArticles']);
-
+Route::post('/tag/{tag_id}/follow', [TagController::class, 'followTag'])->middleware('auth')->name('tag.follow');
 
 //ABOUT
 Route::get('/about', [AboutController::class, 'about'])->name('about');

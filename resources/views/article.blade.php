@@ -24,7 +24,7 @@
                     @endforeach
                     <form action="{{ url('/topic/'.$topic->topic_id.'/follow') }}" method="POST">
                         @csrf
-                        <button type="submit">Follow topic</button>
+                        <button type="submit">Follow Tag</button>
                     </form>
                     <p><strong>Likes: </strong> {{ $article->likes }}</p>
                     <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
