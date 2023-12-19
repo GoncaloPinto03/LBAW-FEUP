@@ -34,10 +34,10 @@
 
                 <!-- ... (comment details) ... -->
                 <?php
-                                    $comment_vote = App\Models\Comment_vote::where('user_id', Auth::user()->user_id)
-                                        ->where('comment_id', $comment->comment_id)
-                                        ->first();
-                            ?>
+                    $comment_vote = App\Models\Comment_vote::where('user_id', Auth::user()->user_id)
+                        ->where('comment_id', $comment->comment_id)
+                        ->first();
+                ?>
                 <!--------------------------------LIKE COMMENT----------------------------------------------------------------------->
                 <div>
                     @if($comment_vote && $comment_vote->is_like === TRUE)
