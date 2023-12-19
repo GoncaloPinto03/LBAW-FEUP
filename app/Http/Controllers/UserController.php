@@ -112,5 +112,20 @@ class UserController extends Controller
         return redirect()->route('home');
     }
 
+    public function follow(Request $request)
+    {
+        $userToFollowId = $request->input('user_id');
+        Auth::user()->follow($userToFollowId);
+
+        return redirect()->back();
+    }
+
+    public function unfollow(Request $request)
+    {
+        $userToUnfollowId = $request->input('user_id');
+        Auth::user()->unfollow($userToUnfollowId);
+
+        return redirect()->back();
+    }
 }
 
