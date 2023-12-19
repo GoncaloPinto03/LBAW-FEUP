@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function following()
     {
-        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id'); // error because followers don't exist in DB
     }
 
     public function follow($userId)
