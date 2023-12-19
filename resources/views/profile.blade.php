@@ -15,13 +15,13 @@
                     <form action="{{ url('/unfollow') }}" method="post">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $user->user_id }}">
-                        <button type="submit" class="button">Unfollow</button>
+                        <button type="submit" class="button-follow">Unfollow</button>
                     </form>
                 @else
                     <form action="{{ url('/follow') }}" method="post">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $user->user_id }}">
-                        <button type="submit" class="button">Follow</button>
+                        <button type="submit" class="button-follow">Follow</button>
                     </form>
                 @endif
             @endif

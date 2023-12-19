@@ -126,6 +126,13 @@ CREATE TABLE follow (
     topic_id INTEGER NOT NULL REFERENCES topic (topic_id) ON UPDATE CASCADE
 );
 
+------- FOLLOWERS -------
+CREATE TABLE followers (
+    follower_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    PRIMARY KEY (follower_id, user_id)
+);
+
 -------- ARTICLE-VOTE --------
 CREATE TABLE article_vote (
     is_like BOOLEAN NOT NULL,
