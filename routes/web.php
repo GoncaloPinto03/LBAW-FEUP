@@ -45,6 +45,9 @@ Route::get('/profile/edit/{id}', [UserController::class, 'edit']);
 Route::post('/profile/edit/{id}', [UserController::class, 'update']);
 Route::get('/profile/articles/{id}', [UserController::class, 'showArticles'])->where('id', '[0-9]+');
 Route::delete('/profile/delete/{id}', [UserController::class, 'destroy_user'])->name('users.destroy_user');
+Route::post('/follow', 'UserController@follow')->middleware('auth');
+Route::post('/unfollow', 'UserController@unfollow')->middleware('auth');
+
 
 
 // ADMIN
