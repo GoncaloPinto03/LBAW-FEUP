@@ -6,11 +6,6 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    public function tagArticles()
-    {
-        
-    }
-
     public function followTag(Request $request, $tag_id)
     {
         if (auth()->check()) {
@@ -29,6 +24,21 @@ class TagController extends Controller
         }
 
         return redirect()->route('tag.articles', ['tag_id' => $tag_id]);
+    }
+
+    public function tagArticles($tag_id)
+    {
+        $tag = Tag::find($tag_id);
+
+        if (!$tag) {
+            abort(404);
+        }
+
+        $articles = ArticleTag::where('tag_id', $tag_id)
+            ->join('articles', 'article_tags.article_id', '=', 'articles.article_id')
+            ->get();
+
+        return view('tag_articles', compact('tag', 'articles'));
     }
 
 }
