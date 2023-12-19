@@ -46,8 +46,6 @@ Route::post('/profile/edit/{id}', [UserController::class, 'update']);
 Route::get('/profile/articles/{id}', [UserController::class, 'showArticles'])->where('id', '[0-9]+');
 // recover password
 Route::get('/send-mail', [UserController::class, 'showLinkRequestForm'])->name('send-mail');
-// Route::post('/recover-password', [UserController::class, 'showUpdatePassForm'])->name('recover-password');
-
 Route::get('/password/reset', [UserController::class, 'showUpdatePassForm'])->name('password.reset');
 Route::post('/password/reset', [UserController::class, 'updatePassword'])->name('password.update');
 

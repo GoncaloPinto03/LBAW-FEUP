@@ -21,6 +21,7 @@
             <input placeholder="New email" type="text" value="{{ $user->email }}" id="email" name="email">
         </section>
         <button type="submit">Save Changes</button>
+        <a href="{{ route('password.reset') }}">Change Password</a>
     </form>
     @include('partials.footer')
     </section>
