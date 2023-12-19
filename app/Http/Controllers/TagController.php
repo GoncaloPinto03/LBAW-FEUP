@@ -40,7 +40,7 @@ class TagController extends Controller
             ->join('article', 'article_tag.article_id', '=', 'article.article_id')
             ->get();
 
-        return view('tag_articles', compact('tag', 'article'));
+        return view('tag_articles', ['tag' => $tag, 'articles' => $articles]);
     }
 
 }
