@@ -20,7 +20,7 @@
                         <p><strong>Tags:</strong></p>
                     @endif
                     @foreach($tags as $tag)
-                        <a href="{{ url('tag/'.$tag->tag_id) }}"> {{ $tag->tag->name }} </a>
+                        <a href="{{ url('tag/'.$tag->tag_id) }}" class="tag-link"> #{{ $tag->tag->name }} </a>
                     @endforeach
                     <form action="{{ route('tag.articles', ['tag_id' => $tag->tag_id]) }}" method="GET">
                         @csrf
