@@ -318,6 +318,7 @@ FOR EACH ROW
 EXECUTE FUNCTION adjust_likes_dislikes_and_notification();
 
 
+
 ------TRIGGER 02------
 
 CREATE OR REPLACE FUNCTION undo_like_dislike_and_update_reputation()
