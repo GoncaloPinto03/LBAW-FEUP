@@ -74,6 +74,7 @@ class ArticleController extends Controller
     public function editArticle($id)
     {
         $article = Article::find($id);
+        $this->authorize('editArticle', $article);
         $topics = Topic::all();
 
         if (!$article) {
@@ -182,7 +183,7 @@ class ArticleController extends Controller
         return view('user-articles', compact('articles'));
     }
 
-    public function getPopularArticles(Request $request) {
+    /*public function getPopularArticles(Request $request) {
         $selectedOption= $request->input('selectedOption');
         $articles = Article::orderBy('likes', 'desc')->get();
         return repsonse->json($articles);
@@ -192,6 +193,6 @@ class ArticleController extends Controller
         $selectedOption= $request->input('selectedOption');
         $articles = Article::orderBy('date', 'desc')->get();
         return repsonse->json($articles);
-    }
+    }*/
 
 }
