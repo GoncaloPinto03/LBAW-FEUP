@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
+
 
 // Added to define Eloquent relationships.
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -70,7 +72,7 @@ class User extends Authenticatable
 
     public function following()
     {
-        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id'); // error because followers don't exist in DB
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id'); 
     }
 
     public function follow($userId)
@@ -101,6 +103,43 @@ class User extends Authenticatable
     {
         $this->number_followers = $this->number_followers - 1;
         $this->save();
+    }
+
+    public function followingTags()
+    {
+        return $this->belongsToMany(User::class,'follow', 'user_id', 'tag_id');
+    }
+
+    public function isFollowingTag($tagId)
+    {
+        return $this->followingTags()->where('tag_id', $tagId)->exists();
+    }
+
+    public function followTag($tagId)
+    {
+        $this->followingTags()->attach($tagId);
+    }
+
+    public function unfollowTag($tagId)
+    {
+        $this->followingTags()->detach($tagId);
+    }
+
+    public function getMyFeed()
+    {
+        $user = Auth::user();
+
+        $followingUserIds = $user->following()->pluck('follower_id')->toArray();
+        $followingTags = $user->followingTags()->pluck('tag_id')->toArray();
+
+        $followedItems = array_merge($followingTags, $followingUserIds);
+
+        $query = Article::query();
+
+        $articles = $query->whereHas('tags', function ($query) use ($followingTags) {
+            $query->whereIn('article_tag.tag_id', $followingTags);
+        })->orWhereIn('user_id', $followingUserIds)->orderBy('date', 'desc')->get();
+        return $articles;
     }
 
 

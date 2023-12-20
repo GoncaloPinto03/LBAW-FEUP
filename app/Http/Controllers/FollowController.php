@@ -1,8 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-
-
-use App\Models\Follow;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -15,21 +12,14 @@ class FollowController extends Controller
         $tag = Tag::find($tagId);
 
         // Verifica se a tag já está marcada como favorita pelo usuário
-        $isFollowingTag = Follow::where('user_id', $user->user_id)
-            ->where('tag_id', $tag->tag_id)
-            ->exists();
+        $isFollowingTag = $user->isFollowingTag($tagId);
 
         if ($isFollowingTag) {
-            Follow::where('user_id', $user->user_id)
-                ->where('tag_id', $tag->tag_id)
-                ->delete();
+            $user->unfollowTag($tagId);
 
             $message = 'Tag deixou de ser seguida.';
         } else {
-            Follow::insert([
-                'user_id' => $user->user_id,
-                'tag_id' => $tag->tag_id,
-            ]);
+            $user->followTag($tagId);
 
             $message = 'Tag começou a ser seguida.';
         }

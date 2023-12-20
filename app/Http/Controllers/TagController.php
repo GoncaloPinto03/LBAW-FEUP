@@ -26,7 +26,8 @@ class TagController extends Controller
             ->join('article', 'article_tag.article_id', '=', 'article.article_id')
             ->get();
 
-        $isFollowingTag = Follow:: where('user_id', $user->user_id)->where('tag_id', $tag_id)->exists();
+        //$isFollowingTag = Follow:: where('user_id', $user->user_id)->where('tag_id', $tag_id)->exists();
+        $isFollowingTag = $user->isFollowingTag($tag_id);
 
         return view('tag_articles', compact('tag', 'articles', 'isFollowingTag'));
     }
