@@ -3,7 +3,6 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/article_pages.css') }}">
-<script src="{{ asset('js/redirect.js') }}"></script>
 
     <section id="articlebox">
         <!-- Main Article Box -->
@@ -27,7 +26,6 @@
                             <a href="#" class="author-name" data-toggle="modal" data-target="#loginModal">
                                 <strong>{{ $article->user->name }}</strong>
                             </a>
-
                             <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -42,6 +40,17 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="loginButton">Login</button> <!-- login button not working -->
+                                            <script>
+                                                document.addEventListener('DOMContentLoaded', function () {
+                                                    var loginButton = document.getElementById('loginButton');
+
+                                                    if (loginButton) {
+                                                        loginButton.addEventListener('click', function () {
+                                                            window.location.href = `{{ url('/login') }}`;
+                                                        });
+                                                    }
+                                                });
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
