@@ -23,6 +23,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\FollowController;
 
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\FaqsController;
 
 
 
@@ -153,7 +154,7 @@ Route::get('/tag/{tag_id}/follow', [FollowController::class, 'followTag'])->name
 //ABOUT
 Route::get('/about', [AboutController::class, 'about'])->name('about');
 
-//FAVOuRITE
+//FAVOURITE
 Route::post('/articles/{articleId}/mark-favourite', [FavouriteController::class, 'markFavourite'])
     ->middleware('auth')
     ->name('articles.mark-favourite');
@@ -163,3 +164,7 @@ Route::get('/user-favourites', [FavouriteController::class, 'getUserFavourites']
 
 // MAIL
 Route::post('/send', [MailController::class, 'send']);
+//FAQs
+Route::get('/faqs', [FaqsController::class, 'faqs'])->name('faqs');
+
+
