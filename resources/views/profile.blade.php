@@ -19,10 +19,6 @@
             <a href="{{ url('/profile/edit/' . $user->user_id) }}" class="button">Edit Profile</a>
             <a href= "{{ url('/profile/articles/'.$user->user_id) }}" class="button">Manage Articles</a>
             <form action="{{ url('/profile/delete') }}" method="post">
-            @csrf
-            @method('delete')
-            <input type="hidden" name="user_id" value="{{ $user->user_id }}">
-            <button type="submit" id="deleteAccountBtn" class="button-delete">Delete Acount</button>
         </form>
             
             @if($user->user_blocked == 0 && Auth::guard('admin')->check())
@@ -53,6 +49,7 @@
                         <input type="hidden" name="user_id" value="{{ $user->user_id }}">
                         <button type="submit" id="deleteUserBtn">Delete Account</button>
                     </form>
+                    <a href= "{{ url('/profile/notifications/'.$user->user_id) }}" class="button">Notifications</a>
                 @endif
             @endif
         @endif

@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Models\Photo;
 
+
 class UserController extends Controller
 {
     function showUsersList() {
