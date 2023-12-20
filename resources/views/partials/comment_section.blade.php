@@ -11,7 +11,7 @@
 
     <ul class="comment-list">
         @foreach($comments as $comment)
-        <li class="li">
+        <li class="li" id="comment{{ $comment->comment_id }}_2">
             <div class="comment-section">
                 <div class="comment-header">
                     <div class="comment-author-date-section">
@@ -21,15 +21,15 @@
                         <p class="comment-date">{{ \Carbon\Carbon::parse($comment->date)->diffForHumans() }}</p>
                     </div>
                     @if($comment->user_id === Auth::user()->user_id)
-                    <div class="comment-edit-delete-section">
-                        <button class="comment-edit-button"><a href="{{ url('/comment/edit/'.$comment->comment_id) }}"><i id="edit-comment"class="bi bi-pencil"></i> </a></button>
-                        <form action="{{ url('/comment/delete') }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <input type="hidden" name="comment_id" value="{{ $comment->comment_id }}">
-                            <button type="submit" id="deleteCommentBtn" class="comment-delete-button"><i class="bi bi-trash"></i></button>
-                        </form>
-                    </div>
+                        <div class="comment-edit-delete-section">
+                            <button class="comment-edit-button"><a href="{{ url('/comment/edit/'.$comment->comment_id) }}"><i id="edit-comment"class="bi bi-pencil"></i> </a></button>
+                            <form action="{{ url('/comment/delete') }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <input type="hidden" name="comment_id2" value="{{ $comment->comment_id }}">
+                                <button type="submit" id="deleteCommentBtn2" class="comment-delete-button"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </div>
                     @endif
                 </div>
                 <p class="comment-text">{{ $comment->text }}</p>
