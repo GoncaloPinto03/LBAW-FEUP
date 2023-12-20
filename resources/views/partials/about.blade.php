@@ -4,7 +4,7 @@
 
 @section ('content')
         <div id="about-us">
-            <h1 class="title">About <span>Collab News:</span></h1>
+            <h1 class="title-about">About <span>Collab News:</span></h1>
 
             <p class="text">Welcome to <strong>Collab News</strong>, where news comes alive through collaboration! We are a dynamic and innovative platform that thrives on the collective intelligence and diverse perspectives of our contributors.</p>
         <div class="about-box">
@@ -28,7 +28,9 @@
             <p class="text-box">Thank you for being a part of our journey. Together, we are redefining the way news is delivered, one collaboration at a time.</p>
 
         </div>
-           
+        
+        <p style="color:#00003e">If you have any questions or doubts, please contact:<a href="mailto:johndoe@example.com" class="email">johndoe@example.com</a> or <strong>+351 920 956 755</strong></p>
+
 
             
            

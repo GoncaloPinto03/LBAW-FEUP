@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\Helper;
+
 
 
 class Article extends Model
@@ -33,13 +35,28 @@ class Article extends Model
     {
         return $this->belongsTo(Topic::class, 'topic_id');
     }*/
+    function generateSlug($text)
+{
+    $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    $text = preg_replace('~[^-\w]+~', '', $text);
+    $text = trim($text, '-');
+    $text = preg_replace('~-+~', '-', $text);
+    $text = strtolower($text);
+
+    if (empty($text)) {
+        return 'n-a';
+    }
+
+    return $text;
+}
+
     public function photo()
     {
         $files = glob("images/article/" . $this->article_id . ".jpg", GLOB_BRACE);
-        $default = "/images/article/default_article_pic.jpg";
-        if (sizeof($files) < 1) return $default;
+        if (sizeof($files) < 1) return null;
         return "/" . $files[0];
     }
-
+  
 
 }

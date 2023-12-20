@@ -22,20 +22,4 @@ class Article_vote extends Model
     }
 }
 
-/*
-                    <div>
-                        @if($article_vote && $article_vote->is_like === TRUE)
-                            <p>Post liked</p>
-                        @else
-                            <p>Post not liked</p>
-                        @endif
-                    </div>
 
-                    <div>
-                        @if($article_vote && $article_vote->is_like === FALSE)
-                            <p>Post disliked</p>
-                        @else
-                            <p>Post not disliked</p>
-                        @endif
-                    </div>
-                    */
