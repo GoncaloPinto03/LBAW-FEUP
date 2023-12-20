@@ -68,4 +68,40 @@ class User extends Authenticatable
         return $this->hasMany(Article_vote::class);
     }
 
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id'); // error because followers don't exist in DB
+    }
+
+    public function follow($userId)
+    {
+        $this->following()->attach($userId);
+        $this->incrementFollowerCount();
+
+    }
+
+    public function unfollow($userId)
+    {
+        $this->following()->detach($userId);
+        $this->decrementFollowerCount();
+    }
+
+    public function isFollowing($userId)
+    {
+        return $this->following()->where('follower_id', $userId)->exists();
+    }
+
+    public function incrementFollowerCount()
+    {
+        $this->number_followers = $this->number_followers + 1;
+        $this->save();
+    }
+
+    public function decrementFollowerCount()
+    {
+        $this->number_followers = $this->number_followers - 1;
+        $this->save();
+    }
+
+
 }

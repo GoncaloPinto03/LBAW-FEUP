@@ -65,5 +65,17 @@
     color: white;
 }
 
+.button-follow {
+    background-color: #00003e;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button-follow:hover {
+    background-color: #5a86ba; 
+}
 
 

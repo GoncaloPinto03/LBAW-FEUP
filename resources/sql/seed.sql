@@ -65,7 +65,8 @@ CREATE TABLE users(
     name TEXT NOT NULL,
     password TEXT NOT NULL,
     reputation INTEGER,
-    user_blocked BOOLEAN DEFAULT FALSE
+    user_blocked BOOLEAN DEFAULT FALSE,
+    number_followers INTEGER DEFAULT 0
 );
 
 -------- BAN --------
@@ -124,6 +125,13 @@ CREATE TABLE comment_vote (
 CREATE TABLE follow (
     user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
     topic_id INTEGER NOT NULL REFERENCES topic (topic_id) ON UPDATE CASCADE
+);
+
+------- FOLLOWERS -------
+CREATE TABLE followers (
+    follower_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
+    PRIMARY KEY (follower_id, user_id)
 );
 
 -------- ARTICLE-VOTE --------

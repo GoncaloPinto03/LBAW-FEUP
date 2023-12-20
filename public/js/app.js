@@ -134,6 +134,40 @@ denyTopicButtons.forEach(function (button) {
 });
 
 
+
+/*
+let followBtn = document.querySelector('#followBtn');
+console.log('Follow Button:', followBtn);
+
+followBtn.addEventListener('click', function(e) {
+  console.log('Click event triggered');
+  e.preventDefault();
+  let form = e.target.closest('form');
+  let userId = form.querySelector('input[name="user_id"]').value;
+  console.log('User ID:', userId);
+
+  sendAjaxRequest('POST', '/follow', null, function() {
+    console.log('Sent request');
+
+    let followBtnText = followBtn.querySelector('span');
+    let followBtnTextContent = followBtnText.textContent;
+    if (followBtnTextContent === 'Follow') {
+      followBtnText.textContent = 'Unfollow';
+
+    }
+    else {
+      followBtnText.textContent = 'Follow';
+
+    }
+  });
+
+});
+
+*/
+
+
+
+
 let favouriteButton = document.querySelector('#favouriteButton');
 let iconSpan = document.getElementById('iconSpan');
 let initialFavouriteState = iconSpan.getAttribute('data-is-favourite') === 'true';
@@ -167,11 +201,6 @@ favouriteButton.addEventListener('click', function(e) {
     });
 
 });
-
-
-
-
-
 
 
 
