@@ -19,10 +19,7 @@
                         @foreach($tags as $tag)
                             <a href="{{ url('tag/'.$tag->tag_id) }}" class="tag-link"> #{{ $tag->tag->name }} </a>
                         @endforeach
-                        <form action="{{ route('tag.articles', ['tag_id' => $tags->first()->tag_id]) }}" method="GET">
-                            @csrf
-                            <button type="submit">Follow Tag</button>
-                        </form>
+                    
                     @else
                         <p><strong>No tags</strong></p>
                     @endif

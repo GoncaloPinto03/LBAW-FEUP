@@ -3,7 +3,18 @@
 
 @section('content')
     <section id="tag-articles">
-        <h1>Artigos com a Tag: {{ $tag->name }}</h1>
+        <h1 style="margin-left:1em;">Articles with the tag: {{ $tag->name }}</h1>
+        
+        <form action="{{ route('tag.follow', ['tag_id' => $tag->tag_id]) }}" method="GET">
+            @csrf    
+                @if($isFollowingTag)    
+                <button type="submit" style="margin-left:4em;">Unfollow Tag</button>
+                @else
+                <button type="submit" style="margin-left:4em;">Follow Tag</button>
+
+                @endif
+        </form>
+
 
         @if ($articles->count() > 0)
             <div class="additional-box-container">

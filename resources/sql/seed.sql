@@ -577,11 +577,8 @@ INSERT INTO article_tag (article_id, tag_id) VALUES
 
 INSERT INTO follow (user_id, tag_id) 
 VALUES
-    (1, 1), 
-    (2, 2), 
-    (3, 3),
-    (4, 4),  
-    (5, 5);  
+    (1, 1);
+
 
 
 INSERT INTO article_vote (is_like, article_id, user_id)

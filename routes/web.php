@@ -15,6 +15,8 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\FollowController;
+
 
 
 
@@ -116,6 +118,8 @@ Route::post('/topic/{id}/follow', [TopicController::class, 'followTopic'])->midd
 Route::get('/tag/{tag_id}', [TagController::class, 'tagArticles']);
 //Route::post('/tag/{tag_id}/follow', [TagController::class, 'followTag'])->middleware('auth')->name('tag.follow');
 Route::get('/tag/{tag_id}/articles', [TagController::class, 'tagArticles'])->name('tag.articles');
+Route::get('/tag/{tag_id}/follow', [FollowController::class, 'followTag'])->name('tag.follow');
+
 
 //ABOUT
 Route::get('/about', [AboutController::class, 'about'])->name('about');
