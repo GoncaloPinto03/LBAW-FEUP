@@ -8,6 +8,7 @@
     <input id="email" type="email" name="email" required>
     <label for="password">New Password</label>
     <input id="password" type="password" name="password" required>
+    <p>Min 8 characters</p>
     <label for="password_confirmation">Confirm Password</label>
     <input id="password_confirmation" type="password" name="password_confirmation" required>
     <button type="submit">Reset Password</button>

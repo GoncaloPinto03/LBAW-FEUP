@@ -31,6 +31,7 @@
             {{ $errors->first('password') }}
         </span>
       @endif
+      <p>Min 8 characters</p>
 
       <label for="password-confirm">Confirm Password</label>
       <input id="password-confirm" type="password" name="password_confirmation" class="login-register-input" required>
