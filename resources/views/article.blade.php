@@ -3,6 +3,7 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/article_pages.css') }}">
+<script src="{{ asset('js/redirect.js') }}"></script>
 
     <section id="articlebox">
         <!-- Main Article Box -->
@@ -18,7 +19,35 @@
                     <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
 
                     @if ($article->user->name !== "Anonymous")
-                        <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{ $article->user->name }}</strong></a>
+                        @if(Auth::check()) 
+                            <a href="{{ url('profile/'.$article->user_id) }}" class="author-name">
+                                <strong>{{ $article->user->name }}</strong>
+                            </a>
+                        @else
+                            <a href="#" class="author-name" data-toggle="modal" data-target="#loginModal">
+                                <strong>{{ $article->user->name }}</strong>
+                            </a>
+
+                            <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span> <!-- close button not working -->
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>You need to be logged in to view the author's profile. Please log in or create an account.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="loginButton">Login</button> <!-- login button not working -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        @endif
                     @else
                         <strong class="author-name" style="text-decoration:none;">{{ $article->user->name }}</strong>
                     @endif
