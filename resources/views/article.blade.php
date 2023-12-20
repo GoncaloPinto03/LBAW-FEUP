@@ -20,11 +20,7 @@
                     <a href="{{ url('tag/'.$tag->tag_id) }}" class="tag-link"> #{{ $tag->tag->name }} </a>
                     @endforeach
 
-                    @else
-                    <p><strong>No tags</strong></p>
                     @endif
-                    <p><strong>Likes: </strong> {{ $article->likes }}</p>
-                    <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
 
                     @if ($article->user->name !== "Anonymous")
                     <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{
