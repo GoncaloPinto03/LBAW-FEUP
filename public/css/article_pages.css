@@ -77,11 +77,6 @@
     text-decoration: underline;
 }
 
-.author-name2{
-    color: #ffffff;
-    text-decoration: underline;
-    list-style-type: none;
-}
 
 .popular-news-section {
     background-color: rgba(255, 255, 255, 0.7);
@@ -95,10 +90,6 @@
     border-radius: 1em;
 }
 
-.comment-delete-button {
-    cursor: pointer;
-    margin-right: 10px;
-}
 
 #propose-topic {
     padding: 0.5em 1em;
@@ -114,22 +105,4 @@
 .li {
     list-style-type: none;
     padding-bottom: 0;
-}
-
-.comment-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #00003e;
-    padding-inline: 1em;
-    border-radius: 5px;
-    padding-bottom: 0;
-}
-
-.comment-header {
-    
-}
-.comment-date {
-    color: #ffffff;
-    font-size: 0.8em;
 }
