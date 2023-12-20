@@ -151,6 +151,7 @@ class AdminController extends Controller
         $user->name = "Anonymous";
         $user->email = "anonymous" . $user->user_id . "@example.com";
         $user->password = Hash::make(Str::random(40)); 
+        $user->reputation = 0;
         $user->save();
         return redirect('/admin/users')->withSuccess('User anonymized successfully');
     }

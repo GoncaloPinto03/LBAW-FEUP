@@ -103,7 +103,7 @@
             @if(Auth::user())
                 @if ($isFavourite && (Auth::user()->user_id != $article->user_id))
                     <p style="color: #00003e; margin-left:30px;">Favourited </p>
-                @elseif(Auth::user()->user_id != $article->user_id)
+                @elseif(Auth::user()->user_id != $article->user_id )
                     <p style="color: #00003e; margin-left:30px;">Not Favourited</p>
                 @endif
             @endif
@@ -124,7 +124,7 @@
 
                 <div class="comments-section">
                     <h2>Comments</h2>
-                @if(Auth::user()->user_blocked == 0)
+                @if(Auth::user() && (Auth::user()->user_blocked == 0))
                     <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
                     <form action="{{ '/comment/create' }}" method="post">
                         @csrf

@@ -29,9 +29,11 @@
     
                     <p><strong>Author:</strong> {{ $article->user->name }}</p>
                 </div>
+                @if($article->photo())
                 <div class="article-image">
                     <img src="{{ $article->photo() }}" alt="Article Image">
                 </div>
+                @endif              
 
                 <div class="comments-section">
                     <h2>Comments</h2>

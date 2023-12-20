@@ -10,7 +10,7 @@
             <div class="article-box-big">
                 <form id = 'filterForm' action="{{ route('home')}}" method="GET">
                     <div>
-                    <label for="sort">Filter by:</label>
+                    <label for="sort" style="margin:1em; color:#00003e">Filter by:</label>
                     <select id="category-filter" onChange="filterArticles()" name="selectedOption">
                         @if ( $columns['sort'] === 'all' )
                             <option value="all" id="all">All</option>
@@ -43,10 +43,13 @@
 
                 @if (isset($columns['bigArticle']))
                     <div>
+                    @if ($columns['bigArticle']->photo())
+
                         <div class="article-image">
                             <img src="{{ $columns['bigArticle']->photo() }}" alt="Article Image">
 
                         </div>
+                    @endif
                         <div class="article-content">
                             <h1>{{ $columns['bigArticle']->name }}</h1>
                             <p>{{ $columns['bigArticle']->description }}</p>

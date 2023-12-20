@@ -199,5 +199,28 @@ class ArticleController extends Controller
         return repsonse->json($articles);
     }
 
+    public function getMyFeed(Request $request)
+{
+    $user = Auth::user();
+    $selectedOption= $request->input('selectedOption');
+
+    // Obtenha as tags que o usuário segue
+    $followingTags = $user->followingTags()->pluck('tag_id')->toArray();
+
+    // Obtenha os IDs dos usuários que o usuário segue
+    $followingUserIds = $user->following()->pluck('follower_id')->toArray();
+
+    // Combine as tags e usuários seguidos
+    $followedItems = array_merge($followingTags, $followingUserIds);
+
+    // Obtenha as notícias relacionadas às tags e usuários seguidos
+    $articles = Article::whereIn('tag_id', $followedItems)
+        ->orWhereIn('user_id', $followedItems)
+        ->orderBy('date', 'desc')
+        ->get();
+
+    return response()->json($articles);
+}
+
 }
 
