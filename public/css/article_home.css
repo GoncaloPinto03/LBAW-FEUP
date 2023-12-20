@@ -264,3 +264,62 @@
     border: 1px solid #00003e;
 
 }
+
+.filter-search {
+    background-color: white;
+    width: 70%;
+    padding: 0;
+    margin: 0;
+}
+
+.filter-page {
+    padding: 2em;
+   
+    width: 100%;
+}
+
+.topics-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1em;
+    width: auto;
+}
+
+.filter-topbar {
+    
+    width: 100%;
+}
+
+.topic-filter {
+    display: flex;
+
+}
+
+.topic-selector {
+    margin: 0;
+    padding: 0;
+}
+
+.topic-filter-name {
+    margin: 0;
+    padding: 0;
+}
+
+.topic-section {
+    display: flex;
+    padding: 10px;
+    border-radius: 1em;
+    border: 0.1em solid #00003e;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    background-color: rgba(255,255,255,.7);
+    color: #00003e;
+}
+
+.submit-topic-filter {
+    border-radius: 0.5em;
+    border: 1px solid #00003e;
+    background-color: #F0F3F5;
+    color: #00003e;
+}

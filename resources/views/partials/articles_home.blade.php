@@ -10,7 +10,6 @@
             <div class="article-box-big">
                 <form id = 'filterForm' action="{{ route('home')}}" method="GET">
                     <div>
-                    <label for="sort">Filter by:</label>
                     <select id="category-filter" onChange="filterArticles()" name="selectedOption">
                         @if ( $columns['sort'] === 'all' )
                             <option value="all" id="all">All</option>

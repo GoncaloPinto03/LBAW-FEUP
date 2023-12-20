@@ -9,7 +9,7 @@
       {{ csrf_field() }}
 
       <label for="name">Name</label>
-      <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
+      <input id="name" type="text" name="name" value="{{ old('name') }}" class="login-register-input" required autofocus>
       @if ($errors->has('name'))
         <span class="error">
             {{ $errors->first('name') }}
@@ -17,7 +17,7 @@
       @endif
 
       <label for="email">E-Mail Address</label>
-      <input id="email" type="email" name="email" value="{{ old('email') }}" required>
+      <input id="email" type="email" name="email" value="{{ old('email') }}" class="login-register-input" required>
       @if ($errors->has('email'))
         <span class="error">
             {{ $errors->first('email') }}
@@ -25,7 +25,7 @@
       @endif
 
       <label for="password">Password</label>
-      <input id="password" type="password" name="password" required>
+      <input id="password" type="password" name="password" class="login-register-input" required>
       @if ($errors->has('password'))
         <span class="error">
             {{ $errors->first('password') }}
@@ -33,12 +33,11 @@
       @endif
 
       <label for="password-confirm">Confirm Password</label>
-      <input id="password-confirm" type="password" name="password_confirmation" required>
+      <input id="password-confirm" type="password" name="password_confirmation" class="login-register-input" required>
 
       <button type="submit">
         Register
       </button>
       <a class="button button-outline" href="{{ route('login') }}">Login</a>
   </form>
-  @include('partials.send_email')
 @endsection

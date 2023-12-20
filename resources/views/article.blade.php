@@ -124,15 +124,17 @@
 
                 <div class="comments-section">
                     <h2>Comments</h2>
-                @if(Auth::user()->user_blocked == 0)
-                    <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
-                    <form action="{{ '/comment/create' }}" method="post">
-                        @csrf
-                        <input type="hidden" name="article_id" value="{{ $article->article_id }}">
-                        <button type="submit" id="like-button" class="fw-light nav-link fs-6"> <span
-                                class="far fa-thumbs-up"> </span>
-                        </button>
-                    </form>
+                @if(Auth::user())
+                    @if(Auth::user()->user_blocked == 0)
+                        <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
+                        <form action="{{ '/comment/create' }}" method="post">
+                            @csrf
+                            <input type="hidden" name="article_id" value="{{ $article->article_id }}">
+                            <button type="submit" id="like-button" class="fw-light nav-link fs-6"> <span
+                                    class="far fa-thumbs-up"> </span>
+                            </button>
+                        </form>
+                    @endif
                 @endif
                     <ul class="comment-list">
                         @foreach($comments as $comment)
