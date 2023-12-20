@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS notification CASCADE;
 DROP TABLE IF EXISTS favourite CASCADE;
 DROP TABLE IF EXISTS article_vote CASCADE;
 DROP TABLE IF EXISTS follow CASCADE;
+DROP TABLE IF EXISTS tag CASCADE;
 DROP TABLE IF EXISTS comment_vote CASCADE;
 DROP TABLE IF EXISTS comment CASCADE;
 DROP TABLE IF EXISTS article CASCADE;
@@ -39,7 +40,7 @@ DROP FUNCTION IF EXISTS prevent_self_like_dislike CASCADE;
 DROP FUNCTION IF EXISTS create_comment_notification CASCADE;
 DROP FUNCTION IF EXISTS prevent_multiple_likes_on_article CASCADE;
 DROP FUNCTION IF EXISTS prevent_multiple_likes_on_comment CASCADE;
-DROP FUNCTION IF EXISTS prevent_duplicate_topic_follow CASCADE;
+DROP FUNCTION IF EXISTS prevent_duplicate_tag_follow CASCADE;
 
 ------------------------------------------------------------------------------------
 ------------------------------------- TABLES ---------------------------------------
@@ -121,10 +122,22 @@ CREATE TABLE comment_vote (
     user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE
 );
 
+-------- TAG --------
+CREATE TABLE tag (
+    tag_id SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL CONSTRAINT tag_name_uk UNIQUE
+);
+
+-------- ARTICLE-TAG --------
+CREATE TABLE article_tag (
+    article_id INTEGER NOT NULL REFERENCES article (article_id) ON UPDATE CASCADE,
+    tag_id INTEGER NOT NULL REFERENCES tag (tag_id) ON UPDATE CASCADE
+);
+
 -------- FOLLOW --------
 CREATE TABLE follow (
     user_id INTEGER NOT NULL REFERENCES users (user_id) ON UPDATE CASCADE,
-    topic_id INTEGER NOT NULL REFERENCES topic (topic_id) ON UPDATE CASCADE
+    tag_id INTEGER NOT NULL REFERENCES tag (tag_id) ON UPDATE CASCADE
 );
 
 ------- FOLLOWERS -------
@@ -470,10 +483,10 @@ EXECUTE FUNCTION prevent_multiple_likes_on_comment();
 
 ------TRIGGER 09------
 
-CREATE OR REPLACE FUNCTION prevent_duplicate_topic_follow()
+CREATE OR REPLACE FUNCTION prevent_duplicate_tag_follow()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF EXISTS (SELECT 1 FROM follow WHERE user_id = NEW.user_id AND topic_id = NEW.topic_id) THEN
+    IF EXISTS (SELECT 1 FROM follow WHERE user_id = NEW.user_id AND tag_id = NEW.tag_id) THEN
         RAISE EXCEPTION 'You are already following this topic';
     END IF;
 
@@ -481,10 +494,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER prevent_duplicate_topic_follow
+CREATE TRIGGER prevent_duplicate_tag_follow
 BEFORE INSERT ON follow
 FOR EACH ROW
-EXECUTE FUNCTION prevent_duplicate_topic_follow();
+EXECUTE FUNCTION prevent_duplicate_tag_follow();
 
 
 
@@ -557,14 +570,25 @@ VALUES
     ('I didn''t find this article very helpful.', CURRENT_TIMESTAMP, 0, 0, 10, 6);
 
 
+INSERT INTO tag (name) VALUES
+    ('tech'),
+    ('footbal'),
+    ('vacation'),
+    ('gaming'),
+    ('research'),
+    ('expositions');
 
-INSERT INTO follow (user_id, topic_id) 
+INSERT INTO article_tag (article_id, tag_id) VALUES
+    (1, 1),
+    (2, 5),
+    (3, 2),
+    (5, 3);
+
+
+INSERT INTO follow (user_id, tag_id) 
 VALUES
-    (1, 1), 
-    (2, 2), 
-    (3, 3),
-    (4, 4),  
-    (5, 5);  
+    (1, 1);
+
 
 
 INSERT INTO article_vote (is_like, article_id, user_id)

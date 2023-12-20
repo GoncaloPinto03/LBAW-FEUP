@@ -13,7 +13,16 @@
                     <h1>{{ $article->name }}</h1>
                     <p>{{ $article->description }}</p>
                     <p>{{ $article->date }}</p>
-                    <p><strong>Topic: </strong>{{ $topicName }}</p>
+                    <p><strong>Topic: </strong>{{ $topic->name }}</p>
+                    @if ($tags->isNotEmpty())
+                        <p><strong>Tags:</strong></p>
+                        @foreach($tags as $tag)
+                            <a href="{{ url('tag/'.$tag->tag_id) }}" class="tag-link"> #{{ $tag->tag->name }} </a>
+                        @endforeach
+                    
+                    @else
+                        <p><strong>No tags</strong></p>
+                    @endif
                     <p><strong>Likes: </strong> {{ $article->likes }}</p>
                     <p><strong>Dislikes: </strong> {{ $article->dislikes }}</p>
 
@@ -110,10 +119,11 @@
 
                 
 
+
+                
+
                 <div class="comments-section">
                     <h2>Comments</h2>
-
-                @if(Auth::user() )
                 @if(Auth::user()->user_blocked == 0)
                     <!-- Aqui falta atualizar pagina dps do novo comment ser inserido -->
                     <form action="{{ '/comment/create' }}" method="post">
@@ -124,8 +134,6 @@
                         <button type="submit">Submit Comment</button>
                     </form>
                 @endif
-                @endif
-
                     <ul class="comment-list">
                         @foreach($comments as $comment)
                         <li><a href="{{ url('profile/'.$comment->user_id) }}" class="author-name2"><strong>{{$comment->user->name}}</strong></a>:{{$comment->text}}

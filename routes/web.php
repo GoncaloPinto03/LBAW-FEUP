@@ -16,6 +16,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\FollowController;
 
 
 
@@ -124,7 +126,13 @@ Route::delete('/comment/delete', [CommentController::class, 'deleteComment'])->n
 // TOPICS
 Route::get('/topic/proposal', [TopicController::class, 'showProposalForm'])->name('topic.propose');
 Route::post('/topic/proposal', [TopicController::class, 'submitProposal']);
+Route::post('/topic/{id}/follow', [TopicController::class, 'followTopic'])->middleware('auth');
 
+// TAGS
+Route::get('/tag/{tag_id}', [TagController::class, 'tagArticles']);
+//Route::post('/tag/{tag_id}/follow', [TagController::class, 'followTag'])->middleware('auth')->name('tag.follow');
+Route::get('/tag/{tag_id}/articles', [TagController::class, 'tagArticles'])->name('tag.articles');
+Route::get('/tag/{tag_id}/follow', [FollowController::class, 'followTag'])->name('tag.follow');
 
 
 //ABOUT

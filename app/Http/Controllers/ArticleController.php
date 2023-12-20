@@ -13,6 +13,9 @@ use App\Models\Topic;
 use App\Models\Comment; 
 use App\Models\Article_vote; 
 use App\Models\Favourite; 
+use App\Models\Tag; 
+use App\Models\ArticleTag; 
+
 
 
 //use Illuminate\Support\Facades\DB;
@@ -56,20 +59,22 @@ class ArticleController extends Controller
 
 
             $comments= Comment::where('article_id', $articleId)->get();
-            $topicName = Topic::find($article->topic_id)->name;
+            $topic = Topic::find($article->topic_id);
+
+            $tagInstance = new Tag();
+
+            $tags = ArticleTag::where('article_id', $articleId)->get();
             if(Auth::user()){
                 $isFavourite = Favourite::where('user_id', $user->user_id)->where('article_id', $articleId)->exists();
-                return view('article', compact('article', 'comments', 'article_vote', 'likes', 'dislikes', 'topicName', 'isFavourite'));
+                return view('article', compact('article', 'comments', 'article_vote', 'likes', 'dislikes', 'topic', 'tags', 'isFavourite'));
 
             }
             else{
-                return view('article', compact('article', 'comments', 'article_vote', 'likes', 'dislikes', 'topicName'));
+                return view('article', compact('article', 'comments', 'article_vote', 'likes', 'dislikes', 'topic', 'tags'));
             }
             
         }        
     }        
-
-
 
     public function editArticle($id)
     {
@@ -195,3 +200,4 @@ class ArticleController extends Controller
     }
 
 }
+
