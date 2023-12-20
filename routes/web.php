@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
@@ -13,12 +15,14 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleVoteController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentVoteController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\FollowController;
 
+use App\Http\Controllers\MailController;
 
 
 
@@ -52,6 +56,10 @@ Route::get('/profile/notifications/{id}', [NotificationController::class, 'show_
 Route::post('/follow', [UserController::class, 'follow'])->middleware('auth');
 Route::post('/unfollow', [UserController::class, 'unfollow'])->middleware('auth');
 
+// recover password
+Route::get('/send-mail', [UserController::class, 'showLinkRequestForm'])->name('send-mail');
+Route::get('/password/reset', [UserController::class, 'showUpdatePassForm'])->name('password.reset');
+Route::post('/password/reset', [UserController::class, 'updatePassword'])->name('password.update');
 
 
 
@@ -122,6 +130,13 @@ Route::get('/articles/show/{category?}', 'ArticleController@showArticles')->name
 // COMMENTS
 Route::post('/comment/create', [CommentController::class, 'createComment'])->name('comment.create');
 Route::delete('/comment/delete', [CommentController::class, 'deleteComment'])->name('comment.delete');
+Route::get('/comment/edit/{commentId}', [CommentController::class, 'editComment'])->name('comment.edit');
+Route::post('/comment/edit/{commentId}', [CommentController::class, 'updateComment'])->name('comment.update');
+
+Route::post('/comments/{commentId}/like', [CommentVoteController::class, 'like'])->middleware('auth');
+Route::post('/comments/{commentId}/unlike', [CommentVoteController::class, 'unlike'])->middleware('auth');
+Route::post('/comments/{commentId}/dislike', [CommentVoteController::class, 'dislike'])->middleware('auth');
+Route::post('/comments/{commentId}/undislike', [CommentVoteController::class, 'undislike'])->middleware('auth');
 
 // TOPICS
 Route::get('/topic/proposal', [TopicController::class, 'showProposalForm'])->name('topic.propose');
@@ -146,3 +161,5 @@ Route::get('/user-favourites', [FavouriteController::class, 'getUserFavourites']
     ->middleware('auth') 
     ->name('user.favourites');
 
+// MAIL
+Route::post('/send', [MailController::class, 'send']);

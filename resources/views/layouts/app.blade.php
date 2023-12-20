@@ -27,6 +27,7 @@
         <link href="{{ url('css/user-favourite.css') }}" rel="stylesheet">
         <link href="{{ url('css/notifications.css') }}" rel="stylesheet">
 
+        <link href="{{ url('css/recover_password.css') }}" rel="stylesheet">
 
         <!--<link href="{{ url('css/article_solo.css') }}" rel="stylesheet">-->
 

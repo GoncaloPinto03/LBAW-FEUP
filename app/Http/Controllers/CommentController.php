@@ -9,16 +9,29 @@ use App\Models\Comment;
 use App\Models\Notification;
 use App\Models\CommentNotif;
 use App\Models\Article;
+use App\Models\Comment_vote;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function getComment($comments)
+    public function getComment($commentId)
     {
-        $comments = Comment::where($article_id = 'article_id')->get();
-        return view('article', compact('comments'));
+        $comment = Comment::find($commentId);
+        $user = Auth::user();
+        if (Auth::user())
+        {
+            $comment_vote = Comment_vote::where('user_id', $user->user_id)->where('comment_id', $commentId)->first();
+        }
+        else
+        {
+            $comment_vote = null;
+        }
+
+        $likes = Comment_vote::where('comment_id', $commentId)->where('is_like', TRUE)->count();
+        $dislikes = Comment_vote::where('comment_id', $commentId)->where('is_like', FALSE)->count();
+        return view('comment', compact('comment', 'comment_vote', 'likes', 'dislikes'));
     }
 
     public function createComment(Request $request)
@@ -71,7 +84,31 @@ class CommentController extends Controller
 
         $comment->delete();
     }
- 
+
+    public function editComment($id)
+    {
+        $comment = Comment::find($id);
+        
+        if (!$comment) {
+            return response()->json(['message' => 'Comment not found'], 404);
+        }
+
+        return view('edit_comment', compact('comment'));
+
+    }
+    
+    public function updateComment(Request $request, $id)
+    {
+        $comment = Comment::find($id);
+
+        $request->validate([
+            'text' => 'max:255'
+        ]);
+        $comment->text = $request->input('text');
+        $comment->save();
+
+        return redirect('articles/'.$comment->article_id);
+    }
 
 }
 
