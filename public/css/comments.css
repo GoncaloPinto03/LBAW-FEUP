@@ -1,0 +1,127 @@
+/* Comment Section Styles */
+.comments-section {
+    margin-top: 20px;
+    color: #00003e
+}
+
+.comment-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.li {
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.comment-section {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.comment-header {
+    display: flex;
+    
+}
+
+.author-name2{
+    text-decoration: underline;
+    list-style-type: none;
+    color: #00003e;
+}
+
+.comment-date {
+    color: #888;
+    font-size: 12px;
+}
+
+.comment-delete-button, .comment-edit-button {
+    background: none;
+    border: none;
+    color: #888;
+    padding-inline: 1em;
+    margin: 0;
+    cursor: pointer;
+}
+
+.comment-delete-button:hover, .comment-edit-button:hover {
+    color: #ff0000;
+    background-color: transparent;
+}
+
+.comment-input {
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+/* Like/Dislike Button Styles */
+.like-dislike-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.like-dislike-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.like-dislike-count {
+    margin-left: 5px;
+    font-size: 14px;
+    color: #888;
+}
+
+.like-dislike-button:hover {
+    color: #007bff;
+}
+
+.comment-text {
+    color: #00003e;
+}
+
+.comment-edit-delete-section {
+    display: flex;
+    margin-left: auto; /* Add this line to align to the top right */
+}
+
+.comment-likes-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.comment-likes, .comment-dislikes {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+
+#unlike-comment-button, #like-comment-button, #undislike-comment-button, #dislike-comment-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #00003e;
+    margin-bottom: 0;
+}
+
+#unlike-comment-button:hover, #like-comment-button:hover, #undislike-comment-button:hover, #dislike-comment-button:hover {
+    color: #007bff;
+}
+
+#edit-comment {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    margin-bottom: 0;
+}
+
+#edit-comment:hover {
+    color: #00003e;
+}

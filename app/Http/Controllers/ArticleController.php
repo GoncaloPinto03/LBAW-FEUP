@@ -190,13 +190,13 @@ class ArticleController extends Controller
     public function getPopularArticles(Request $request) {
         $selectedOption= $request->input('selectedOption');
         $articles = Article::orderBy('likes', 'desc')->get();
-        return repsonse->json($articles);
+        return response->json($articles);
     }
 
     public function getRecentArticles(Request $request) {
         $selectedOption= $request->input('selectedOption');
         $articles = Article::orderBy('date', 'desc')->get();
-        return repsonse->json($articles);
+        return response->json($articles);
     }
 
 }

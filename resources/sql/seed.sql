@@ -339,6 +339,7 @@ FOR EACH ROW
 EXECUTE FUNCTION adjust_likes_dislikes_and_notification();
 
 
+
 ------TRIGGER 02------
 
 CREATE OR REPLACE FUNCTION undo_like_dislike_and_update_reputation()
@@ -559,7 +560,7 @@ VALUES
 INSERT INTO comment (text, date, likes, dislikes, user_id, article_id)
 VALUES
     ('Great article!', CURRENT_TIMESTAMP, 0, 0, 1, 1),
-    ('I found this very interesting', CURRENT_TIMESTAMP, 5, 1, 2, 1),
+    ('I found this very interesting', CURRENT_TIMESTAMP, 0, 0, 2, 1),
     ('Good review!', CURRENT_TIMESTAMP, 0, 0, 4, 2),
     ('Sports are awesome!', CURRENT_TIMESTAMP, 0, 0, 3, 3),
     ('I completely agree with the author.', CURRENT_TIMESTAMP, 0, 0, 6, 4),
@@ -650,7 +651,6 @@ INSERT INTO dislike_comment (notification_id, user_id) VALUES
     (1, 4),
     (2, 5),
     (3, 6);
-
 
 
 INSERT INTO report (description, date) VALUES

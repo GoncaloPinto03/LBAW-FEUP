@@ -36,6 +36,9 @@ class CommentController extends Controller
 
     public function createComment(Request $request)
     {
+        if (!Auth::user()) {
+            return redirect()->back()->with('error', 'You must be logged in to comment');
+        }
       $comment = new Comment();
       $comment->text = $request->input('text');
       $comment->date = Carbon::now();

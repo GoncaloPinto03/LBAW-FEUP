@@ -14,11 +14,11 @@
         <div class="notif-viewed">
     @endif
             @if($notification->type === 'like_post')
-                <p>{{ $notification->date }} -> User {{ $notification->emitter }} <strong>liked</strong> your post "{{ $notification->article }}"!!</p>
+                <p>{{ \Carbon\Carbon::parse($notification->date)->diffForHumans() }} -> User {{ $notification->emitter }} <strong>liked</strong> your post "{{ $notification->article }}"!!</p>
             @elseif($notification->type === 'dislike_post')
-                <p>{{ $notification->date }} -> User {{ $notification->emitter }} <strong>disliked</strong> your post "{{ $notification->article }}"...</p>
+                <p>{{ \Carbon\Carbon::parse($notification->date)->diffForHumans() }} -> User {{ $notification->emitter }} <strong>disliked</strong> your post "{{ $notification->article }}"...</p>
             @elseif($notification->type === 'comment')
-                <p>{{ $notification->date }} -> User {{ $notification->emitter }} just <strong>commented</strong> on your post "{{ $notification->article }}"!</p>
+                <p>{{ \Carbon\Carbon::parse($notification->date)->diffForHumans() }} -> User {{ $notification->emitter }} just <strong>commented</strong> on your post "{{ $notification->article }}"!</p>
             @endif
         </div> 
     @endforeach

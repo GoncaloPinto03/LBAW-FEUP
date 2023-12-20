@@ -86,17 +86,8 @@
     text-decoration: underline;
 }
 
-.author-name2{
-    color: #ffffff;
-    text-decoration: underline;
-    list-style-type: none;
-}
 
 
-.comment-delete-button {
-    cursor: pointer;
-    margin-right: 10px;
-}
 
 #propose-topic {
     padding: 0.5em 1em;
@@ -174,3 +165,27 @@
     color: rgb(129, 129, 129);
 }
 
+.edit-comment-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #00003e;
+}
+.edit-comment-section {
+    border: 0.1em solid #ccc;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,.7);
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 1em;
+    margin: 10% auto;
+    
+}
+
+.edit-comment-input {
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 1em;
+}

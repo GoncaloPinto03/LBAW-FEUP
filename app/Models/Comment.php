@@ -22,4 +22,8 @@ class Comment extends Model
         return $this->belongsTo(Article::class, 'article_id');
     }
 
+    public function comment_vote()
+    {
+        return $this->hasMany(Comment_vote::class, 'comment_id');
+    }
 }

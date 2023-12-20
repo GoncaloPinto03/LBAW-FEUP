@@ -151,14 +151,6 @@
 }
 
 
-
-
-.boxes-container {
-    display: flex;
-    flex-direction: column;
-    
-}
-
 .additional-box-container {
     display: flex;
     flex-direction: column;

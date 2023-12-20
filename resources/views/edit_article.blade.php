@@ -25,7 +25,8 @@
                         <input type="file" id="image" name="image">                 
                         <button type="submit">Save Changes</button>
                     </form>
-                    <p>{{ $article->date }}</p>
+                    <p>{{ \Carbon\Carbon::parse($article->date)->diffForHumans() }}</p>
+                    
     
                     <p><strong>Author:</strong> {{ $article->user->name }}</p>
                 </div>

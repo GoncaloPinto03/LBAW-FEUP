@@ -85,10 +85,10 @@ likeButton.addEventListener('click', function(e) {
   });
 });*/
 
-let deleteCommentButtons = document.querySelectorAll('#deleteCommentBtn');
-console.log('Delete Comment Buttons:', deleteCommentButtons);
+let deleteCommentButtonsMyArticle = document.querySelectorAll('#deleteCommentBtn');
+console.log('Delete Comment Buttons:', deleteCommentButtonsMyArticle);
 
-deleteCommentButtons.forEach(function(button) {
+deleteCommentButtonsMyArticle.forEach(function(button) {
     button.addEventListener('click', function(e) {
         e.preventDefault();
         let commentId = e.target.closest('form').querySelector('input[name="comment_id"]').value;
@@ -96,6 +96,22 @@ deleteCommentButtons.forEach(function(button) {
         sendAjaxRequest('delete', '/comment/delete/', { comment_id: commentId }, function() {
           console.log('Sent request');
           document.querySelector('#comment'+commentId).remove();
+          console.log('Comment Removed');
+        });
+    });
+});
+
+let deleteCommentButtonsOtherArticle = document.querySelectorAll('#deleteCommentBtn2');
+console.log('Delete Comment Buttons:', deleteCommentButtonsOtherArticle);
+
+deleteCommentButtonsOtherArticle.forEach(function(button) {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        let commentId = e.target.closest('form').querySelector('input[name="comment_id2"]').value;
+        console.log('Delete Comment Button clicked! Comment ID:', commentId);
+        sendAjaxRequest('delete', '/comment/delete/', { comment_id: commentId }, function() {
+          console.log('Sent request');
+          document.querySelector('#comment'+commentId+'_2').remove();
           console.log('Comment Removed');
         });
     });
