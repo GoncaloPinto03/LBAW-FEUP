@@ -16,11 +16,27 @@
                             <option value="all" id="all">All</option>
                             <option value="recent" id="recent">Recent</option>
                             <option value="popular" id="popular">Popular</option>
+                            @if(Auth::user())
+                                <option value="user-feed" id="user-feed">User Feed</option>
+                            @endif
                         @elseif ( $columns['sort'] === 'recent' )
-                            <option value="recent" id="recent">All</option>
+                            <option value="recent" id="recent">Recent</option>
                             <option value="popular" id="popular">Popular</option>
-                            <option value="all" id="all">Recent</option>
+                            <option value="all" id="all">All</option>
+                            @if(Auth::user())
+                                <option value="user-feed" id="user-feed">User Feed</option>
+                            @endif
+                        @elseif ( $columns['sort'] === 'popular' )
+                            <option value="popular" id="popular">Popular</option>
+                            <option value="recent" id="recent">Recent</option>
+                            <option value="all" id="all">All</option>
+                            @if(Auth::user())
+                                <option value="user-feed" id="user-feed">User Feed</option>
+                            @endif                        
                         @else
+                            @if(Auth::user())
+                                <option value="user-feed" id="user-feed">User Feed</option>
+                            @endif                            
                             <option value="popular" id="popular">Popular</option>
                             <option value="recent" id="recent">Recent</option>
                             <option value="all" id="all">All</option>
@@ -78,11 +94,11 @@
                 <div class="column">
                     @if (isset($columns['column2']))
                         @foreach($columns['column2'] as $article)
-                            <div class="small-box" data-category="{{ $article->category }}">
-                                <h2> {{ $article->name }} </h2>
-                                <p> {{ $article->description }} </p>
-                                <a href="{{ url('articles/'.$article->article_id) }}" class="small-button" style="margin-left: 30px;">Read More</a>
-                            </div>
+                                <div class="small-box" data-category="{{ $article->category }}">
+                                    <h2> {{ $article->name }} </h2>
+                                    <p> {{ $article->description }} </p>
+                                    <a href="{{ url('articles/'.$article->article_id) }}" class="small-button" style="margin-left: 30px;">Read More</a>
+                                </div>
                         @endforeach
                     @endif
 

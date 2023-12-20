@@ -57,6 +57,11 @@ class Article extends Model
         if (sizeof($files) < 1) return null;
         return "/" . $files[0];
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'article_tag', 'article_id', 'tag_id');
+    }
   
 
 }

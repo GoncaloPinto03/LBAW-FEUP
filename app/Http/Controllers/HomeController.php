@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Article;
+
+
 
 class HomeController extends Controller
 {
@@ -47,6 +49,17 @@ class HomeController extends Controller
             else if ($sort === 'popular'){
                 $query->orderBy('likes', 'desc');
             }
+            else if ($sort === 'user-feed' && Auth::check()){
+                $user = Auth::user();
+                $query = $user->getMyFeed();
+                foreach ($query as $article) {
+                    $article->description = strlen($article->description) > 100 ? substr($article->description, 0, 100) . '...' : $article->description;
+                }
+                return [
+                    'column1' => $query,
+                    'sort' => 'user-feed',
+                ];
+            }
         }
         else {
             $sort = 'all';
@@ -58,7 +71,7 @@ class HomeController extends Controller
         }
 
 
-        $bigArticle = $query->take(1)->first();
+        $bigArticle = $query->first();
         $column1Articles = $query->skip(1)->take(5)->get();
         $column2Articles = $query->skip(6)->take(5)->get();
 
