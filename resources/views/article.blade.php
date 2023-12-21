@@ -30,32 +30,19 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span> <!-- close button not working -->
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="exit">
+                                                <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
                                             <p>You need to be logged in to view the author's profile. Please log in or create an account.</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="loginButton">Login</button> <!-- login button not working -->
-                                            <script>
-                                                document.addEventListener('DOMContentLoaded', function () {
-                                                    var loginButton = document.getElementById('loginButton');
-
-                                                    if (loginButton) {
-                                                        loginButton.addEventListener('click', function () {
-                                                            window.location.href = `{{ url('/login') }}`;
-                                                        });
-                                                    }
-                                                });
-                                            </script>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="loginButton">Login</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         @endif
                     @else
                         <strong class="author-name" style="text-decoration:none;">{{ $article->user->name }}</strong>
@@ -176,5 +163,17 @@
     </section>
     
 @include('partials.footer')
+
+<script>
+    $(document).ready(function () {
+        $('#exit').on('click', function () {
+            window.history.back();
+        });
+
+        $('#loginButton').on('click', function () {
+            window.location.href = '{{ url('/login') }}';
+        });
+    });
+</script>
 
 @endsection
