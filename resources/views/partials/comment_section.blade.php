@@ -28,7 +28,9 @@
                                     @csrf
                                     @method('delete')
                                     <input type="hidden" name="comment_id2" value="{{ $comment->comment_id }}">
-                                    <button type="submit" id="deleteCommentBtn2" class="comment-delete-button"><i class="bi bi-trash"></i></button>
+                                    <button type="submit" id="deleteCommentBtn2" class="comment-delete-button" data-confirm="Are you sure you want to delete this comment? It is irreversible!">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
                                 </form>
                             </div>
                         @endif
@@ -93,3 +95,21 @@
 
     </ul>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var deleteButtons = document.querySelectorAll('[data-confirm]');
+
+        deleteButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                var confirmMessage = button.getAttribute('data-confirm');
+                
+                var userConfirmed = confirm(confirmMessage);
+
+                if (!userConfirmed) {
+                    event.preventDefault();
+                }
+            });
+        });
+    });
+</script>
