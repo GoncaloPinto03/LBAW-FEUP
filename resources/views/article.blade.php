@@ -3,8 +3,6 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/article_pages.css') }}">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <section id="articlebox">
         <!-- Main Article Box -->
         <div>
