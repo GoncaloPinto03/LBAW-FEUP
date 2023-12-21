@@ -9,7 +9,7 @@
 .no-account-button {
 	color: #00003e;
 }
-.no-account-button::hover {
+.no-account-button:hover {
 	color: white;
 	
 }

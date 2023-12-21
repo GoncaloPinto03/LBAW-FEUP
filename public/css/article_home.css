@@ -9,7 +9,6 @@
 }
 
 .article-box {
-    display: fixed;
     flex-direction: column;
     border-radius: 1em;
     border: 0.1em solid #00003e;
@@ -23,7 +22,6 @@
 
 
 .article-box-big{
-    display: fixed;
     flex-direction: column;
     border-radius: 1em;
     border: 0.1em solid #00003e;
