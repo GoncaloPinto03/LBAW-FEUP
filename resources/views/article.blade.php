@@ -3,6 +3,7 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/article_pages.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <section id="articlebox">
         <!-- Main Article Box -->
@@ -23,26 +24,9 @@
                                 <strong>{{ $article->user->name }}</strong>
                             </a>
                         @else
-                            <a href="#" class="author-name" data-toggle="modal" data-target="#loginModal">
+                            <a href="#" class="author-name" id="not-logged">
                                 <strong>{{ $article->user->name }}</strong>
                             </a>
-                            <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="exit">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>You need to be logged in to view the author's profile. Please log in or create an account.</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="loginButton">Login</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         @endif
                     @else
                         <strong class="author-name" style="text-decoration:none;">{{ $article->user->name }}</strong>
@@ -165,13 +149,18 @@
 @include('partials.footer')
 
 <script>
-    $(document).ready(function () {
-        $('#exit').on('click', function () {
-            window.history.back();
-        });
+    document.addEventListener('DOMContentLoaded', function () {
+        var authorNameLinks = document.querySelectorAll('#not-logged');
 
-        $('#loginButton').on('click', function () {
-            window.location.href = '{{ url('/login') }}';
+        authorNameLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                var confirmMessage = 'You need to be logged in to view the profile.';
+                var userConfirmed = confirm(confirmMessage);
+
+                if (!userConfirmed) {
+                    event.preventDefault();
+                }
+            });
         });
     });
 </script>
