@@ -76,16 +76,17 @@ class CommentController extends Controller
       return redirect('articles/'.$request->article_id);
     }
 
-
     public function deleteComment(Request $request)
     {
         $comment = Comment::find($request->input('comment_id'));
-        
-        if (!$comment) {
-            return redirect()->back()->with('error', 'Article not found');
-        }
 
-        $comment->delete();
+        if ($comment) {
+            $comment->delete();
+
+            return redirect()->back()->with('success', 'Comment deleted successfully');
+        } else {
+            return redirect()->back()->with('error', 'Comment not found');
+        }
     }
 
     public function editComment($id)

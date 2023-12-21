@@ -24,11 +24,13 @@
                         @if($comment->user_id === Auth::user()->user_id)
                             <div class="comment-edit-delete-section">
                                 <button class="comment-edit-button"><a href="{{ url('/comment/edit/'.$comment->comment_id) }}"><i id="edit-comment"class="bi bi-pencil"></i> </a></button>
-                                <form action="{{ url('/comment/delete') }}" method="post">
+                                <form id="deleteCommentForm" action="{{ url('/comment/delete') }}" method="post">
                                     @csrf
                                     @method('delete')
                                     <input type="hidden" name="comment_id2" value="{{ $comment->comment_id }}">
-                                    <button type="submit" id="deleteCommentBtn2" class="comment-delete-button"><i class="bi bi-trash"></i></button>
+                                    <button type="button" id="deleteCommentBtn2" class="comment-delete-button">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
                                 </form>
                             </div>
                         @endif
@@ -93,3 +95,21 @@
 
     </ul>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var deleteButtons = document.querySelectorAll('[data-confirm]');
+
+        deleteButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                var confirmMessage = button.getAttribute('data-confirm');
+                
+                var userConfirmed = confirm(confirmMessage);
+
+                if (!userConfirmed) {
+                    event.preventDefault();
+                }
+            });
+        });
+    });
+</script>
