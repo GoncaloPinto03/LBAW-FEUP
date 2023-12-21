@@ -21,6 +21,8 @@ use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\MainFeaturesController;
+
 
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\FaqsController;
@@ -166,5 +168,7 @@ Route::get('/user-favourites', [FavouriteController::class, 'getUserFavourites']
 Route::post('/send', [MailController::class, 'send']);
 //FAQs
 Route::get('/faqs', [FaqsController::class, 'faqs'])->name('faqs');
+
+Route::get('/main-features', [MainFeaturesController::class, 'main_features'])->name('main-features');
 
 
