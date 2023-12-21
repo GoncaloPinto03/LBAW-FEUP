@@ -38,8 +38,10 @@
         <h2> {{ $article->name }} </h2>
         <p style="color:"> {{ $article->description }} </p>
         <a href="{{ url('/articles/'.$article->article_id) }}" class="article-button">Read More </a>
-        @if(Auth::guard('admin')->check() || (Auth::user()->user_id == $article->user_id))
+        @if(!Auth::guard('admin')->check() && (Auth::user()->user_id == $article->user_id))
         <a href="{{ url('/article/edit/'.$article->article_id) }}" class="article-button">Edit Article </a>
+        @endif
+        @if(Auth::guard('admin')->check() || (Auth::user()->user_id == $article->user_id))
         <form action="{{ url('/article/delete') }}" method="post">
             @csrf
             @method('delete')
@@ -49,7 +51,7 @@
         @endif
     </div>
     @endforeach
-    @if (!Auth::guard('admin')->check() && Auth::user()->user_blocked==0)
+    @if (!Auth::guard('admin')->check() && Auth::user()->user_id == $article->user_id && Auth::user()->user_blocked==0)
         <a href="{{ '/article/create' }}" class="article-button" >Create Article</a>
     @endif
     @include('partials.footer')

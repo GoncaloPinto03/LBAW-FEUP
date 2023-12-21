@@ -93,7 +93,7 @@ Route::controller(LoginController::class)->group(function () {
 });
 
 Route::controller(RegisterController::class)->group(function () {
-    Route::get('/register', 'showRegistrationForm')->name('register');
+    Route::get('/register', 'showRegistrationForm')->name('register')->middleware('guest');
     Route::post('/register', 'register');
 });
 
@@ -110,10 +110,10 @@ Route::get('/articles/{articleId}', [ArticleController::class, 'getArticleInform
 Route::get('/article/edit/{articleId}', [ArticleController::class, 'editArticle']);
 Route::post('/article/edit/{articleId}', [ArticleController::class, 'updateArticle']);
 Route::delete('/article/delete/', [ArticleController::class, 'deleteArticle']);
-Route::get('/article/create', [ArticleController::class, 'createArticlePage']);
+Route::get('/article/create', [ArticleController::class, 'createArticlePage'])->middleware('auth');
 Route::post('/article/create-confirm', [ArticleController::class, 'newArticle']);
-Route::get('/search-user-post', [ArticleController::class, 'search_user_articles']);
-Route::get('/articles/popular', [ArticleController::class, 'getPopularArticles']);
+Route::get('/search-user-post', [ArticleController::class, 'search_user_articles'])->middleware('auth');
+//Route::get('/articles/popular', [ArticleController::class, 'getPopularArticles']);
 
 Route::post('/articles/{articleId}/like', [ArticleVoteController::class, 'like'])->middleware('auth');
 Route::post('/articles/{articleId}/unlike', [ArticleVoteController::class, 'unlike'])->middleware('auth');
@@ -126,7 +126,6 @@ Route::post('/articles/{articleId}/undislike', [ArticleVoteController::class, 'u
 // web.php
 //Route::get('/home/{category?}', 'HomeController@index')->name('home');
 // web.php
-Route::get('/articles/show/{category?}', 'ArticleController@showArticles')->name('articles.show');
 
 // COMMENTS
 Route::post('/comment/create', [CommentController::class, 'createComment'])->name('comment.create');
@@ -140,7 +139,7 @@ Route::post('/comments/{commentId}/dislike', [CommentVoteController::class, 'dis
 Route::post('/comments/{commentId}/undislike', [CommentVoteController::class, 'undislike'])->middleware('auth');
 
 // TOPICS
-Route::get('/topic/proposal', [TopicController::class, 'showProposalForm'])->name('topic.propose');
+Route::get('/topic/proposal', [TopicController::class, 'showProposalForm'])->name('topic.propose')->middleware('auth');
 Route::post('/topic/proposal', [TopicController::class, 'submitProposal']);
 Route::post('/topic/{id}/follow', [TopicController::class, 'followTopic'])->middleware('auth');
 
