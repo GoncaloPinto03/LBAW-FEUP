@@ -15,22 +15,22 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <link href="{{ url('css/milligram.min.css') }}" rel="stylesheet">
-        <link href="{{ url('css/sidebar.css') }}" rel="stylesheet">
-        <link href="{{ url('css/app.css') }}" rel="stylesheet">
-        <link href="{{ url('css/article_home.css') }}" rel="stylesheet">
-        <link href="{{ url('css/profile.css')}}" rel="stylesheet">
-        <link href="{{ url('css/edit_profile.css')}}" rel="stylesheet">
-        <link href="{{ url('css/admin_page.css') }}" rel="stylesheet">
-        <link href="{{ url('css/footer.css') }}" rel="stylesheet">
-        <link href="{{ url('css/about.css') }}" rel="stylesheet">
-        <link href="{{ url('css/register.css') }}" rel="stylesheet">
-        <link href="{{ url('css/user-favourite.css') }}" rel="stylesheet">
-        <link href="{{ url('css/notifications.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/milligram.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/article_home.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/profile.css')}}" rel="stylesheet">
+        <link href="{{ asset('css/edit_profile.css')}}" rel="stylesheet">
+        <link href="{{ asset('css/admin_page.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/about.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/register.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/user-favourite.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/notifications.css') }}" rel="stylesheet">
 
-        <link href="{{ url('css/recover_password.css') }}" rel="stylesheet">
-        <link href="{{ url('css/comments.css') }}" rel="stylesheet">
-        <link href="{{ url('css/faqs.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/recover_password.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/comments.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/faqs.css') }}" rel="stylesheet">
 
         <!--<link href="{{ url('css/article_solo.css') }}" rel="stylesheet">-->
 

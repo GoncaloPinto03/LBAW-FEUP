@@ -7,9 +7,7 @@ SET search_path TO lbaw2394;
 ------------------------------------------------------------------------------------
 
 
-DROP TABLE IF EXISTS comment_report CASCADE;
-DROP TABLE IF EXISTS article_report CASCADE;
-DROP TABLE IF EXISTS report CASCADE;
+
 DROP TABLE IF EXISTS dislike_comment CASCADE;
 DROP TABLE IF EXISTS like_comment CASCADE;
 DROP TABLE IF EXISTS dislike_post CASCADE;
@@ -205,24 +203,7 @@ CREATE TABLE dislike_comment (
     user_id INTEGER NOT NULL REFERENCES users(user_id) ON UPDATE CASCADE
 );
 
--------- REPORT --------
-CREATE TABLE report (
-    report_id SERIAL PRIMARY KEY,
-    description TEXT NOT NULL,
-    date TIMESTAMP NOT NULL
-);
 
-------- COMMENT-REPORT -------
-CREATE TABLE comment_report (
-    comment_id INTEGER NOT NULL  REFERENCES comment(comment_id) ON UPDATE CASCADE,
-    report_id INTEGER NOT NULL REFERENCES report(report_id)ON UPDATE CASCADE
-); 
-
-------- ARTICLE-REPORT -------
-CREATE TABLE article_report (
-    article_id INTEGER NOT NULL REFERENCES article(article_id) ON UPDATE CASCADE,
-    report_id INTEGER NOT NULL REFERENCES report(report_id) ON UPDATE CASCADE
-);
 
 ------------------------------------------------------------------------------------
 ------------------------------------- INDEXES --------------------------------------
@@ -374,8 +355,6 @@ BEGIN
 
     DELETE FROM article_notification WHERE article_id = OLD.article_id;
 
-    DELETE FROM article_report WHERE article_id = OLD.article_id;
-
     DELETE FROM comment WHERE article_id = OLD.article_id;
 
     RETURN OLD;
@@ -394,7 +373,6 @@ RETURNS TRIGGER AS $$
 BEGIN
     DELETE FROM comment_vote WHERE comment_id = OLD.comment_id;
     DELETE FROM comment_notification WHERE comment_id = OLD.comment_id;
-    DELETE FROM comment_report WHERE comment_id = OLD.comment_id;
     
     UPDATE article
     SET likes = likes - OLD.likes,
@@ -546,16 +524,31 @@ INSERT INTO topic (name) VALUES
 
 INSERT INTO article (name, description, date, topic_id, user_id)
 VALUES
-    ('Tech News', 'Latest tech updates', '2023-10-21 10:00:00', 1, 1),
-    ('Science Breakthrough', 'Exciting scientific discoveries', '2023-10-21 11:00:00', 2, 2),
-    ('Sports Highlights', 'Recap of the week''s sports events', '2023-10-21 12:00:00', 3, 3),
-    ('Music Reviews', 'Latest album reviews', '2023-10-21 13:00:00', 4, 4),
-    ('Travel Destinations', 'Explore the world', '2023-10-21 14:00:00', 5, 5),
-    ('The Future of AI', 'Exploring the impact of artificial intelligence', '2023-10-21 15:00:00', 1, 6),
-    ('Football Match Analysis', 'In-depth review of the latest game', '2023-10-21 16:00:00', 3, 7),
-    ('Hidden Gems of Europe', 'Exploring lesser-known travel destinations', '2023-10-21 17:00:00', 5, 8),
-    ('Cybersecurity Best Practices', 'Protecting your online identity', '2023-10-21 18:00:00', 1, 9),
-    ('Upcoming Album Releases', 'Anticipating new music releases','2023-10-21 19:00:00', 4, 10);
+    ('Tech News', 'The global rollout of 5G networks is accelerating, offering faster and more reliable connectivity. The technology''s impact extends beyond smartphones, influencing industries like healthcare, manufacturing, and smart cities.', '2023-10-21 10:00:00', 1, 1),
+    ('Science Breakthrough', 'The rapid development and deployment of COVID-19 vaccines showcase the power of scientific collaboration. mRNA vaccine technology, exemplified by vaccines like Pfizer-BioNTech and Moderna, has proven to be highly effective.', '2023-10-21 11:00:00', 2, 2),
+    ('Sports Highlights', 'Djokovic pursued a historic calendar-year Grand Slam in tennis, reaching the finals of all four major tournaments. However, he narrowly missed the achievement, losing in the US Open final.
+', '2023-10-21 12:00:00', 3, 3),
+    ('Music Reviews', '"Losing My Religion" by R.E.M. is a masterpiece that encapsulates the essence of 1990s alternative rock. The haunting mandolin riff and Michael Stipe''s soulful vocals create a uniquely emotional and introspective atmosphere. The enigmatic lyrics, open to interpretation, add a layer of depth that invites listeners to connect with the song on a personal level. The music video''s surreal visuals enhance the overall experience, making it an iconic piece of 1990s music culture. The song''s enduring popularity is a testament to its timeless quality, and it remains a favorite for those seeking a blend of poignant lyrics and evocative musicality in the alternative rock genre.', '2023-10-21 13:00:00', 4, 4),
+    ('Travel Destinations', '
+Embark on a journey to three of the world''s most captivating destinations. In Santorini, Greece, experience the magic of iconic white-washed buildings clinging to cliffs, overlooking the mesmerizing Aegean Sea. The charm of Oia''s narrow streets and the allure of black sand beaches create an unforgettable Greek island escape.
+
+Kyoto, Japan, beckons with its harmonious blend of ancient traditions and modern innovation. Wander through streets adorned with cherry blossoms, explore historic temples, and feel the cultural pulse of Gion''s geisha district. Kyoto is a captivating city that unfolds a rich tapestry of Japanese heritage.
+
+For those seeking adventure amid stunning landscapes, Queenstown, New Zealand, offers the perfect blend. Nestled within the Southern Alps and alongside Lake Wakatipu, Queenstown boasts a backdrop of snow-capped peaks. This adventure haven invites thrill-seekers to bungee jump, hike, and explore Fiordland National Park, all while embracing the serene beauty of the surroundings. These three destinations promise an immersive and diverse travel experience, blending history, culture, and natural wonders for an unforgettable journey.', '2023-10-21 14:00:00', 5, 5),
+    ('The Future of AI', 'AI''s evolution will see advancements in machine learning techniques, enabling systems to learn and adapt more effectively. Deep learning and reinforcement learning will continue to push the boundaries of what AI can achieve.', '2023-10-21 15:00:00', 1, 6),
+    ('Football Match Analysis', 'In an electrifying football match bathed in sunlight, Cambridge United clashed with Salford in a battle of tactical prowess and skillful play. The first half saw Cambridge United dominating possession, orchestrating fluid passing sequences that kept Salford''s defense on their toes. However, it was Salford that struck first, capitalizing on a counterattack to secure an early lead.
+
+The second half witnessed a spirited comeback from Cambridge United, with their star forward showcasing dazzling footwork to equalize. The match intensified as both teams relentlessly pursued a winning goal. Salford''s goalkeeper made a series of outstanding saves, denying Cambridge United''s potent attacks. The turning point came when Cambridge United, through a perfectly executed set piece, secured a late lead.
+
+In the dying moments, Salford mounted a dramatic comeback, with a powerful long-range shot finding the net, leveling the score once again. The match concluded in a breathtaking draw, leaving fans on the edge of their seats and celebrating the brilliance of both Cambridge United and Salford. This pulsating encounter will be remembered for its dynamic plays, strategic maneuvers, and the sheer excitement that echoed through the stadium.
+', '2023-10-21 16:00:00', 3, 7),
+    ('Hidden Gems of Europe', 'Tucked away in the Rila Mountains, the Rila Monastery is a UNESCO World Heritage site and a symbol of Bulgarian cultural and spiritual heritage. The monastery''s intricate frescoes, wooden balconies, and mountainous backdrop create a picturesque setting. It''s a serene escape from the bustling cities, offering a glimpse into Bulgaria''s rich history and Orthodox Christian traditions.', '2023-10-21 17:00:00', 5, 8),
+    ('Cybersecurity Best Practices', 'Implementing robust cybersecurity is crucial for protecting sensitive data. This involves using strong, unique passwords with two-factor authentication. Regular software updates and secure Wi-Fi practices are essential to prevent vulnerabilities. Employee education, data encryption, and regular backups add layers of defense. Endpoint protection and incident response plans are crucial for swift and effective threat management. Access control principles and physical security measures limit unauthorized access. Ongoing monitoring and assessments of third-party vendors ensure comprehensive cybersecurity. These practices collectively form a strong defense against evolving cyber threats.', '2023-10-21 18:00:00', 1, 9),
+    ('Upcoming Album Releases', '"Ephemeral Echoes" is the highly anticipated upcoming album from the visionary ambient electronica artist, Celestia Nova. Transporting listeners into a dreamlike realm, the album weaves intricate sonic landscapes with ethereal melodies and pulsating rhythms. Celestia Nova, known for her mesmerizing soundscapes, invites audiences to embark on a cosmic journey where time seems to stand still.
+
+Each track on "Ephemeral Echoes" is a sonic exploration, creating a seamless fusion of electronic beats and otherworldly textures. With influences ranging from deep space to the depths of the ocean, the album is a sonic tapestry that unfolds, revealing new layers with each listen. The release promises to be a meditative and immersive experience, inviting listeners to escape into a realm of limitless imagination.
+
+Stay tuned for the release of "Ephemeral Echoes" in the summer of 2024, where Celestia Nova invites you to immerse yourself in a musical odyssey that transcends boundaries and resonates with the soul.','2023-10-21 19:00:00', 4, 10);
 
 INSERT INTO comment (text, date, likes, dislikes, user_id, article_id)
 VALUES
@@ -651,25 +644,6 @@ INSERT INTO dislike_comment (notification_id, user_id) VALUES
     (1, 4),
     (2, 5),
     (3, 6);
-
-
-INSERT INTO report (description, date) VALUES
-    ('Data security breach incident', '2023-10-22 11:15:00'),
-    ('Quality control audit report', '2023-10-23 14:45:00'),
-    ('Customer service feedback analysis', '2023-10-24 09:30:00'),
-    ('Website performance evaluation', '2023-10-25 15:00:00'),
-    ('Product defects analysis', '2023-10-26 14:30:00'),
-    ('Financial expense review', '2023-10-27 10:45:00');
-    
-INSERT INTO comment_report (comment_id, report_id) VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3);
-
-INSERT INTO article_report (article_id, report_id) VALUES
-    (4, 4),
-    (5, 5),
-    (6, 6);
 
 INSERT INTO topicproposal (name, user_id, date) VALUES
 ('Government', 1, CURRENT_TIMESTAMP),
