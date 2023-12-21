@@ -184,3 +184,41 @@
     width: 100%;
     padding: 1em;
 }
+
+
+.error-msg {
+    background-color: #fff; 
+    border: 1px solid #00003e; 
+    padding: 15px; 
+    margin-bottom: 20px; 
+    border-radius: 5px; 
+    position: relative;
+}
+
+.loginBtn{
+    background-color: #00003e;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding-inline: 1em;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    text-decoration: none;
+
+}
+
+.loginBtn:hover{
+    color: white;
+    text-decoration: none;
+}
+
+#closeBtn{
+    color: #00003e;
+    border: none;
+    padding-inline: 1em;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}

@@ -67,7 +67,7 @@
                     @endif
                         <div class="article-content">
                             <h1>{{ $columns['bigArticle']->name }}</h1>
-                            <p>{{ $columns['bigArticle']->description }}</p>
+                            <p class = "big-text">{{ $columns['bigArticle']->description }}</p>
                             <a href="{{ url('articles/'.$columns['bigArticle']->article_id) }}" class="button">Read More</a>
                         </div>
 

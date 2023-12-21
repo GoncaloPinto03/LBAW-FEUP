@@ -52,7 +52,7 @@
                 </form>
             @endif
             @if(Auth::guard('admin')->check())
-                <form action="{{ route('users.destroy', ['id' => $user->user_id]) }}" method="POST">
+                <form action="{{ route('users.destroy', ['id' => $user->user_id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action is irreversible.');">
                     @csrf
                     @method('DELETE')
                         <button type="submit">Delete User</button>
