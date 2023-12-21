@@ -19,6 +19,43 @@
                             <p><strong>Topic: </strong>{{ $topic->name }}</p>
                         </div>
                     </div>
+                    @if ($article->user->name !== "Anonymous")
+                    @if(Auth::check()) 
+                        <a href="{{ url('profile/'.$article->user_id) }}" class="author-name">
+                            <strong>{{ $article->user->name }}</strong>
+                        </a>
+                    @else
+                        <a href="#" class="author-name" id="articleauthor">
+                            <strong>{{ $article->user->name }}</strong>
+                        </a>
+                        <div class="error-msg" style="display:none;">
+                            <p>You need to be logged in to view the profile.</p>
+                            
+                            <a href="{{ route('login') }}" id="loginLink" class="loginBtn">Login</a>
+                            
+                            <a id="closeBtn" class="xBtn">&times;</a>
+                        </div>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                var loginLink = document.getElementById('articleauthor');
+                                var errorMsg = document.querySelector('.error-msg');
+                                loginLink.addEventListener('click', function (event) {
+                                    event.preventDefault();
+                                    errorMsg.style.display = 'block';
+                                    
+                                });
+
+                                closeBtn.addEventListener('click', function () {
+                                    errorMsg.style.display = 'none';
+                                });
+                            });
+                        </script>
+                    @endif
+                    @else
+                        <strong class="author-name" style="text-decoration:none;">{{ $article->user->name }}</strong>
+                    @endif
+
                     @if ($article->photo())
                         <div class="article-image">
                             <img src="{{ $article->photo() }}" alt="Article Image">
@@ -33,13 +70,7 @@
                         @endforeach
                     @endif
                     <p></p>
-                    @if ($article->user->name !== "Anonymous")
-                    <a href="{{ url('profile/'.$article->user_id) }}" class="author-name">
-                        <strong>{{$article->user->name }}</strong>
-                    </a>
-                    @else
-                    <strong class="author-name" style="text-decoration:none;">{{ $article->user->name }}</strong>
-                    @endif
+                    
                     <!--------------------------------LIKE ARTICLE----------------------------------------------------------------------->
                     @if(Auth::user())
                     @if(Auth::user()->user_blocked == 0 )
@@ -128,5 +159,7 @@
 </section>
 
 @include('partials.footer')
+
+
 
 @endsection
