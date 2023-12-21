@@ -51,13 +51,16 @@
     font-size: 2em;
     font-weight: bold;
     color: #00003e;
-    margin-bottom: 1em;
 }
 
-.article-content p {
+
+.article-description {
+    margin-top: 1em;
     font-size: 1em;
-    color: #00003e;
-    margin-bottom: 2em;
+    color: white;
+    background-color: #00003e;
+    padding: 2em;
+    border-radius: 10px;
 }
 
 .button {

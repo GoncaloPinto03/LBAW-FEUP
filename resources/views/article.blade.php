@@ -10,27 +10,36 @@
         <div class="boxes-container">
             <div class="article-box">
                 <div class="article-content">
-                    <h1>{{ $article->name }}</h1>
-                    <p>{{ $article->description }}</p>
-                    <p>{{ \Carbon\Carbon::parse($article->date)->diffForHumans() }}</p>
-                    <p><strong>Topic: </strong>{{ $topic->name }}</p>
-                    @if ($tags->isNotEmpty())
-                    <p><strong>Tags:</strong></p>
-                    @foreach($tags as $tag)
-                    <a href="{{ url('tag/'.$tag->tag_id) }}" class="tag-link"> #{{ $tag->tag->name }} </a>
-                    @endforeach
-
+                    <div class="article-header">
+                        <div class="article-header-left">
+                            <h1>{{ $article->name }}</h1>
+                            <p>{{ \Carbon\Carbon::parse($article->date)->diffForHumans() }}</p>
+                        </div>
+                        <div class="article-header-right">
+                            <p><strong>Topic: </strong>{{ $topic->name }}</p>
+                        </div>
+                    </div>
+                    @if ($article->photo())
+                        <div class="article-image">
+                            <img src="{{ $article->photo() }}" alt="Article Image">
+                        </div>
                     @endif
-
+                    <div class="article-description">
+                        <p>{{ $article->description }}</p>
+                    </div>
+                    @if ($tags->isNotEmpty())
+                        @foreach($tags as $tag)
+                        <a href="{{ url('tag/'.$tag->tag_id) }}" class="tag-link"> #{{ $tag->tag->name }} </a>
+                        @endforeach
+                    @endif
+                    <p></p>
                     @if ($article->user->name !== "Anonymous")
-                    <a href="{{ url('profile/'.$article->user_id) }}" class="author-name"><strong>{{
-                            $article->user->name }}</strong></a>
+                    <a href="{{ url('profile/'.$article->user_id) }}" class="author-name">
+                        <strong>{{$article->user->name }}</strong>
+                    </a>
                     @else
                     <strong class="author-name" style="text-decoration:none;">{{ $article->user->name }}</strong>
                     @endif
-
-                    <p><strong>Author Reputation: </strong>{{$article->user->reputation}}</p>
-                    <p><strong>Author Followers: </strong>{{$article->user->number_followers}}</p>
                     <!--------------------------------LIKE ARTICLE----------------------------------------------------------------------->
                     @if(Auth::user())
                     @if(Auth::user()->user_blocked == 0 )
@@ -77,11 +86,8 @@
                         <p> {{ $dislikes }} </p>
                     </div>
 
-                </div>
-                @endif
+                    @if(Auth::user()->user_blocked == 0 && (Auth::user()->user_id != $article->user_id))
 
-                @if(Auth::user()->user_blocked == 0 && (Auth::user()->user_id != $article->user_id))
-                <div>
                     <form action="{{ route('articles.mark-favourite', ['articleId' => $article->article_id]) }}"
                         method="POST">
                         @csrf
@@ -96,19 +102,14 @@
                             </span>
                         </button>
                     </form>
+                    @endif
                 </div>
                 @endif
+
+
                 @endif
 
 
-
-
-
-                @if ($article->photo())
-                <div class="article-image">
-                    <img src="{{ $article->photo() }}" alt="Article Image">
-                </div>
-                @endif
 
 
 
